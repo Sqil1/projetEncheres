@@ -12,20 +12,6 @@ import javax.sql.DataSource;
  * La class ConnectionProvider offre une methode static pour obtenir une connection à la DB utilisant un objet
  * DataSource.
  * 
- * Exemple d'utilisation:
- * 
- *      try (Connection connection = ConnectionProvider.getConnection();) {
- * <br>&lt;br&gt;
- * 
- *          --SQL query PreparedStatement, ResultSet etc.--
- * <br>&lt;br&gt;
- *          }
- * @throws SQLException
- */
-/**
- * La class ConnectionProvider offre une methode static pour obtenir une connection à la DB utilisant un objet
- * DataSource.
- * 
  * Exemple d'utilisation {@link ConnectionProvider} class:
  * <pre>
  *  try (Connection connection = ConnectionProvider.getConnection()) {
