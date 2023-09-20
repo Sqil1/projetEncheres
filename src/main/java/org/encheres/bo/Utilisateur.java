@@ -22,7 +22,7 @@ public class Utilisateur {
 
     public void setNoUtilisateur(Integer noUtilisateur) {
         if (noUtilisateur == null) {
-            throw new IllegalStateException("noUtilisateur ne peut pas Ãªtre null");
+            throw new IllegalStateException("noUtilisateur ne peut pas être null");
         }
         this.noUtilisateur = noUtilisateur;
     }
@@ -33,7 +33,7 @@ public class Utilisateur {
 
     public void setPseudo(String pseudo) {
         if (pseudo == null) {
-            throw new IllegalStateException("pseudo ne peut pas Ãªtre null");
+            throw new IllegalStateException("pseudo ne peut pas être null");
         }
         this.pseudo = pseudo;
     }
@@ -44,7 +44,7 @@ public class Utilisateur {
 
     public void setNom(String nom) {
         if (nom == null) {
-            throw new IllegalStateException("nom ne peut pas Ãªtre null");
+            throw new IllegalStateException("nom ne peut pas être null");
         }
         this.nom = nom;
     }
@@ -55,7 +55,7 @@ public class Utilisateur {
 
     public void setPrenom(String prenom) {
         if (prenom == null) {
-            throw new IllegalStateException("prenom ne peut pas Ãªtre null");
+            throw new IllegalStateException("prenom ne peut pas être null");
         }
         this.prenom = prenom;
     }
@@ -66,7 +66,7 @@ public class Utilisateur {
 
     public void setEmail(String email) {
         if (email == null) {
-            throw new IllegalStateException("email ne peut pas Ãªtre null");
+            throw new IllegalStateException("email ne peut pas être null");
         }
         this.email = email;
     }
@@ -85,7 +85,7 @@ public class Utilisateur {
 
     public void setRue(String rue) {
         if (rue == null) {
-            throw new IllegalStateException("rue ne peut pas Ãªtre null");
+            throw new IllegalStateException("rue ne peut pas être null");
         }
         this.rue = rue;
     }
@@ -96,7 +96,7 @@ public class Utilisateur {
 
     public void setCodePostal(String codePostal) {
         if (codePostal == null) {
-            throw new IllegalStateException("codePostal ne peut pas Ãªtre null");
+            throw new IllegalStateException("codePostal ne peut pas être null");
         }
         this.codePostal = codePostal;
     }
@@ -107,7 +107,7 @@ public class Utilisateur {
 
     public void setVille(String ville) {
         if (ville == null) {
-            throw new IllegalStateException("ville ne peut pas Ãªtre null");
+            throw new IllegalStateException("ville ne peut pas être null");
         }
         this.ville = ville;
     }
@@ -118,7 +118,7 @@ public class Utilisateur {
 
     public void setMotDePasse(String motDePasse) {
         if (motDePasse == null) {
-            throw new IllegalStateException("motDePasse ne peut pas Ãªtre null");
+            throw new IllegalStateException("motDePasse ne peut pas être null");
         }
         this.motDePasse = motDePasse;
     }
@@ -129,7 +129,7 @@ public class Utilisateur {
 
     public void setCredit(Integer credit) {
         if (credit == null) {
-            throw new IllegalStateException("credit ne peut pas Ãªtre null");
+            throw new IllegalStateException("credit ne peut pas être null");
         }
         this.credit = credit;
     }
