@@ -28,8 +28,7 @@
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="inscription.jsp">S'inscrire</a></li>
-						<li class="nav-item"><a class="nav-link" href="connexion.jsp">Se
-								connecter</a></li>
+						<li class="nav-item"><a class="nav-link" href="connexion.jsp">Se connecter</a></li>
 					</ul>
 				</div>
 			</div>
@@ -43,17 +42,17 @@
 	 	 <div class="col-md-6">
 		<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label">Identifiant</label>
-			<input type="email" class="form-control" id="exampleInputEmail1"
+			<input type="email" name="identifiant" class="form-control" id="exampleInputEmail1"
 				aria-describedby="emailHelp">
 
 		</div>
 		<div class="mb-3">
 			<label for="exampleInputPassword1" class="form-label">Mot de
-				Passe</label> <input type="password" class="form-control"
+				Passe</label> <input type="password" name="motdepasse" class="form-control"
 				id="exampleInputPassword1">
 		</div>
 		<div class="mb-3 form-check">
-			<input type="checkbox" class="form-check-input" id="exampleCheck1">
+			<input type="checkbox"  class="form-check-input" id="exampleCheck1">
 			<label class="form-check-label" for="exampleCheck1">Se
 				souvenir de moi</label>
 		</div>
