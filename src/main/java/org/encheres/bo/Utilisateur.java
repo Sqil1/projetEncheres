@@ -1,197 +1,258 @@
 package org.encheres.bo;
 
+import org.encheres.utils.StringUtils;
+
 public class Utilisateur {
-	private Integer noUtilisateur;
-	private String pseudo;
-	private String nom;
-	private String prenom;
-	private String email;
-	private String telephone;
-	private String rue;
-	private String codePostal;
-	private String ville;
-	private String motDePasse;
-	private Integer credit;
-	private boolean administrateur;
+    private final Integer noUtilisateur;
+    private final String pseudo;
+    private final String nom;
+    private final String prenom;
+    private final String email;
+    private final String telephone;
+    private final String rue;
+    private final String codePostal;
+    private final String ville;
+    private final String motDePasse;
+    private final Integer credit;
+    private final boolean administrateur;
 
-	public Utilisateur() {
-	}
+    public Utilisateur(Builder builder) {
+        this.noUtilisateur = builder.noUtilisateur;
+        this.pseudo = builder.pseudo;
+        this.nom = builder.nom;
+        this.prenom = builder.prenom;
+        this.email = builder.email;
+        this.telephone = builder.telephone;
+        this.rue = builder.rue;
+        this.codePostal = builder.codePostal;
+        this.ville = builder.ville;
+        this.motDePasse = builder.motDePasse;
+        this.credit = builder.credit;
+        this.administrateur = builder.administrateur;
 
-
-
-	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostal, String ville, String motDePasse, Integer credit, boolean administrateur) {
-		super();
-		this.pseudo = pseudo;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.telephone = telephone;
-		this.rue = rue;
-		this.codePostal = codePostal;
-		this.ville = ville;
-		this.motDePasse = motDePasse;
-		this.credit = credit;
-		this.administrateur = administrateur;
-	}
+    }
 
 
+    public static Builder builder() {
+        return new Builder();
+    }
 
-	public Integer getNoUtilisateur() {
-		return noUtilisateur;
-	}
+    public static Builder builder(Utilisateur utilisateur) {
+        return new Builder(utilisateur);
+    }
 
-	public void setNoUtilisateur(Integer noUtilisateur) {
-		if (noUtilisateur == null) {
-			throw new IllegalStateException("noUtilisateur ne peut pas être null");
-		}
-		this.noUtilisateur = noUtilisateur;
-	}
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Utilisateur [noUtilisateur=");
+        builder.append(noUtilisateur);
+        builder.append(", pseudo=");
+        builder.append(pseudo);
+        builder.append(", nom=");
+        builder.append(nom);
+        builder.append(", prenom=");
+        builder.append(prenom);
+        builder.append(", email=");
+        builder.append(email);
+        builder.append(", telephone=");
+        builder.append(telephone);
+        builder.append(", rue=");
+        builder.append(rue);
+        builder.append(", codePostal=");
+        builder.append(codePostal);
+        builder.append(", ville=");
+        builder.append(ville);
+        builder.append(", motDePasse=");
+        builder.append(motDePasse);
+        builder.append(", credit=");
+        builder.append(credit);
+        builder.append(", administrateur=");
+        builder.append(administrateur);
+        builder.append("]");
+        return builder.toString();
+    }
 
-	public String getPseudo() {
-		return pseudo;
-	}
+    public Integer getNoUtilisateur() {
+        return noUtilisateur;
+    }
 
-	public void setPseudo(String pseudo) {
-		if (pseudo == null) {
-			throw new IllegalStateException("pseudo ne peut pas être null");
-		}
-		this.pseudo = pseudo;
-	}
+    public String getPseudo() {
+        return pseudo;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public void setNom(String nom) {
-		if (nom == null) {
-			throw new IllegalStateException("nom ne peut pas être null");
-		}
-		this.nom = nom;
-	}
+    public String getPrenom() {
+        return prenom;
+    }
 
-	public String getPrenom() {
-		return prenom;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setPrenom(String prenom) {
-		if (prenom == null) {
-			throw new IllegalStateException("prenom ne peut pas être null");
-		}
-		this.prenom = prenom;
-	}
+    public String getTelephone() {
+        return telephone;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getRue() {
+        return rue;
+    }
 
-	public void setEmail(String email) {
-		if (email == null) {
-			throw new IllegalStateException("email ne peut pas être null");
-		}
-		this.email = email;
-	}
+    public String getCodePostal() {
+        return codePostal;
+    }
 
-	public String getTelephone() {
-		return telephone;
-	}
+    public String getVille() {
+        return ville;
+    }
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
+    public String getMotDePasse() {
+        return motDePasse;
+    }
 
-	public String getRue() {
-		return rue;
-	}
+    public boolean getAdministrateur() {
+        return administrateur;
+    }
 
-	public void setRue(String rue) {
-		if (rue == null) {
-			throw new IllegalStateException("rue ne peut pas être null");
-		}
-		this.rue = rue;
-	}
+    public Integer getCredit() {
+        return credit;
+    }
 
-	public String getCodePostal() {
-		return codePostal;
-	}
+    public static class Builder {
+        private Integer noUtilisateur;
+        private String pseudo;
+        private String nom;
+        private String prenom;
+        private String email;
+        private String telephone;
+        private String rue;
+        private String codePostal;
+        private String ville;
+        private String motDePasse;
+        private Integer credit;
+        private boolean administrateur;
 
-	public void setCodePostal(String codePostal) {
-		if (codePostal == null) {
-			throw new IllegalStateException("codePostal ne peut pas être null");
-		}
-		this.codePostal = codePostal;
-	}
+        public Builder() {
 
-	public String getVille() {
-		return ville;
-	}
+        }
 
-	public void setVille(String ville) {
-		if (ville == null) {
-			throw new IllegalStateException("ville ne peut pas être null");
-		}
-		this.ville = ville;
-	}
+        public Builder(Utilisateur utilisateur) {
+            this.noUtilisateur = utilisateur.noUtilisateur;
+            this.pseudo = utilisateur.pseudo;
+            this.nom = utilisateur.nom;
+            this.prenom = utilisateur.prenom;
+            this.email = utilisateur.email;
+            this.telephone = utilisateur.telephone;
+            this.rue = utilisateur.rue;
+            this.codePostal = utilisateur.codePostal;
+            this.ville = utilisateur.ville;
+            this.motDePasse = utilisateur.motDePasse;
+            this.credit = utilisateur.credit;
+            this.administrateur = utilisateur.administrateur;
+        }
 
-	public String getMotDePasse() {
-		return motDePasse;
-	}
+        public Builder(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+                       String codePostal, String ville, String motDePasse, Integer credit, boolean administrateur) {
+            this.pseudo = pseudo;
+            this.nom = nom;
+            this.prenom = prenom;
+            this.email = email;
+            this.telephone = telephone;
+            this.rue = rue;
+            this.codePostal = codePostal;
+            this.ville = ville;
+            this.motDePasse = motDePasse;
+            this.credit = credit;
+            this.administrateur = administrateur;
+        }
 
-	public void setMotDePasse(String motDePasse) {
-		if (motDePasse == null) {
-			throw new IllegalStateException("motDePasse ne peut pas être null");
-		}
-		this.motDePasse = motDePasse;
-	}
+        public Builder setNoUtilisateur(Integer noUtilisateur) {
+            this.noUtilisateur = noUtilisateur;
+            return this;
+        }
 
-	public Integer getCredit() {
-		return credit;
-	}
+        public Builder setPseudo(String pseudo) {
+            if (!StringUtils.isNullOrEmpty(pseudo)) {
+                throw new IllegalStateException("pseudo ne peut pas Ãªtre null");
+            }
+            this.pseudo = pseudo;
+            return this;
+        }
 
-	public void setCredit(Integer credit) {
-		if (credit == null) {
-			throw new IllegalStateException("credit ne peut pas être null");
-		}
-		this.credit = credit;
-	}
+        public Builder setNom(String nom) {
+            this.nom = nom;
+            return this;
+        }
 
-	public boolean getAdministrateur() {
-		return administrateur;
-	}
+        public Builder setPrenom(String prenom) {
+            this.prenom = prenom;
+            return this;
+        }
 
-	public void setAdministrateur(boolean administrateur) {
-		this.administrateur = administrateur;
-	}
+        public Builder setEmail(String email) {
+            if (!StringUtils.isNullOrEmpty(email)) {
+                throw new IllegalStateException("email ne peut pas Ãªtre null");
+            }
+            this.email = email;
+            return this;
+        }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Utilisateur [noUtilisateur=");
-		builder.append(noUtilisateur);
-		builder.append(", pseudo=");
-		builder.append(pseudo);
-		builder.append(", nom=");
-		builder.append(nom);
-		builder.append(", prenom=");
-		builder.append(prenom);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", telephone=");
-		builder.append(telephone);
-		builder.append(", rue=");
-		builder.append(rue);
-		builder.append(", codePostal=");
-		builder.append(codePostal);
-		builder.append(", ville=");
-		builder.append(ville);
-		builder.append(", motDePasse=");
-		builder.append(motDePasse);
-		builder.append(", credit=");
-		builder.append(credit);
-		builder.append(", administrateur=");
-		builder.append(administrateur);
-		builder.append("]");
-		return builder.toString();
-	}
+        public Builder setTelephone(String telephone) {
+            this.telephone = telephone;
+            return this;
+        }
 
+        public Builder setRue(String rue) {
+            if (!StringUtils.isNullOrEmpty(rue)) {
+                throw new IllegalStateException("rue ne peut pas Ãªtre null");
+            }
+            this.rue = rue;
+            return this;
+        }
+
+        public Builder setCodePostal(String codePostal) {
+            this.codePostal = codePostal;
+            return this;
+        }
+
+        public Builder setVille(String ville) {
+            if (!StringUtils.isNullOrEmpty(ville)) {
+                throw new IllegalStateException("ville ne peut pas Ãªtre null");
+            }
+            this.ville = ville;
+            return this;
+        }
+
+        public Builder setMotDePasse(String motDePasse) {
+            if (!StringUtils.isNullOrEmpty(motDePasse)) {
+                throw new IllegalStateException("motDePasse ne peut pas Ãªtre null");
+            }
+            this.motDePasse = motDePasse;
+            return this;
+        }
+
+        public Builder setCredit(Integer credit) {
+            if (credit == null) {
+                throw new IllegalStateException("credit ne peut pas Ãªtre null");
+            }
+            this.credit = credit;
+            return this;
+        }
+
+        public Builder setAdministrateur(boolean administrateur) {
+            this.administrateur = administrateur;
+            return this;
+        }
+
+        public Utilisateur build() {
+
+
+
+
+
+            return new Utilisateur(this);
+        }
+    }
 }

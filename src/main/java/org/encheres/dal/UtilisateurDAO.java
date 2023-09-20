@@ -4,6 +4,6 @@ import org.encheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
 	
-	public void creerUtilisateur(Utilisateur utilisateur);
+	Utilisateur creerUtilisateur(Utilisateur utilisateur);
 	
 }
