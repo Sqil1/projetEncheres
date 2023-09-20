@@ -35,4 +35,7 @@ Ajour d'article en vente.
 TODO:
 - form
 - session
+<<<<<<< HEAD
+- navigation
+=======
 - navigation
