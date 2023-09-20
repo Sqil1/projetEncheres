@@ -9,7 +9,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 
     public static UtilisateurManager getInstance() {
         if (utilisateurManager == null) {
-            utilisateurManager = new UtilisateurManagerImpl();
+            synchronized (UtilisateurManagerImpl.class) {
+                if (utilisateurManager == null) {
+                    utilisateurManager = new UtilisateurManagerImpl();
+                }
+            }
         }
         return utilisateurManager;
     }
