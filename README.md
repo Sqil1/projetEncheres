@@ -10,7 +10,7 @@
     ```
 ### Driver JDBC: À implémenter en local/deploiement
 - Chacun devra gérer le driver JDBC en relation avec ses MSSQL/Java versions de son côté.
-    - Pour Eclipse regardez la vidéo citez plus haut, il faut ajouter le bon driver.jar comme vous avez déjà fais avant. (Demandez un coup de main si vous galérez.)
-    - Pour Arthur ou ceux qui veulent utiliser Gradle/Maven si tu es toujours sur Java 11 tu as besoin de **com.microsoft.sqlserver 12.4.1.jre11**
+    - Il faut ajouter le bon driver.jar dans le path Java
+    - Pour Gradle/Maven : **com.microsoft.sqlserver 12.4.1.jre11** (ici pour Java 11, mais le projet est sensé supporter 8+)
 ### SQL d'initialisation de DB
 - /utils/initDB.sql -> Pour initialiser la DB
