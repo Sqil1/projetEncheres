@@ -36,7 +36,7 @@
 
 	</header>
 
-	<form class="row g-3">
+	<form class="row g-3" action="Inscription" method="post">
 	<div class="row g-3">
  			<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault01" class="form-label">Pseudo</label> 
@@ -72,17 +72,21 @@
 		</div>
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault03" class="form-label">Code Postal</label>
-			 <input type="number"  min="1000" max ="99999" class="form-control" name="codepostal" id="validationDefault03" placeholder="Exemple : 13000" required>
+			 <input type="text"  min="1000" max ="99999" name="codePostal" class="form-control" name="codepostal" id="validationDefault03" placeholder="Exemple : 13000" required>
+		</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+			<label for="validationDefault03" class="form-label">Credit</label>
+			 <input type="number"  class="form-control" name="credit" id="validationDefault03" required>
 		</div>
 				</div>
 		<div class="row g-3">
 		  <div class="col-md-6 col-sm-6 col-xs-12">
     <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-    <input type="password" class="form-control" name="mdp" id="exampleInputPassword1">
+    <input type="password" class="form-control" name="motDePasse" id="exampleInputPassword1">
   </div>
   		  <div class="col-md-6 col-sm-6 col-xs-12">
     <label for="exampleInputPassword1" class="form-label">Confirmation</label>
-    <input type="password" class="form-control" name="confirmation" id="exampleInputPassword1">
+    <input type="password" class="form-control" name="confirmation" id="exampleInputPassword1">${ erreurMdp }<br/>
   </div>
 </div>
 

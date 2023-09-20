@@ -2,6 +2,8 @@ package org.encheres.dal;
 
 import org.encheres.bo.Utilisateur;
 
-public interface utilisateurDAO {
+public interface UtilisateurDAO {
+	
 	public void creerUtilisateur(Utilisateur utilisateur);
+	
 }
