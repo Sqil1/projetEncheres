@@ -11,4 +11,6 @@ public interface UtilisateurManager {
 
 	Utilisateur verifierConnexion(String identifiant, String motDePasse);
 
+	Utilisateur InformationsUtilisateurByNoUtilisateur(Integer noUtilisateur);
+
 }

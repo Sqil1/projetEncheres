@@ -26,29 +26,33 @@ public class ServletConnexion extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// R�cup�ration des param�tres du formulaire
+	        throws ServletException, IOException {
+	    
 		String identifiant = request.getParameter("identifiant");
 		String motDePasse = request.getParameter("motDePasse");
+		
+		System.out.println("Identifiant : " + identifiant);
+		System.out.println("Mot de passe : " + motDePasse);
 
 		// Logique de traitement de la connexion
 		Utilisateur utilisateur = utilisateurManager.verifierConnexion(identifiant, motDePasse);
 
-		if (utilisateur.getNoUtilisateur() > 0) {
-			// L'utilisateur est connect�, ses informations sont stockez dans une session
-			request.getSession().setAttribute("utilisateurConnecte", true);
-			request.setAttribute("utilisateur", utilisateur);
-			request.setAttribute("confirmation", "Connexion r�ussie. Bienvenue !");
 
-			// Redirection vers la page d'accueil
-			this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-		} else {
-			// Les informations d'identification sont incorrectes, redirigez l'utilisateur
-			// avec un message d'erreur
-			request.setAttribute("erreur", "mot de passe ou email incorrect");
-			this.getServletContext().getRequestDispatcher("/WEB-INF/connexion.jsp").forward(request, response);
-		}
+	    if (utilisateur != null && utilisateur.getNoUtilisateur() > 0) {
+	        // L'utilisateur est connecté, ses informations sont stockées dans une session
+	        request.getSession().setAttribute("utilisateurConnecte", true);
+	        request.setAttribute("utilisateur", utilisateur);
+	        request.setAttribute("confirmation", "Connexion réussie. Bienvenue !");
 
+	        this.getServletContext().getRequestDispatcher("/profilUtilisateur.jsp").forward(request, response);
+	       
+	    } else {
+	    	System.out.println(utilisateur);
+	        // Les informations d'identification sont incorrectes avec un message d'erreur
+	        request.setAttribute("erreur", "mot de passe ou email incorrect");
+	        this.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
+	    }
 	}
+
 
 }
