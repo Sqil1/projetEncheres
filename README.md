@@ -1,6 +1,8 @@
 # Branch en cours - à ne pas merge
 
 ## Nouveau/Modif
+### ArticleVendu
+Passé en Builder pattern.
 ### /java/org/encheres/controler/ServletAjoutArticle.java
 Servlet qui renvoit sur la page jsp en GET.
 

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import org.encheres.bo.ArticleVendu;
 import org.encheres.dal.DAOFactory;
-
 public class ArticleVenduManagerImpl implements ArticleVenduManager {
     private static ArticleVenduManager articleVenduManager = null;
 
