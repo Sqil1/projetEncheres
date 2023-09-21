@@ -10,6 +10,6 @@ public class DAOFactory {
 	}
 	
     public static ArticleVenduDAO getArticleVenduDAO() {
-            return new ArticleVenduDAOJdbcImpl();
+        return new ArticleVenduDAOJdbcImpl();
     }
 }
