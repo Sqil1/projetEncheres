@@ -1,9 +1,11 @@
 package org.encheres.bll.ArticleVendu;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.encheres.bo.ArticleVendu;
 import org.encheres.dal.DAOFactory;
+import org.encheres.errors.DatabaseException;
 public class ArticleVenduManagerImpl implements ArticleVenduManager {
     private static ArticleVenduManager articleVenduManager = null;
 
@@ -19,16 +21,16 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
         return articleVenduManager;
     }
 
-    public void add(
+    public ArticleVendu add(
         Integer noArticle,
         String nomArticle,
         String description,
-        LocalDate dateDebutEncheres,
-        LocalDate dateFinEncheres,
+        LocalDateTime dateDebutEncheres,
+        LocalDateTime dateFinEncheres,
         Integer prixInitial,
         Integer prixVente,
         String etatVente
-    ) {
+    ) throws DatabaseException {
         final ArticleVendu articleVendu = new ArticleVendu.Builder(
             noArticle,
             nomArticle,
@@ -40,7 +42,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
             etatVente
         ).build();
 
-        return DAOFactory.getArticleVenduDAO().add(articleVendu);
+        return DAOFactory.getArticleVenduDAO().insert(articleVendu);
     }
 
     public boolean isValidNoArticle(Integer noArticle) {

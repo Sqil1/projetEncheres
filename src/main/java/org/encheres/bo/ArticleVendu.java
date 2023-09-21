@@ -1,6 +1,6 @@
 package org.encheres.bo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.microsoft.sqlserver.jdbc.StringUtils;
 
@@ -8,8 +8,8 @@ public class ArticleVendu {
     private Integer noArticle;
     private String nomArticle;
     private String description;
-    private LocalDate dateDebutEncheres;
-    private LocalDate dateFinEncheres;
+    private LocalDateTime dateDebutEncheres;
+    private LocalDateTime dateFinEncheres;
     private Integer prixInitial;
     private Integer prixVente;
     private String etatVente;
@@ -42,10 +42,10 @@ public class ArticleVendu {
     public String getDescription() {
         return description;
     }
-    public LocalDate getDateDebutEncheres() {
+    public LocalDateTime getDateDebutEncheres() {
         return dateDebutEncheres;
     }
-    public LocalDate getDateFinEncheres() {
+    public LocalDateTime getDateFinEncheres() {
         return dateFinEncheres;
     }
     public Integer getPrixInitial() {
@@ -62,8 +62,8 @@ public class ArticleVendu {
         private Integer noArticle;
         private String nomArticle;
         private String description;
-        private LocalDate dateDebutEncheres;
-        private LocalDate dateFinEncheres;
+        private LocalDateTime dateDebutEncheres;
+        private LocalDateTime dateFinEncheres;
         private Integer prixInitial;
         private Integer prixVente;
         private String etatVente;
@@ -85,8 +85,8 @@ public class ArticleVendu {
             Integer noArticle,
             String nomArticle,
             String description,
-            LocalDate dateDebutEncheres,
-            LocalDate dateFinEncheres,
+            LocalDateTime dateDebutEncheres,
+            LocalDateTime dateFinEncheres,
             Integer prixInitial,
             Integer prixVente,
             String etatVente
@@ -128,13 +128,13 @@ public class ArticleVendu {
             return this;
         }
 
-        public Builder setDateDebutEncheres(LocalDate dateDebutEncheres) {
+        public Builder setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
             this.dateDebutEncheres = dateDebutEncheres;
 
             return this;
         }
 
-        public Builder setDateFinEncheres(LocalDate dateFinEncheres) {
+        public Builder setDateFinEncheres(LocalDateTime dateFinEncheres) {
             this.dateFinEncheres = dateFinEncheres;
 
             return this;
