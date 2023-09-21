@@ -52,6 +52,7 @@ public class Utilisateur {
 		this.motDePasse = builder.motDePasse;
 		this.credit = builder.credit;
 		this.administrateur = builder.administrateur;
+
 	}
 
 	/**
@@ -183,36 +184,47 @@ public class Utilisateur {
 	public Integer getNoUtilisateur() {
 		return noUtilisateur;
 	}
+
 	public String getPseudo() {
 		return pseudo;
 	}
+
 	public String getNom() {
 		return nom;
 	}
+
 	public String getPrenom() {
 		return prenom;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public String getTelephone() {
 		return telephone;
 	}
+
 	public String getRue() {
 		return rue;
 	}
+
 	public String getCodePostal() {
 		return codePostal;
 	}
+
 	public String getVille() {
 		return ville;
 	}
+
 	public String getMotDePasse() {
 		return motDePasse;
 	}
+
 	public boolean getAdministrateur() {
 		return administrateur;
 	}
+
 	public Integer getCredit() {
 		return credit;
 	}
@@ -231,7 +243,9 @@ public class Utilisateur {
 		private Integer credit;
 		private boolean administrateur;
 
-		public Builder() {}
+		public Builder() {
+
+		}
 
 		public Builder(Utilisateur utilisateur) {
 			this.noUtilisateur = utilisateur.noUtilisateur;
@@ -373,7 +387,9 @@ public class Utilisateur {
 		}
 
 		public Utilisateur build() {
+
 			return new Utilisateur(this);
 		}
+
 	}
 }
