@@ -25,6 +25,11 @@ public class ServletAjoutArticle extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO fetch the session/user
+        Integer noUtilisateur = 1;
+        // TODO fetch Categories DB et proposé dans le form
+        Integer noCategorie = 1;
+
         ArticleVenduManager articleVenduManager = ArticleVenduManagerImpl.getInstance();
 
         String nomArticle = request.getParameter("nomArticle");
@@ -35,6 +40,7 @@ public class ServletAjoutArticle extends HttpServlet {
         Integer prixVente = Integer.valueOf(request.getParameter("prixVente"));
         String etatVente = request.getParameter("etatVente");
 
+        // TODO Fine grained data validation to extract what's wrong
         boolean isValid = articleVenduManager.isValid(
             nomArticle,
             description,
@@ -47,19 +53,26 @@ public class ServletAjoutArticle extends HttpServlet {
 
         if (isValid) {
             try {
-                ArticleVendu articleVendu = articleVenduManager.add(
+                ArticleVendu articleVendu = articleVenduManager.createArticleVendu(
                     nomArticle,
                     description,
                     dateDebutEncheres,
                     dateFinEncheres,
                     prixInitial,
                     prixVente,
-                    etatVente
+                    etatVente,
+                    noUtilisateur,
+                    noCategorie
                 );
+
+                request.setAttribute("articleVendu", articleVendu);
+
             } catch (DatabaseException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        } else {
+            request.setAttribute("erreurValidation", "Erreur de validité des données");
         }
 
         doGet(request, response);

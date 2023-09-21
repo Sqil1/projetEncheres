@@ -6,6 +6,8 @@ package org.encheres.bll.ArticleVendu;
 import java.time.LocalDateTime;
 
 import org.encheres.bo.ArticleVendu;
+import org.encheres.bo.Categorie;
+import org.encheres.bo.Utilisateur;
 import org.encheres.dal.DAOFactory;
 import org.encheres.errors.DatabaseException;
 public class ArticleVenduManagerImpl implements ArticleVenduManager {
@@ -24,15 +26,25 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
     }
 
     @Override
-    public ArticleVendu add(
+    public ArticleVendu createArticleVendu(
         String nomArticle,
         String description,
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
         Integer prixVente,
-        String etatVente
+        String etatVente,
+        Integer noUtilisateur,
+        Integer noCategorie
     ) throws DatabaseException {
+        // TODO correct version quand UtilisateurManager.selectById() est implémenté:
+        //Utilisateur utilisateur = utilisateurManager.selectById(noUtilisateur);
+        Utilisateur utilisateur = new Utilisateur.Builder().build(); // temp mockup
+
+        // TODO correct version quand CategorieManager.selectById() est implémenté:
+        // Categorie categorie = categorieManager.selectById(noCategorie);
+        Categorie categorie = new Categorie(); // temp mockup
+
         final ArticleVendu articleVendu = new ArticleVendu.Builder(
             nomArticle,
             description,
@@ -40,7 +52,9 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
             dateFinEncheres,
             prixInitial,
             prixVente,
-            etatVente
+            etatVente,
+            utilisateur,
+            categorie
         ).build();
 
         return DAOFactory.getArticleVenduDAO().insert(articleVendu);
