@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 /**
  * La class ConnectionProvider offre une methode static pour obtenir une
- * connection Ã  la DB utilisant un objet DataSource.
+ * connection à la DB utilisant un objet DataSource.
  * 
  * Exemple d'utilisation {@link ConnectionProvider} class:
  * 
@@ -36,7 +36,7 @@ public class ConnectionProvider {
             ConnectionProvider.dataSource = (DataSource) context.lookup(url);
         } catch (NamingException e) {
             e.printStackTrace();
-            throw new RuntimeException("Erreur: ne peut se connecter Ã  la DB.");
+            throw new RuntimeException("Erreur: ne peut se connecter à la DB.");
         }
     }
 

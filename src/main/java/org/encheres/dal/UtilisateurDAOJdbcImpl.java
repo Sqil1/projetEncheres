@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import org.encheres.bo.Utilisateur;
 
+
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	private static final String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
@@ -17,6 +18,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final  String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	
 
+    @Override
+    public Utilisateur creerUtilisateur(Utilisateur utilisateur) {
+        try (Connection cnx = ConnectionProvider.getConnection()) {
 
 	@Override
 	public Utilisateur creerUtilisateur(Utilisateur utilisateur) {
