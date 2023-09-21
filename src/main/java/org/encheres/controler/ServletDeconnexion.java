@@ -8,27 +8,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class DeconnexionServlet
+ * Servlet implementation class ServletDeconnexion
  */
-@WebServlet("/DeconnexionServlet")
-public class DeconnexionServlet extends HttpServlet {
+@WebServlet("/Deconnexion")
+public class ServletDeconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 // Invalide la session de l'utilisateur
-        request.getSession().invalidate();
-        
-        // Redirection vers la page d'accueil
-        this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-    }
-	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Invalide la session de l'utilisateur
+		request.getSession().invalidate();
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Redirection vers la page d'accueil
+		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
