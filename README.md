@@ -79,8 +79,4 @@ Ajour d'article en vente.
 TODO:
 - form
 - session
-<<<<<<< HEAD
 - navigation
-=======
-- navigation
->>>>>>> 45cd30d (create README pour cette branch)

@@ -82,7 +82,6 @@ public class ArticleVendu {
         }
 
         public Builder (
-            Integer noArticle,
             String nomArticle,
             String description,
             LocalDateTime dateDebutEncheres,
@@ -91,7 +90,6 @@ public class ArticleVendu {
             Integer prixVente,
             String etatVente
         ) {
-            this.noArticle = noArticle;
             this.nomArticle = nomArticle;
             this.description = description;
             this.dateDebutEncheres = dateDebutEncheres;
