@@ -23,8 +23,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
             pstmt.setString(4, utilisateur.getEmail());
             pstmt.setString(5, utilisateur.getTelephone());
             pstmt.setString(6, utilisateur.getRue());
-            pstmt.setString(7, utilisateur.getCodePostal());
-            pstmt.setString(8, utilisateur.getVille());
+            pstmt.setString(7, utilisateur.getVille());
+            pstmt.setString(8, utilisateur.getCodePostal());
             pstmt.setString(9, utilisateur.getMotDePasse());
             pstmt.setInt(10, utilisateur.getCredit());
             pstmt.setBoolean(11, utilisateur.getAdministrateur());

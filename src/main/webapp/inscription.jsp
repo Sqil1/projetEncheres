@@ -40,44 +40,40 @@
 	<div class="row g-3">
  			<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault01" class="form-label">Pseudo</label> 
-			<input type="text" name="pseudo" class="form-control"	id="validationDefault01"required>
+			<input type="text" name="pseudo" class="form-control" value="${param.pseudo}" id="validationDefault01" required>
 		</div>
 		</div>
 	<div class="row g-3">
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault01" class="form-label">Prenom</label> 
-			<input type="text" class="form-control" name="prenom" id="validationDefault01"  required>
+			<input type="text" class="form-control" name="prenom" value="${param.prenom}" id="validationDefault01"  required>
 		</div>
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault02" class="form-label">Nom</label>
-			<input type="text" class="form-control" name="nom" id="validationDefault02" required>
+			<input type="text" class="form-control" name="nom"  value="${param.nom}" id="validationDefault02" required>
 		</div>
 
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault02" class="form-label">Email</label>
-			<input type="email" class="form-control" name="email" id="validationDefault02" required>
+			<input type="email" class="form-control" name="email" value="${param.email}" id="validationDefault02" required>
 		</div>
 		
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault02" class="form-label">Téléphone</label>
-			<input type="tel" class="form-control" name="telephone" id="validationDefault02" required>
+			<input type="tel" class="form-control" name="telephone" value="${param.telephone}" id="validationDefault02" required>
 		</div>
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault03" class="form-label">Rue</label> 
-			<input type="text" class="form-control" name="rue" id="validationDefault03" required>
+			<input type="text" class="form-control" name="rue" value="${param.rue}" id="validationDefault03" required>
 		</div>
 				<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault03" class="form-label">Ville</label> 
-			<input type="text" class="form-control" name="ville" id="validationDefault03" required>
+			<input type="text" class="form-control" name="ville" value="${param.ville}" id="validationDefault03" required>
 		</div>
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<label for="validationDefault03" class="form-label">Code Postal</label>
-			 <input type="text"  min="1000" max ="99999" name="codePostal" class="form-control" name="codepostal" id="validationDefault03" placeholder="Exemple : 13000" required>
-		</div>
-				<div class="col-md-6 col-sm-6 col-xs-12">
-			<label for="validationDefault03" class="form-label">Credit</label>
-			 <input type="number"  class="form-control" name="credit" id="validationDefault03" required>
-		</div>
+			 <input type="text"  min="1000" max ="99999" name="codePostal" class="form-control" name="codepostal" value="${param.codePostal}"  id="validationDefault03" placeholder="Exemple : 13000" required>
+
 				</div>
 		<div class="row g-3">
 		  <div class="col-md-6 col-sm-6 col-xs-12">

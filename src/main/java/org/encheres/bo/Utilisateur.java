@@ -1,6 +1,6 @@
 package org.encheres.bo;
 
-import org.encheres.utils.StringUtils;
+import com.microsoft.sqlserver.jdbc.StringUtils;
 
 public class Utilisateur {
     private final Integer noUtilisateur;
@@ -174,7 +174,7 @@ public class Utilisateur {
         }
 
         public Builder setPseudo(String pseudo) {
-            if (!StringUtils.isNullOrEmpty(pseudo)) {
+            if (!StringUtils.isEmpty(pseudo)) {
                 throw new IllegalStateException("pseudo ne peut pas être null");
             }
             this.pseudo = pseudo;
@@ -192,7 +192,7 @@ public class Utilisateur {
         }
 
         public Builder setEmail(String email) {
-            if (!StringUtils.isNullOrEmpty(email)) {
+            if (!StringUtils.isEmpty(email)) {
                 throw new IllegalStateException("email ne peut pas être null");
             }
             this.email = email;
@@ -205,7 +205,7 @@ public class Utilisateur {
         }
 
         public Builder setRue(String rue) {
-            if (!StringUtils.isNullOrEmpty(rue)) {
+            if (!StringUtils.isEmpty(rue)) {
                 throw new IllegalStateException("rue ne peut pas être null");
             }
             this.rue = rue;
@@ -218,7 +218,7 @@ public class Utilisateur {
         }
 
         public Builder setVille(String ville) {
-            if (!StringUtils.isNullOrEmpty(ville)) {
+            if (!StringUtils.isEmpty(ville)) {
                 throw new IllegalStateException("ville ne peut pas être null");
             }
             this.ville = ville;
@@ -226,7 +226,7 @@ public class Utilisateur {
         }
 
         public Builder setMotDePasse(String motDePasse) {
-            if (!StringUtils.isNullOrEmpty(motDePasse)) {
+            if (!StringUtils.isEmpty(motDePasse)) {
                 throw new IllegalStateException("motDePasse ne peut pas être null");
             }
             this.motDePasse = motDePasse;
