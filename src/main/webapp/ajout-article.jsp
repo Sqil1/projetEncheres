@@ -1,6 +1,7 @@
 <!--
     - TODO lier session
     - TODO lier navigation
+    - TODO list categories
 -->
 
 <%@

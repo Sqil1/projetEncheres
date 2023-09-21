@@ -13,6 +13,8 @@ public class ArticleVendu {
     private Integer prixInitial;
     private Integer prixVente;
     private String etatVente;
+    private Utilisateur utilisateur;
+    private Categorie categorie;
 
     public ArticleVendu(Builder builder) {
         this.noArticle = builder.noArticle;
@@ -23,6 +25,8 @@ public class ArticleVendu {
         this.prixInitial = builder.prixInitial;
         this.prixVente = builder.prixVente;
         this.etatVente = builder.etatVente;
+        this.utilisateur = builder.utilisateur;
+        this.categorie = builder.categorie;
     }
 
     public static Builder builder() {
@@ -57,6 +61,12 @@ public class ArticleVendu {
     public String getEtatVente() {
         return etatVente;
     }
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+    public Categorie getCategorie() {
+        return categorie;
+    }
 
     public static class Builder {
         private Integer noArticle;
@@ -67,6 +77,8 @@ public class ArticleVendu {
         private Integer prixInitial;
         private Integer prixVente;
         private String etatVente;
+        private Utilisateur utilisateur;
+        private Categorie categorie;
 
         public Builder() {}
 
@@ -79,6 +91,8 @@ public class ArticleVendu {
             this.prixInitial = articleVendu.prixInitial;
             this.prixVente = articleVendu.prixVente;
             this.etatVente = articleVendu.etatVente;
+            this.utilisateur = articleVendu.utilisateur;
+            this.categorie = articleVendu.categorie;
         }
 
         public Builder (
@@ -88,7 +102,9 @@ public class ArticleVendu {
             LocalDateTime dateFinEncheres,
             Integer prixInitial,
             Integer prixVente,
-            String etatVente
+            String etatVente,
+            Utilisateur utilisateur,
+            Categorie categorie
         ) {
             this.nomArticle = nomArticle;
             this.description = description;
@@ -97,6 +113,8 @@ public class ArticleVendu {
             this.prixInitial = prixInitial;
             this.prixVente = prixVente;
             this.etatVente = etatVente;
+            this.utilisateur = utilisateur;
+            this.categorie = categorie;
         }
 
         public Builder setNoArticle(Integer noArticle) {
@@ -155,6 +173,24 @@ public class ArticleVendu {
                 throw new IllegalStateException("etatVente ne peut pas être null");
             }
             this.etatVente = etatVente;
+
+            return this;
+        }
+
+        public Builder setUtilisateur(Utilisateur utilisateur) {
+            if (utilisateur == null) {
+                throw new IllegalStateException("utilisateur ne peut pas être null");
+            }
+            this.utilisateur = utilisateur;
+
+            return this;
+        }
+
+        public Builder setCategorie(Categorie categorie) {
+            if (categorie == null) {
+                throw new IllegalStateException("categorie ne peut pas être null");
+            }
+            this.categorie = categorie;
 
             return this;
         }

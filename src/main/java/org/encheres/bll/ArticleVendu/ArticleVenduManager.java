@@ -16,13 +16,15 @@ public interface ArticleVenduManager {
         String etatVente
     );
 
-    ArticleVendu add(
+    ArticleVendu createArticleVendu(
         String nomArticle,
         String description,
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
         Integer prixVente,
-        String etatVente
+        String etatVente,
+        Integer noUtilisateur,
+        Integer noCategorie
     ) throws DatabaseException;
 }
