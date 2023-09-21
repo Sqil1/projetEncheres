@@ -1,18 +1,26 @@
-package org.encheres.bll;
+package org.encheres.bll.ArticleVendu;
 
 import java.time.LocalDate;
 
-import org.encheres.dal.Factory;
-import org.encheres.dal.articleVendu.ArticleVenduDAO;
+import org.encheres.bo.ArticleVendu;
+import org.encheres.dal.DAOFactory;
 
-public class ArticleVenduManager {
-    private ArticleVenduDAO articleVendu;
+public class ArticleVenduManagerImpl implements ArticleVenduManager {
+    private static ArticleVenduManager articleVenduManager = null;
 
-    public ArticleVenduManager() {
-        articleVendu = Factory.getArticleVendu();
+    public static ArticleVenduManager getInstance() {
+        if (articleVenduManager == null) {
+            synchronized (ArticleVenduManagerImpl.class) {
+                if (articleVenduManager == null) {
+                    articleVenduManager = new ArticleVenduManagerImpl();
+                }
+            }
+        }
+
+        return articleVenduManager;
     }
 
-    public void Ajout(
+    public void add(
         Integer noArticle,
         String nomArticle,
         String description,
@@ -21,7 +29,20 @@ public class ArticleVenduManager {
         Integer prixInitial,
         Integer prixVente,
         String etatVente
-    ) {}
+    ) {
+        final ArticleVendu articleVendu = new ArticleVendu.Builder(
+            noArticle,
+            nomArticle,
+            description,
+            dateDebutEncheres,
+            dateFinEncheres,
+            prixInitial,
+            prixVente,
+            etatVente
+        ).build();
+
+        return DAOFactory.getArticleVenduDAO().add(articleVendu);
+    }
 
     public boolean isValidNoArticle(Integer noArticle) {
         // TODO check if id doesn't already exist

@@ -2,6 +2,8 @@ package org.encheres.bo;
 
 import java.time.LocalDate;
 
+import com.microsoft.sqlserver.jdbc.StringUtils;
+
 public class ArticleVendu {
     private Integer noArticle;
     private String nomArticle;
@@ -12,81 +14,155 @@ public class ArticleVendu {
     private Integer prixVente;
     private String etatVente;
 
-    public ArticleVendu() {}
+    public ArticleVendu(Builder builder) {
+        this.noArticle = builder.noArticle;
+        this.nomArticle = builder.nomArticle;
+        this.description = builder.description;
+        this.dateDebutEncheres = builder.dateDebutEncheres;
+        this.dateFinEncheres = builder.dateFinEncheres;
+        this.prixInitial = builder.prixInitial;
+        this.prixVente = builder.prixVente;
+        this.etatVente = builder.etatVente;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static Builder builder(ArticleVendu articleVendu) {
+        return new Builder(articleVendu);
+    }
 
     public Integer getNoArticle() {
         return noArticle;
     }
-
-    public void setNoArticle(Integer noArticle) {
-        if (noArticle == null) {
-            throw new IllegalStateException("noArticle ne peut pas être null");
-        }
-        this.noArticle = noArticle;
-    }
-
     public String getNomArticle() {
         return nomArticle;
     }
-
-    public void setNomArticle(String nomArticle) {
-        if (nomArticle == null) {
-            throw new IllegalStateException("nomArticle ne peut pas être null");
-        }
-        this.nomArticle = nomArticle;
-    }
-
     public String getDescription() {
         return description;
     }
-
-    public void setDescription(String description) {
-        if (description == null) {
-            throw new IllegalStateException("description ne peut pas être null");
-        }
-        this.description = description;
-    }
-
     public LocalDate getDateDebutEncheres() {
         return dateDebutEncheres;
     }
-
-    public void setDateDebutEncheres(LocalDate dateDebutEncheres) {
-        this.dateDebutEncheres = dateDebutEncheres;
-    }
-
     public LocalDate getDateFinEncheres() {
         return dateFinEncheres;
     }
-
-    public void setDateFinEncheres(LocalDate dateFinEncheres) {
-        this.dateFinEncheres = dateFinEncheres;
-    }
-
     public Integer getPrixInitial() {
         return prixInitial;
     }
-
-    public void setPrixInitial(Integer prixInitial) {
-        this.prixInitial = prixInitial;
-    }
-
     public Integer getPrixVente() {
         return prixVente;
     }
-
-    public void setPrixVente(Integer prixVente) {
-        this.prixVente = prixVente;
-    }
-
     public String getEtatVente() {
         return etatVente;
     }
 
-    public void setEtatVente(String etatVente) {
-        if (etatVente == null) {
-            throw new IllegalStateException("etatVente ne peut pas être null");
+    public static class Builder {
+        private Integer noArticle;
+        private String nomArticle;
+        private String description;
+        private LocalDate dateDebutEncheres;
+        private LocalDate dateFinEncheres;
+        private Integer prixInitial;
+        private Integer prixVente;
+        private String etatVente;
+
+        public Builder() {}
+
+        public Builder(ArticleVendu articleVendu) {
+            this.noArticle = articleVendu.noArticle;
+            this.nomArticle = articleVendu.nomArticle;
+            this.description = articleVendu.description;
+            this.dateDebutEncheres = articleVendu.dateDebutEncheres;
+            this.dateFinEncheres = articleVendu.dateFinEncheres;
+            this.prixInitial = articleVendu.prixInitial;
+            this.prixVente = articleVendu.prixVente;
+            this.etatVente = articleVendu.etatVente;
         }
-        this.etatVente = etatVente;
+
+        public Builder (
+            Integer noArticle,
+            String nomArticle,
+            String description,
+            LocalDate dateDebutEncheres,
+            LocalDate dateFinEncheres,
+            Integer prixInitial,
+            Integer prixVente,
+            String etatVente
+        ) {
+            this.noArticle = noArticle;
+            this.nomArticle = nomArticle;
+            this.description = description;
+            this.dateDebutEncheres = dateDebutEncheres;
+            this.dateFinEncheres = dateFinEncheres;
+            this.prixInitial = prixInitial;
+            this.prixVente = prixVente;
+            this.etatVente = etatVente;
+        }
+
+        public Builder setNoArticle(Integer noArticle) {
+            if (noArticle == null) {
+                throw new IllegalStateException("noArticle ne peut pas être null");
+            }
+            this.noArticle = noArticle;
+
+            return this;
+        }
+
+        public Builder setNomArticle(String nomArticle) {
+            if (!StringUtils.isEmpty(nomArticle)) {
+                throw new IllegalStateException("nomArticle ne peut pas être null");
+            }
+            this.nomArticle = nomArticle;
+
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            if (!StringUtils.isEmpty(description)) {
+                throw new IllegalStateException("description ne peut pas être null");
+            }
+            this.description = description;
+
+            return this;
+        }
+
+        public Builder setDateDebutEncheres(LocalDate dateDebutEncheres) {
+            this.dateDebutEncheres = dateDebutEncheres;
+
+            return this;
+        }
+
+        public Builder setDateFinEncheres(LocalDate dateFinEncheres) {
+            this.dateFinEncheres = dateFinEncheres;
+
+            return this;
+        }
+
+        public Builder setPrixInitial(Integer prixInitial) {
+            this.prixInitial = prixInitial;
+
+            return this;
+        }
+
+        public Builder setPrixVente(Integer prixVente) {
+            this.prixVente = prixVente;
+
+            return this;
+        }
+
+        public Builder setEtatVente(String etatVente) {
+            if (!StringUtils.isEmpty(etatVente)) {
+                throw new IllegalStateException("etatVente ne peut pas être null");
+            }
+            this.etatVente = etatVente;
+
+            return this;
+        }
+
+        public ArticleVendu build() {
+            return new ArticleVendu(this);
+        }
     }
 }
