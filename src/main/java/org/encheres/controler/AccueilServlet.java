@@ -1,4 +1,4 @@
-package org.encheres.servlets;
+package org.encheres.controler;
 
 import java.io.IOException;
 
