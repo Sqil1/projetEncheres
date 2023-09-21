@@ -1,9 +1,12 @@
 package org.encheres.bll.ArticleVendu;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.encheres.bo.ArticleVendu;
+import org.encheres.dal.DAOFactory;
+import org.encheres.errors.DatabaseException;
 import org.encheres.dal.DAOFactory;
 import org.encheres.errors.DatabaseException;
 public class ArticleVenduManagerImpl implements ArticleVenduManager {
