@@ -10,16 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/AjoutArticle")
 public class ServletAjoutArticle extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/ajout-article.jsp").forward(request, response);
-    }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getRequestDispatcher("/ajout-article.jsp").forward(request, response);
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO send Parameters to BLL to add Object ArticleVendu
-        // ArticleVenduManager articleVenduManager = new ArticleVenduManager();
-    }
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO send Parameters to BLL to add Object ArticleVendu
+		// ArticleVenduManager articleVenduManager = new ArticleVenduManager();
+	}
 }
