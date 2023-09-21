@@ -9,7 +9,7 @@ public class DAOFactory {
 		return new UtilisateurDAOJdbcImpl();
 	}
 	
-    public static ArticleVenduDAO getArticleVendu() {
+    public static ArticleVenduDAO getArticleVenduDAO() {
             return new ArticleVenduDAOJdbcImpl();
     }
 }
