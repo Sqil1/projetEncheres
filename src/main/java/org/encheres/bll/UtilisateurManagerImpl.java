@@ -33,15 +33,21 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	public Utilisateur verifierConnexion(String identifiant, String motDePasse) {
-		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().utilisateurParIdentifiant(identifiant);
+		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().verifierConnexion(identifiant, motDePasse);
 
 		if (utilisateur != null && utilisateur.getMotDePasse().equals(motDePasse)) {
-			// Les identifiants et le mot de passe correspondent, la connexion est réussie
+			// Les identifiants et le mot de passe correspondent, la connexion ok
 			return utilisateur;
 		} else {
-			// Les identifiants ou le mot de passe ne correspondent pas, la connexion échoue
+			// Les identifiants ou le mot de passe ne correspondent pas,
 			return null;
 		}
+	}
+	
+	public Utilisateur InformationsUtilisateurByNoUtilisateur(Integer noUtilisateur) {
+		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().getUtilisateurParNoUtilisateur(noUtilisateur);
+		return utilisateur;
+		
 	}
 
 }

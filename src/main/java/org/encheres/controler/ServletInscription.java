@@ -49,6 +49,7 @@ public class ServletInscription extends HttpServlet {
 					ville, codePostal, motDePasse, creditDefaut, administrationDefaut);
 			request.setAttribute("utilisateur", utilisateur);
 			this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+			
 
 		} else {
 			request.setAttribute("erreurMdp", "Erreur sur le mot de passe et sa confirmation");

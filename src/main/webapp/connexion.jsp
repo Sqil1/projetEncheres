@@ -36,7 +36,7 @@
 
 	</header>
 
-	<form>
+	<form  action="Connexion" method="post">
 	<div class="container">
 	 	<div class="row justify-content-center">
 	 	 <div class="col-md-6">
@@ -48,8 +48,8 @@
 		</div>
 		<div class="mb-3">
 			<label for="exampleInputPassword1" class="form-label">Mot de
-				Passe</label> <input type="password" name="motdepasse" class="form-control"
-				id="exampleInputPassword1">
+				Passe</label> <input type="password" name="motDePasse" class="form-control"
+				id="motdepasse">
 		</div>
 		<div class="mb-3 form-check">
 			<input type="checkbox"  class="form-check-input" id="exampleCheck1">
@@ -57,9 +57,9 @@
 				souvenir de moi</label>
 		</div>
 		<div class="mb-3 form-check">
-			<a href="#">Mot de passe oublé</a>
+			<a href="#">Mot de passe oublié</a>
 		</div>
-		<button type="submit" class="btn btn-primary">Connexion</button>
+		<button type="submit" value="Connexion" class="btn btn-primary">Connexion</button>
 		</div>
 		</div>
 		</div>

@@ -10,8 +10,11 @@ import org.encheres.bo.Utilisateur;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	private static final String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String SELECT_BY_IDENTIFIANT = "SELECT * FROM UTILISATEURS WHERE email = ? OR pseudo = ?";
-	// Requête SQL conditionnelle pour rechercher à la fois sur "email" et "pseudo"
+	private static final String SELECT_BY_IDENTIFIANT = "SELECT * FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?";
+	// Requï¿½te SQL conditionnelle pour rechercher ï¿½ la fois sur "email" et "pseudo"
+	private static final String SELECT_UTILISATEUR_BY_NO_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
+	
+
 
 	@Override
 	public Utilisateur creerUtilisateur(Utilisateur utilisateur) {
@@ -44,36 +47,69 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur utilisateurParIdentifiant(String identifiant) {
-		try (Connection cnx = ConnectionProvider.getConnection()) {
+	public Utilisateur verifierConnexion(String identifiant, String motDePasse) {
+	    try (Connection cnx = ConnectionProvider.getConnection()) {
+	        
+	    	PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_IDENTIFIANT);
+	        pstmt.setString(1, identifiant);
+	        pstmt.setString(2, identifiant);
+	        pstmt.setString(3, motDePasse); 
+	        ResultSet resultSet = pstmt.executeQuery();
+	        
+		     if (resultSet.next()) {
+		            int noUtilisateur = resultSet.getInt("no_utilisateur");
+		            String pseudo = resultSet.getString("pseudo");
+		            String nom = resultSet.getString("nom");
+		            String prenom = resultSet.getString("prenom");
+		            String email = resultSet.getString("email");
+		            String telephone = resultSet.getString("telephone");
+		            String rue = resultSet.getString("rue");
+		            String codePostal = resultSet.getString("code_postal");
+		            String ville = resultSet.getString("ville");
+		            String motDePasseBDD = resultSet.getString("mot_de_passe");
+		            int credit = resultSet.getInt("credit");
+		            boolean administrateur = resultSet.getBoolean("administrateur");
 
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_IDENTIFIANT);
-			pstmt.setString(1, identifiant);
-			pstmt.setString(2, identifiant);
-			ResultSet resultSet = pstmt.executeQuery();
-
-			if (resultSet.next()) {
-				int noUtilisateur = resultSet.getInt("no_utilisateur");
-				String pseudo = resultSet.getString("pseudo");
-				String nom = resultSet.getString("nom");
-				String prenom = resultSet.getString("prenom");
-				String email = resultSet.getString("email");
-				String telephone = resultSet.getString("telephone");
-				String rue = resultSet.getString("rue");
-				String codePostal = resultSet.getString("code_postal");
-				String ville = resultSet.getString("ville");
-				String motDePasse = resultSet.getString("mot_de_passe");
-				int credit = resultSet.getInt("credit");
-				boolean administrateur = resultSet.getBoolean("administrateur");
-
-				return new Utilisateur.Builder(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-						motDePasse, credit, administrateur).setNoUtilisateur(noUtilisateur).build();
+		            return new Utilisateur.Builder(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasseBDD, credit, administrateur)
+		                    .setNoUtilisateur(noUtilisateur)
+		                    .build();
 			}
 
-			return null; // Aucun utilisateur trouvé avec l'identifiant spécifié
-		} catch (SQLException e) {
-			throw new RuntimeException("Erreur lors de la recherche de l'utilisateur par identifiant.", e);
-		}
+			return null; // Aucun utilisateur trouvï¿½ avec l'identifiant spï¿½cifiï¿½
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Erreur lors de la recherche de l'utilisateur par identifiant.", e);
+	    }
+
 	}
+	
+	@Override
+	public Utilisateur getUtilisateurParNoUtilisateur(Integer noUtilisateur) {
+	    try (Connection cnx = ConnectionProvider.getConnection()) {
+	        PreparedStatement pstmt = cnx.prepareStatement(SELECT_UTILISATEUR_BY_NO_UTILISATEUR);
+	        pstmt.setInt(1, noUtilisateur);
+	        ResultSet resultSet = pstmt.executeQuery();
+
+	        if (resultSet.next()) {
+	            String pseudo = resultSet.getString("pseudo");
+	            String nom = resultSet.getString("nom");
+	            String prenom = resultSet.getString("prenom");
+	            String email = resultSet.getString("email");
+	            String telephone = resultSet.getString("telephone");
+	            String rue = resultSet.getString("rue");
+	            String codePostal = resultSet.getString("code_postal");
+	            String ville = resultSet.getString("ville");
+	            // Ajoutez tous les autres champs ici...
+
+	            return new Utilisateur.Builder(pseudo, nom, prenom, email, telephone, rue, codePostal, ville)
+	                    .setNoUtilisateur(noUtilisateur)
+	                    .build();
+	        }
+
+	        return null; // Aucun utilisateur trouvÃ© avec l'ID spÃ©cifiÃ©
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Erreur lors de la rÃ©cupÃ©ration des informations de l'utilisateur par ID.", e);
+	    }
+	}
+
 
 }
