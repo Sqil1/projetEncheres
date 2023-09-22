@@ -1,8 +1,8 @@
 /build/
 /target/
-.idea/
 .settings/
+.idea/
+context.xml
 .classpath
 .project
-context.xml
 pom.xml

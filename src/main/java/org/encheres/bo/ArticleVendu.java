@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Locale.Category;
 
 import com.microsoft.sqlserver.jdbc.StringUtils;
+
 /**
  * POJO that represents an article for sale, with various properties.
  * I uses the Builder Pattern.
@@ -15,7 +16,6 @@ import com.microsoft.sqlserver.jdbc.StringUtils;
  * @see ArticleVendu.Builder#Builder(ArticleVendu)
  * @see ArticleVendu.Builder#Builder(String, String, LocalDateTime, LocalDateTime, Integer, Integer, String, Utilisateur, Category)
  */
-
 public class ArticleVendu {
     private Integer noArticle;
     private String nomArticle;
