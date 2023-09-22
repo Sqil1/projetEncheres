@@ -4,165 +4,256 @@ import java.time.LocalDateTime;
 
 import com.microsoft.sqlserver.jdbc.StringUtils;
 
+/**
+ * <p>POJO represente un Article.</p>
+ * <p>Utilise le Builder Pattern.</p>
+ * 
+ * Instanciation/constructeur :
+ * <pre>ArticleVendu articleVendu = ArticleVendu.builder(args).build.()</pre>
+ * <p>Setters :</p>
+ * <pre> ArticleVendu.builder(args).setterName(args).build();</pre>
+ * @see ArticleVendu#builder()
+ * @see ArticleVendu#builder(ArticleVendu)
+ * @see ArticleVendu#builder(String, String, String, String, String, String, String, String)
+ */
 public class ArticleVendu {
-	private Integer noArticle;
-	private String nomArticle;
-	private String description;
-	private LocalDateTime dateDebutEncheres;
-	private LocalDateTime dateFinEncheres;
-	private Integer prixInitial;
-	private Integer prixVente;
-	private String etatVente;
+    private Integer noArticle;
+    private String nomArticle;
+    private String description;
+    private LocalDateTime dateDebutEncheres;
+    private LocalDateTime dateFinEncheres;
+    private Integer prixInitial;
+    private Integer prixVente;
+    private String etatVente;
+    private Utilisateur utilisateur;
+    private Categorie categorie;
 
-	public ArticleVendu(Builder builder) {
-		this.noArticle = builder.noArticle;
-		this.nomArticle = builder.nomArticle;
-		this.description = builder.description;
-		this.dateDebutEncheres = builder.dateDebutEncheres;
-		this.dateFinEncheres = builder.dateFinEncheres;
-		this.prixInitial = builder.prixInitial;
-		this.prixVente = builder.prixVente;
-		this.etatVente = builder.etatVente;
-	}
+    private ArticleVendu(Builder builder) {
+        this.noArticle = builder.noArticle;
+        this.nomArticle = builder.nomArticle;
+        this.description = builder.description;
+        this.dateDebutEncheres = builder.dateDebutEncheres;
+        this.dateFinEncheres = builder.dateFinEncheres;
+        this.prixInitial = builder.prixInitial;
+        this.prixVente = builder.prixVente;
+        this.etatVente = builder.etatVente;
+        this.utilisateur = builder.utilisateur;
+        this.categorie = builder.categorie;
+    }
 
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder().build();</pre>
+	 */
 	public static Builder builder() {
 		return new Builder();
 	}
 
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder(ArticleVendu).build();</pre>
+	 */
 	public static Builder builder(ArticleVendu articleVendu) {
 		return new Builder(articleVendu);
 	}
 
-	public Integer getNoArticle() {
-		return noArticle;
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder(
+			String pseudo,
+			String nom,
+			String prenom,
+			String email,
+			String telephone,
+			String rue,
+			String codePostal,
+			String ville
+		).build();</pre>
+	*/
+	public static Builder builder(
+        String nomArticle,
+        String description,
+        LocalDateTime dateDebutEncheres,
+        LocalDateTime dateFinEncheres,
+        Integer prixInitial,
+        Integer prixVente,
+        String etatVente,
+        Utilisateur utilisateur,
+        Categorie categorie
+	) {
+		return new Builder(
+			nomArticle,
+			description,
+			dateDebutEncheres,
+			dateFinEncheres,
+			prixInitial,
+			prixVente,
+            etatVente,
+			utilisateur,
+			categorie
+		);
 	}
 
-	public String getNomArticle() {
-		return nomArticle;
-	}
+    public Integer getNoArticle() {
+        return noArticle;
+    }
+    public String getNomArticle() {
+        return nomArticle;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public LocalDateTime getDateDebutEncheres() {
+        return dateDebutEncheres;
+    }
+    public LocalDateTime getDateFinEncheres() {
+        return dateFinEncheres;
+    }
+    public Integer getPrixInitial() {
+        return prixInitial;
+    }
+    public Integer getPrixVente() {
+        return prixVente;
+    }
+    public String getEtatVente() {
+        return etatVente;
+    }
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+    public Categorie getCategorie() {
+        return categorie;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public static class Builder {
+        private Integer noArticle;
+        private String nomArticle;
+        private String description;
+        private LocalDateTime dateDebutEncheres;
+        private LocalDateTime dateFinEncheres;
+        private Integer prixInitial;
+        private Integer prixVente;
+        private String etatVente;
+        private Utilisateur utilisateur;
+        private Categorie categorie;
 
-	public LocalDateTime getDateDebutEncheres() {
-		return dateDebutEncheres;
-	}
+        public Builder() {}
 
-	public LocalDateTime getDateFinEncheres() {
-		return dateFinEncheres;
-	}
+        public Builder(ArticleVendu articleVendu) {
+            this.noArticle = articleVendu.noArticle;
+            this.nomArticle = articleVendu.nomArticle;
+            this.description = articleVendu.description;
+            this.dateDebutEncheres = articleVendu.dateDebutEncheres;
+            this.dateFinEncheres = articleVendu.dateFinEncheres;
+            this.prixInitial = articleVendu.prixInitial;
+            this.prixVente = articleVendu.prixVente;
+            this.etatVente = articleVendu.etatVente;
+            this.utilisateur = articleVendu.utilisateur;
+            this.categorie = articleVendu.categorie;
+        }
 
-	public Integer getPrixInitial() {
-		return prixInitial;
-	}
+        public Builder (
+            String nomArticle,
+            String description,
+            LocalDateTime dateDebutEncheres,
+            LocalDateTime dateFinEncheres,
+            Integer prixInitial,
+            Integer prixVente,
+            String etatVente,
+            Utilisateur utilisateur,
+            Categorie categorie
+        ) {
+            this.nomArticle = nomArticle;
+            this.description = description;
+            this.dateDebutEncheres = dateDebutEncheres;
+            this.dateFinEncheres = dateFinEncheres;
+            this.prixInitial = prixInitial;
+            this.prixVente = prixVente;
+            this.etatVente = etatVente;
+            this.utilisateur = utilisateur;
+            this.categorie = categorie;
+        }
 
-	public Integer getPrixVente() {
-		return prixVente;
-	}
+        public Builder setNoArticle(Integer noArticle) {
+            if (noArticle == null) {
+                throw new IllegalStateException("noArticle ne peut pas être null");
+            }
+            this.noArticle = noArticle;
 
-	public String getEtatVente() {
-		return etatVente;
-	}
+            return this;
+        }
 
-	public static class Builder {
-		private Integer noArticle;
-		private String nomArticle;
-		private String description;
-		private LocalDateTime dateDebutEncheres;
-		private LocalDateTime dateFinEncheres;
-		private Integer prixInitial;
-		private Integer prixVente;
-		private String etatVente;
+        public Builder setNomArticle(String nomArticle) {
+            if (StringUtils.isEmpty(nomArticle)) {
+                throw new IllegalStateException("nomArticle ne peut pas être null");
+            }
+            this.nomArticle = nomArticle;
 
-		public Builder() {
-		}
+            return this;
+        }
 
-		public Builder(ArticleVendu articleVendu) {
-			this.noArticle = articleVendu.noArticle;
-			this.nomArticle = articleVendu.nomArticle;
-			this.description = articleVendu.description;
-			this.dateDebutEncheres = articleVendu.dateDebutEncheres;
-			this.dateFinEncheres = articleVendu.dateFinEncheres;
-			this.prixInitial = articleVendu.prixInitial;
-			this.prixVente = articleVendu.prixVente;
-			this.etatVente = articleVendu.etatVente;
-		}
+        public Builder setDescription(String description) {
+            if (StringUtils.isEmpty(description)) {
+                throw new IllegalStateException("description ne peut pas être null");
+            }
+            this.description = description;
 
-		public Builder(Integer noArticle, String nomArticle, String description, LocalDateTime dateDebutEncheres,
-				LocalDateTime dateFinEncheres, Integer prixInitial, Integer prixVente, String etatVente) {
-			this.noArticle = noArticle;
-			this.nomArticle = nomArticle;
-			this.description = description;
-			this.dateDebutEncheres = dateDebutEncheres;
-			this.dateFinEncheres = dateFinEncheres;
-			this.prixInitial = prixInitial;
-			this.prixVente = prixVente;
-			this.etatVente = etatVente;
-		}
+            return this;
+        }
 
-		public Builder setNoArticle(Integer noArticle) {
-			if (noArticle == null) {
-				throw new IllegalStateException("noArticle ne peut pas être null");
-			}
-			this.noArticle = noArticle;
+        public Builder setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
+            this.dateDebutEncheres = dateDebutEncheres;
 
-			return this;
-		}
+            return this;
+        }
 
-		public Builder setNomArticle(String nomArticle) {
-			if (!StringUtils.isEmpty(nomArticle)) {
-				throw new IllegalStateException("nomArticle ne peut pas être null");
-			}
-			this.nomArticle = nomArticle;
+        public Builder setDateFinEncheres(LocalDateTime dateFinEncheres) {
+            this.dateFinEncheres = dateFinEncheres;
 
-			return this;
-		}
+            return this;
+        }
 
-		public Builder setDescription(String description) {
-			if (!StringUtils.isEmpty(description)) {
-				throw new IllegalStateException("description ne peut pas être null");
-			}
-			this.description = description;
+        public Builder setPrixInitial(Integer prixInitial) {
+            this.prixInitial = prixInitial;
 
-			return this;
-		}
+            return this;
+        }
 
-		public Builder setDateDebutEncheres(LocalDateTime dateDebutEncheres) {
-			this.dateDebutEncheres = dateDebutEncheres;
+        public Builder setPrixVente(Integer prixVente) {
+            this.prixVente = prixVente;
 
-			return this;
-		}
+            return this;
+        }
 
-		public Builder setDateFinEncheres(LocalDateTime dateFinEncheres) {
-			this.dateFinEncheres = dateFinEncheres;
+        public Builder setEtatVente(String etatVente) {
+            if (StringUtils.isEmpty(etatVente)) {
+                throw new IllegalStateException("etatVente ne peut pas être null");
+            }
+            this.etatVente = etatVente;
 
-			return this;
-		}
+            return this;
+        }
 
-		public Builder setPrixInitial(Integer prixInitial) {
-			this.prixInitial = prixInitial;
+        public Builder setUtilisateur(Utilisateur utilisateur) {
+            if (utilisateur == null) {
+                throw new IllegalStateException("utilisateur ne peut pas être null");
+            }
+            this.utilisateur = utilisateur;
 
-			return this;
-		}
+            return this;
+        }
 
-		public Builder setPrixVente(Integer prixVente) {
-			this.prixVente = prixVente;
+        public Builder setCategorie(Categorie categorie) {
+            if (categorie == null) {
+                throw new IllegalStateException("categorie ne peut pas être null");
+            }
+            this.categorie = categorie;
 
-			return this;
-		}
+            return this;
+        }
 
-		public Builder setEtatVente(String etatVente) {
-			if (!StringUtils.isEmpty(etatVente)) {
-				throw new IllegalStateException("etatVente ne peut pas être null");
-			}
-			this.etatVente = etatVente;
-
-			return this;
-		}
-
-		public ArticleVendu build() {
-			return new ArticleVendu(this);
-		}
-	}
+        public ArticleVendu build() {
+            return new ArticleVendu(this);
+        }
+    }
 }

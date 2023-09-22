@@ -1,7 +1,19 @@
 package org.encheres.bo;
 
 import com.microsoft.sqlserver.jdbc.StringUtils;
-
+/**
+ * <p>POJO represente un Utilisateur.</p>
+ * <p>Utilise le Builder Pattern.</p>
+ * 
+ * Instanciation/constructeur :
+ * <pre>Utilisateur utilisateur = Utilisateur.builder(args).build.()</pre>
+ * <p>Setters :</p>
+ * <pre> Utilisateur.builder(args).setterName(args).build();</pre>
+ * @see Utilisateur#builder()
+ * @see Utilisateur#builder(Utilisateur)
+ * @see Utilisateur#builder(String, String, String, String, String, String, String, String)
+ * @see Utilisateur#builder(String, String, String, String, String, String, String, String, String, Integer, boolean)
+ */
 public class Utilisateur {
 	private final Integer noUtilisateur;
 	private final String pseudo;
@@ -16,7 +28,7 @@ public class Utilisateur {
 	private final Integer credit;
 	private final boolean administrateur;
 
-	public Utilisateur(Builder builder) {
+	private Utilisateur(Builder builder) {
 		this.noUtilisateur = builder.noUtilisateur;
 		this.pseudo = builder.pseudo;
 		this.nom = builder.nom;
@@ -29,15 +41,101 @@ public class Utilisateur {
 		this.motDePasse = builder.motDePasse;
 		this.credit = builder.credit;
 		this.administrateur = builder.administrateur;
-
 	}
 
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>Utilisateur utilisateur = Utilisateur.builder().build();</pre>
+	 */
 	public static Builder builder() {
 		return new Builder();
 	}
 
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>Utilisateur utilisateur = Utilisateur.builder(Utilisateur).build();</pre>
+	 */
 	public static Builder builder(Utilisateur utilisateur) {
 		return new Builder(utilisateur);
+	}
+
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>Utilisateur utilisateur = Utilisateur.builder(
+			String pseudo,
+			String nom,
+			String prenom,
+			String email,
+			String telephone,
+			String rue,
+			String codePostal,
+			String ville
+		).build();</pre>
+	*/
+	public static Builder builder(
+		String pseudo,
+		String nom,
+		String prenom,
+		String email,
+		String telephone,
+		String rue,
+		String codePostal,
+		String ville
+	) {
+		return new Builder(
+			pseudo,
+			nom,
+			prenom,
+			email,
+			telephone,
+			rue,
+			codePostal,
+			ville
+		);
+	}
+
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>Utilisateur utilisateur = Utilisateur.builder(
+			String pseudo,
+			String nom,
+			String prenom,
+			String email,
+			String telephone,
+			String rue,
+			String codePostal,
+			String ville,
+			String motDePasse,
+			Integer credit,
+			boolean administrateur
+		).build();</pre>
+	*/
+	public static Builder builder(
+			String pseudo,
+			String nom,
+			String prenom,
+			String email,
+			String telephone,
+			String rue,
+			String codePostal,
+			String ville,
+			String motDePasse,
+			Integer credit,
+			boolean administrateur
+		) {
+		return new Builder(
+			pseudo,
+			nom,
+			prenom,
+			email,
+			telephone,
+			rue,
+			codePostal,
+			ville,
+			motDePasse,
+			credit,
+			administrateur
+		);
 	}
 
 	@Override
@@ -74,47 +172,36 @@ public class Utilisateur {
 	public Integer getNoUtilisateur() {
 		return noUtilisateur;
 	}
-
 	public String getPseudo() {
 		return pseudo;
 	}
-
 	public String getNom() {
 		return nom;
 	}
-
 	public String getPrenom() {
 		return prenom;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public String getTelephone() {
 		return telephone;
 	}
-
 	public String getRue() {
 		return rue;
 	}
-
 	public String getCodePostal() {
 		return codePostal;
 	}
-
 	public String getVille() {
 		return ville;
 	}
-
 	public String getMotDePasse() {
 		return motDePasse;
 	}
-
 	public boolean getAdministrateur() {
 		return administrateur;
 	}
-
 	public Integer getCredit() {
 		return credit;
 	}
@@ -133,9 +220,7 @@ public class Utilisateur {
 		private Integer credit;
 		private boolean administrateur;
 
-		public Builder() {
-
-		}
+		public Builder() {}
 
 		public Builder(Utilisateur utilisateur) {
 			this.noUtilisateur = utilisateur.noUtilisateur;
@@ -152,8 +237,19 @@ public class Utilisateur {
 			this.administrateur = utilisateur.administrateur;
 		}
 
-		public Builder(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-				String codePostal, String ville, String motDePasse, Integer credit, boolean administrateur) {
+		public Builder(
+			String pseudo,
+			String nom,
+			String prenom,
+			String email,
+			String telephone,
+			String rue,
+			String codePostal,
+			String ville,
+			String motDePasse,
+			Integer credit,
+			boolean administrateur
+		) {
 			this.pseudo = pseudo;
 			this.nom = nom;
 			this.prenom = prenom;
@@ -167,8 +263,16 @@ public class Utilisateur {
 			this.administrateur = administrateur;
 		}
 
-		public Builder(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-				String codePostal, String ville) {
+		public Builder(
+			String pseudo,
+			String nom,
+			String prenom,
+			String email,
+			String telephone,
+			String rue,
+			String codePostal,
+			String ville
+		) {
 			this.pseudo = pseudo;
 			this.nom = nom;
 			this.prenom = prenom;
@@ -185,7 +289,7 @@ public class Utilisateur {
 		}
 
 		public Builder setPseudo(String pseudo) {
-			if (!StringUtils.isEmpty(pseudo)) {
+			if (StringUtils.isEmpty(pseudo)) {
 				throw new IllegalStateException("pseudo ne peut pas être null");
 			}
 			this.pseudo = pseudo;
@@ -203,7 +307,7 @@ public class Utilisateur {
 		}
 
 		public Builder setEmail(String email) {
-			if (!StringUtils.isEmpty(email)) {
+			if (StringUtils.isEmpty(email)) {
 				throw new IllegalStateException("email ne peut pas être null");
 			}
 			this.email = email;
@@ -216,7 +320,7 @@ public class Utilisateur {
 		}
 
 		public Builder setRue(String rue) {
-			if (!StringUtils.isEmpty(rue)) {
+			if (StringUtils.isEmpty(rue)) {
 				throw new IllegalStateException("rue ne peut pas être null");
 			}
 			this.rue = rue;
@@ -229,7 +333,7 @@ public class Utilisateur {
 		}
 
 		public Builder setVille(String ville) {
-			if (!StringUtils.isEmpty(ville)) {
+			if (StringUtils.isEmpty(ville)) {
 				throw new IllegalStateException("ville ne peut pas être null");
 			}
 			this.ville = ville;
@@ -237,7 +341,7 @@ public class Utilisateur {
 		}
 
 		public Builder setMotDePasse(String motDePasse) {
-			if (!StringUtils.isEmpty(motDePasse)) {
+			if (StringUtils.isEmpty(motDePasse)) {
 				throw new IllegalStateException("motDePasse ne peut pas être null");
 			}
 			this.motDePasse = motDePasse;
@@ -258,9 +362,7 @@ public class Utilisateur {
 		}
 
 		public Utilisateur build() {
-
 			return new Utilisateur(this);
 		}
-
 	}
 }
