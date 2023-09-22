@@ -7,6 +7,7 @@ import org.encheres.bo.Categorie;
 import org.encheres.bo.Utilisateur;
 import org.encheres.dal.DAOFactory;
 import org.encheres.errors.DatabaseException;
+
 public class ArticleVenduManagerImpl implements ArticleVenduManager {
     private static ArticleVenduManager articleVenduManager = null;
 

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.encheres.bll.ArticleVendu.ArticleVenduManager;
 import org.encheres.bll.ArticleVendu.ArticleVenduManagerImpl;
-import org.encheres.bo.ArticleVendu;
 import org.encheres.errors.DatabaseException;
 
 @WebServlet("/AjoutArticle")
@@ -53,7 +52,7 @@ public class ServletAjoutArticle extends HttpServlet {
 
         if (isValid) {
             try {
-                ArticleVendu articleVendu = articleVenduManager.createArticleVendu(
+                articleVenduManager.createArticleVendu(
                     nomArticle,
                     description,
                     dateDebutEncheres,
@@ -65,14 +64,16 @@ public class ServletAjoutArticle extends HttpServlet {
                     noCategorie
                 );
 
-                request.setAttribute("articleVendu", articleVendu);
+                request.setAttribute("message", "L'article a correctement été ajouté.");
+                request.setAttribute("articleBootstrapClass", "bg-success");
 
             } catch (DatabaseException e) {
                 // TODO Err handling from servlet for data validation
                 e.printStackTrace();
             }
         } else {
-            request.setAttribute("erreurValidation", "Erreur de validité des données");
+            request.setAttribute("message", "Erreur de validité des données");
+            request.setAttribute("articleBootstrapClass", "bg-danger");
         }
 
         doGet(request, response);

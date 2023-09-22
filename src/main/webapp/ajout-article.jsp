@@ -16,11 +16,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajout d'article</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"rel="stylesheet">
+    <link href="/css/ajout-article.css"rel="stylesheet">
     <script
 	    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
     </script>
-    <title>Ajout d'article</title>
 </head>
 <body>
 	<header>
@@ -46,14 +48,25 @@
 	</header>
 
     <main>
-        <form>
+        <article>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 mb-3 ${articleBootstrapClass}">
+                        ${message}
+                    </div>
+                </div>
+            </div>
+        </article>
+        <form method="POST" action="AjoutArticle">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">String val 1</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        
+                            <label for="nomArticle" class="form-label">
+                                Nom de l'article
+                                <div class="info-bubble" id="nomArticleInfo">Entrez le nom de l'article (sans caractère spéciaux).</div>
+                            </label>
+                            <input type="text" class="form-control" id="nomArticle" aria-describedby="nomArticleInfo">
                         </div>
 
                         <div class="mb-3">

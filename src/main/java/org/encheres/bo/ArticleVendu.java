@@ -6,7 +6,7 @@ import com.microsoft.sqlserver.jdbc.StringUtils;
 
 /**
  * POJO that represents an article for sale, with various properties.
- * I uses the Builder Pattern.
+ * Uses the Builder Pattern.
  * 
  * Setters, exemple of use:
  * <pre> ArticleVendu.builder(ArticleVendu).setNoArticle(Integer).build(); </pre>
