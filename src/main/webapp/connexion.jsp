@@ -5,12 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>connexion</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="asset/styles.css">
+<link rel="stylesheet" href="asset/styles.css" >
 
 
 </head>
@@ -26,19 +24,19 @@
 					aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<!-- 				<div class="collapse navbar-collapse" id="navbarNav">
+				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="inscription.jsp">S'inscrire</a></li>
 						<li class="nav-item"><a class="nav-link" href="connexion.jsp">Se connecter</a></li>
 					</ul>
-				</div> -->
+				</div>
 			</div>
 		</nav>
 
 	</header>
 
-	<form  action="Connexion" method="post">
+	<form>
 	<div class="container">
 	 	<div class="row justify-content-center">
 	 	 <div class="col-md-6">
@@ -50,8 +48,8 @@
 		</div>
 		<div class="mb-3">
 			<label for="exampleInputPassword1" class="form-label">Mot de
-				Passe</label> <input type="password" name="motDePasse" class="form-control"
-				id="motdepasse">
+				Passe</label> <input type="password" name="motdepasse" class="form-control"
+				id="exampleInputPassword1">
 		</div>
 		<div class="mb-3 form-check">
 			<input type="checkbox"  class="form-check-input" id="exampleCheck1">
@@ -59,9 +57,9 @@
 				souvenir de moi</label>
 		</div>
 		<div class="mb-3 form-check">
-			<a href="#">Mot de passe oublié</a>
+			<a href="#">Mot de passe oublé</a>
 		</div>
-		<button type="submit" value="Connexion" class="btn btn-primary">Connexion</button>
+		<button type="submit" class="btn btn-primary">Connexion</button>
 		</div>
 		</div>
 		</div>
