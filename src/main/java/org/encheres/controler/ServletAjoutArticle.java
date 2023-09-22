@@ -25,9 +25,9 @@ public class ServletAjoutArticle extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO fetch the session/user
+        // HACK waiting on the session feature -> fetch the session/user
         Integer noUtilisateur = 1;
-        // TODO fetch Categories DB et proposé dans le form
+        // HACK waiting on categorie feature -> fetch Categories DB put in a from <select>
         Integer noCategorie = 1;
 
         ArticleVenduManager articleVenduManager = ArticleVenduManagerImpl.getInstance();
@@ -68,7 +68,7 @@ public class ServletAjoutArticle extends HttpServlet {
                 request.setAttribute("articleVendu", articleVendu);
 
             } catch (DatabaseException e) {
-                // TODO Auto-generated catch block
+                // TODO Err handling from servlet for data validation
                 e.printStackTrace();
             }
         } else {

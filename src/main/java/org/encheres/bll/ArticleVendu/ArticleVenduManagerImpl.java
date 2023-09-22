@@ -37,15 +37,15 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
         Integer noUtilisateur,
         Integer noCategorie
     ) throws DatabaseException {
-        // TODO correct version quand UtilisateurManager.selectById() est implémenté:
-        //Utilisateur utilisateur = utilisateurManager.selectById(noUtilisateur);
-        Utilisateur utilisateur = new Utilisateur.Builder().build(); // temp mockup
+        // Utilisateur utilisateur = utilisateurManager.selectById(noUtilisateur);
+        // HACK wait UtilisateurManager.selectById() implementation
+        Utilisateur utilisateur = Utilisateur.builder().build(); // temp mockup
 
-        // TODO correct version quand CategorieManager.selectById() est implémenté:
         // Categorie categorie = categorieManager.selectById(noCategorie);
+        // HACK wait CategorieManager.selectById() implementation
         Categorie categorie = new Categorie(); // temp mockup
 
-        final ArticleVendu articleVendu = new ArticleVendu.Builder(
+        final ArticleVendu articleVendu = ArticleVendu.builder(
             nomArticle,
             description,
             dateDebutEncheres,

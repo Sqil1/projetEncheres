@@ -1,8 +1,20 @@
 package org.encheres.bo;
 
 import java.time.LocalDateTime;
+import java.util.Locale.Category;
 
 import com.microsoft.sqlserver.jdbc.StringUtils;
+/**
+ * POJO that represents an article for sale, with various properties.
+ * I uses the Builder Pattern.
+ * 
+ * Setters, exemple of use:
+ * <pre> ArticleVendu.builder(ArticleVendu).setNoArticle(Integer).build(); </pre>
+ * Constructors:
+ * @see ArticleVendu#builder()
+ * @see ArticleVendu#builder(ArticleVendu)
+ * @see ArticleVendu#builder(String, String, LocalDateTime, LocalDateTime, Integer, Integer, String, Utilisateur, Category)
+ */
 
 public class ArticleVendu {
     private Integer noArticle;
@@ -16,7 +28,7 @@ public class ArticleVendu {
     private Utilisateur utilisateur;
     private Categorie categorie;
 
-    public ArticleVendu(Builder builder) {
+    private ArticleVendu(Builder builder) {
         this.noArticle = builder.noArticle;
         this.nomArticle = builder.nomArticle;
         this.description = builder.description;
@@ -29,14 +41,60 @@ public class ArticleVendu {
         this.categorie = builder.categorie;
     }
 
+    /**
+     * Constructor. Exemple instanciation:
+     * <pre>ArticleVendu articleVendu = ArticleVendu.builder().build();</pre>
+     */
     public static Builder builder() {
         return new Builder();
     }
 
+    /**
+     * Constructor. Exemple instanciation:
+     * <pre>ArticleVendu articleVendu = ArticleVendu.builder(ArticleVendu).build();</pre>
+     */
     public static Builder builder(ArticleVendu articleVendu) {
         return new Builder(articleVendu);
     }
 
+    /**
+     * Constructor. Exemple instanciation:
+     * <pre>ArticleVendu articleVendu = ArticleVendu.builder(
+            String nomArticle,
+            String description,
+            LocalDateTime dateDebutEncheres,
+            LocalDateTime dateFinEncheres,
+            Integer prixInitial,
+            Integer prixVente,
+            String etatVente,
+            Utilisateur utilisateur,
+            Categorie categorie
+        ).build();</pre>
+     */
+    public static Builder builder(
+        String nomArticle,
+        String description,
+        LocalDateTime dateDebutEncheres,
+        LocalDateTime dateFinEncheres,
+        Integer prixInitial,
+        Integer prixVente,
+        String etatVente,
+        Utilisateur utilisateur,
+        Categorie categorie
+    ) {
+        return new Builder(
+            nomArticle,
+            description,
+            dateDebutEncheres,
+            dateFinEncheres,
+            prixInitial,
+            prixVente,
+            etatVente,
+            utilisateur,
+            categorie
+        );
+    }
+    
     public Integer getNoArticle() {
         return noArticle;
     }
