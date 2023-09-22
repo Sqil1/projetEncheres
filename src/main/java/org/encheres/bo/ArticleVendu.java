@@ -5,15 +5,16 @@ import java.time.LocalDateTime;
 import com.microsoft.sqlserver.jdbc.StringUtils;
 
 /**
- * POJO that represents an article for sale, with various properties.
- * Uses the Builder Pattern.
+ * <p>POJO represente un Article.</p>
+ * <p>Utilise le Builder Pattern.</p>
  * 
- * Setters, exemple of use:
- * <pre> ArticleVendu.builder(ArticleVendu).setNoArticle(Integer).build(); </pre>
- * Constructors:
- * @see ArticleVendu.Builder#Builder()
- * @see ArticleVendu.Builder#Builder(ArticleVendu)
- * @see ArticleVendu.Builder#Builder(String, String, LocalDateTime, LocalDateTime, Integer, Integer, String, Utilisateur, Categorie)
+ * Instanciation/constructeur :
+ * <pre>ArticleVendu articleVendu = ArticleVendu.builder(args).build.()</pre>
+ * <p>Setters :</p>
+ * <pre> ArticleVendu.builder(args).setterName(args).build();</pre>
+ * @see ArticleVendu#builder()
+ * @see ArticleVendu#builder(ArticleVendu)
+ * @see ArticleVendu#builder(String, String, String, String, String, String, String, String)
  */
 public class ArticleVendu {
     private Integer noArticle;
@@ -39,6 +40,59 @@ public class ArticleVendu {
         this.utilisateur = builder.utilisateur;
         this.categorie = builder.categorie;
     }
+
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder().build();</pre>
+	 */
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder(ArticleVendu).build();</pre>
+	 */
+	public static Builder builder(ArticleVendu articleVendu) {
+		return new Builder(articleVendu);
+	}
+
+	/**
+	 * Constructor. Exemple instanciation:
+	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder(
+			String pseudo,
+			String nom,
+			String prenom,
+			String email,
+			String telephone,
+			String rue,
+			String codePostal,
+			String ville
+		).build();</pre>
+	*/
+	public static Builder builder(
+        String nomArticle,
+        String description,
+        LocalDateTime dateDebutEncheres,
+        LocalDateTime dateFinEncheres,
+        Integer prixInitial,
+        Integer prixVente,
+        String etatVente,
+        Utilisateur utilisateur,
+        Categorie categorie
+	) {
+		return new Builder(
+			nomArticle,
+			description,
+			dateDebutEncheres,
+			dateFinEncheres,
+			prixInitial,
+			prixVente,
+            etatVente,
+			utilisateur,
+			categorie
+		);
+	}
 
     public Integer getNoArticle() {
         return noArticle;
@@ -83,16 +137,8 @@ public class ArticleVendu {
         private Utilisateur utilisateur;
         private Categorie categorie;
 
-        /**
-         * Constructor. Exemple instanciation:
-         * <pre>ArticleVendu articleVendu = new ArticleVendu.Builder().build();</pre>
-         */
         public Builder() {}
 
-        /**
-         * Constructor. Exemple instanciation:
-         * <pre>ArticleVendu articleVendu = new ArticleVendu.Builder(ArticleVendu).build();</pre>
-         */
         public Builder(ArticleVendu articleVendu) {
             this.noArticle = articleVendu.noArticle;
             this.nomArticle = articleVendu.nomArticle;
@@ -106,20 +152,6 @@ public class ArticleVendu {
             this.categorie = articleVendu.categorie;
         }
 
-        /**
-         * Constructor. Exemple instanciation:
-         * <pre>ArticleVendu articleVendu = new ArticleVendu.Builder(
-                String nomArticle,
-                String description,
-                LocalDateTime dateDebutEncheres,
-                LocalDateTime dateFinEncheres,
-                Integer prixInitial,
-                Integer prixVente,
-                String etatVente,
-                Utilisateur utilisateur,
-                Categorie categorie
-            ).build();</pre>
-        */
         public Builder (
             String nomArticle,
             String description,
@@ -152,7 +184,7 @@ public class ArticleVendu {
         }
 
         public Builder setNomArticle(String nomArticle) {
-            if (!StringUtils.isEmpty(nomArticle)) {
+            if (StringUtils.isEmpty(nomArticle)) {
                 throw new IllegalStateException("nomArticle ne peut pas être null");
             }
             this.nomArticle = nomArticle;
@@ -161,7 +193,7 @@ public class ArticleVendu {
         }
 
         public Builder setDescription(String description) {
-            if (!StringUtils.isEmpty(description)) {
+            if (StringUtils.isEmpty(description)) {
                 throw new IllegalStateException("description ne peut pas être null");
             }
             this.description = description;
@@ -194,7 +226,7 @@ public class ArticleVendu {
         }
 
         public Builder setEtatVente(String etatVente) {
-            if (!StringUtils.isEmpty(etatVente)) {
+            if (StringUtils.isEmpty(etatVente)) {
                 throw new IllegalStateException("etatVente ne peut pas être null");
             }
             this.etatVente = etatVente;
