@@ -25,9 +25,9 @@ public class ServletAjoutArticle extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // HACK waiting on the session feature -> fetch the session/user
+        // TODO HACK waiting on the session feature -> fetch the session/user
         Integer noUtilisateur = 1;
-        // HACK waiting on categorie feature -> fetch Categories DB put in a from <select>
+        // TODO HACK waiting on categorie feature -> fetch Categories DB put in a from <select>
         Integer noCategorie = 1;
 
         ArticleVenduManager articleVenduManager = ArticleVenduManagerImpl.getInstance();

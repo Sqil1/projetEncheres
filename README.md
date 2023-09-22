@@ -28,13 +28,13 @@ OOP Layer pattern :
  ┃   ┗ 📜ajout-article.jsp
 ```
 ### ArticleVendu
-Passé en Builder pattern.
+Passé en Builder pattern. Suivre la Javadoc pour l'intanciation et les setter qui change de ce qu'on faisait avant.
 ### /java/org/encheres/controler/ServletAjoutArticle.java
-Servlet qui renvoit sur la page jsp en GET.
+GET -> donne le formulaire et résultat après envoit
 
-Et qui execute les opérations BLL avec les Attribut du formulaire en POST.
+POST -> process submited form
 
-Je triche pour la session utilisateur et la Categorie pour l'instant, à implémenter plus tard quand c'est créé.
+Je triche pour la session utilisateur et la Categorie pour l'instant, à implémenter plus tard quand c'est créé. (Chercher commentaire: "HACK")
 ### /java/org/encheres/dal/articleVendu/ArticleVenduDAOJdbcImpl.java
 CRUD et autre requête SQL pour la BLL
 

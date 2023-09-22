@@ -33,7 +33,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
             if (resultSet.next()) {
-                return ArticleVendu.builder(articleVendu).setNoArticle(resultSet.getInt(1)).build();
+                return new ArticleVendu.Builder(articleVendu).setNoArticle(resultSet.getInt(1)).build();
             }
 
             throw new DatabaseException("Erreur lors de la création de l'article.");

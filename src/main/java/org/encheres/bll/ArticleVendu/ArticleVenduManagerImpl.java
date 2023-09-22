@@ -38,14 +38,14 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
         Integer noCategorie
     ) throws DatabaseException {
         // Utilisateur utilisateur = utilisateurManager.selectById(noUtilisateur);
-        // HACK wait UtilisateurManager.selectById() implementation
+        // TODO HACK wait UtilisateurManager.selectById() implementation
         Utilisateur utilisateur = Utilisateur.builder().build(); // temp mockup
 
         // Categorie categorie = categorieManager.selectById(noCategorie);
-        // HACK wait CategorieManager.selectById() implementation
+        // TODO HACK wait CategorieManager.selectById() implementation
         Categorie categorie = new Categorie(); // temp mockup
 
-        final ArticleVendu articleVendu = ArticleVendu.builder(
+        final ArticleVendu articleVendu = new ArticleVendu.Builder(
             nomArticle,
             description,
             dateDebutEncheres,
