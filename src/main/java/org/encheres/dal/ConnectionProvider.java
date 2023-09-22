@@ -30,15 +30,15 @@ public class ConnectionProvider {
 	static {
 		Context context;
 
-		try {
-			String url = "java:comp/env/sqlserver/jdbc/pool_connection";
-			context = new InitialContext();
-			ConnectionProvider.dataSource = (DataSource) context.lookup(url);
-		} catch (NamingException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Erreur: ne peut se connecter à la DB.");
-		}
-	}
+        try {
+            String url = "java:comp/env/sqlserver/jdbc/pool_connection";
+            context = new InitialContext();
+            ConnectionProvider.dataSource = (DataSource) context.lookup(url);
+        } catch (NamingException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erreur: ne peut se connecter Ã  la DB.");
+        }
+    }
 
 	public static Connection getConnection() throws SQLException {
 		return ConnectionProvider.dataSource.getConnection();

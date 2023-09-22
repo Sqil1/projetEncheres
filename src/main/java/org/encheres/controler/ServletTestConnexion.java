@@ -28,19 +28,17 @@ public class ServletTestConnexion extends HttpServlet {
 			Context context = new InitialContext();
 			// recherche de la date source
 			DataSource dataSource = (DataSource) context.lookup("java:comp/env/sqlserver/jdbc/pool_connection");
-			// demande une connexion? la méthode getConnection met la demande en attente
-			// tant qu'il n'y a pas de
-			// connexion disponible dans le pull
+			//demande une connexion? la mÃ©thode getConnection met la demande en attente tant qu'il n'y a pas de 
+			//connexion disponible dans le pull
 			Connection cnx = dataSource.getConnection();
-			System.out.println("La connexion est " + (cnx.isClosed() ? "fermée" : "ouverte" + "."));
-			// liberer la connection lorsque l'on en a plus besoin
-			cnx.close();// La connexion n'est pas fermée mais remise dans le pool
+			System.out.println("La connexion est " + (cnx.isClosed()?"fermÃ©e":"ouverte" + "."));
+			//liberer la connection lorsque l'on en a plus besoin
+			cnx.close();//La connexion n'est pas fermÃ©e mais remise dans le pool
 		} catch (NamingException | SQLException e) {
 			e.printStackTrace();
 			// sortir proprement de l'erreur
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			System.out
-					.println("Une erreur est survenue lors de l'utilisation de la base de donnée : " + e.getMessage());
+			System.out.println("Une erreur est survenue lors de l'utilisation de la base de donnÃ©e : " + e.getMessage());
 		}
 
 	}
