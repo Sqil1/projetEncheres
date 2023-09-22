@@ -38,40 +38,32 @@
 
 	</header>
 
-	<form>
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6">
-					<div class="mb-3">
-						<label for="exampleInputEmail1" class="form-label">Identifiant</label>
-						<input type="email" name="identifiant" class="form-control"
-							id="exampleInputEmail1" aria-describedby="emailHelp">
+	<form  action="Connexion" method="post">
+	<div class="container">
+	 	<div class="row justify-content-center">
+	 	 <div class="col-md-6">
+		<div class="mb-3">
+			<label for="exampleInputEmail1" class="form-label">Identifiant</label>
+			<input type="email" name="identifiant" class="form-control" id="exampleInputEmail1"
+				aria-describedby="emailHelp">
 
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputPassword1" class="form-label">Mot
-							de Passe</label> <input type="password" name="motdepasse"
-							class="form-control" id="exampleInputPassword1">
-					</div>
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1">
-						<label class="form-check-label" for="exampleCheck1">Se
-							souvenir de moi</label>
-					</div>
-					<div class="mb-3 form-check">
-						<a href="#">Mot de passe oublé</a>
-					</div>
-
-
-					<div class="row g-3">
-						<div class="col-12 text-center">
-							<button type="submit" class="btn btn-primary">Connexion</button>
-							<a href="index.jsp">Retour</a>
-
-						</div>
-					</div>
-				</div>
-			</div>
+		</div>
+		<div class="mb-3">
+			<label for="exampleInputPassword1" class="form-label">Mot de
+				Passe</label> <input type="password" name="motDePasse" class="form-control"
+				id="motdepasse">
+		</div>
+		<div class="mb-3 form-check">
+			<input type="checkbox"  class="form-check-input" id="exampleCheck1">
+			<label class="form-check-label" for="exampleCheck1">Se
+				souvenir de moi</label>
+		</div>
+		<div class="mb-3 form-check">
+			<a href="#">Mot de passe oublié</a>
+		</div>
+		<button type="submit" value="Connexion" class="btn btn-primary">Connexion</button>
+		</div>
+		</div>
 		</div>
 	</form>
 

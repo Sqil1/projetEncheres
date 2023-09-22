@@ -8,20 +8,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletIndex
+ * Servlet implementation class ServletDeconnexion
  */
-@WebServlet("/Index")
-public class ServletIndex extends HttpServlet {
+@WebServlet("/Deconnexion")
+public class ServletDeconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// Invalide la session de l'utilisateur
+		request.getSession().invalidate();
+
+		// Redirection vers la page d'accueil
 		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
