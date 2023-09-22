@@ -1,7 +1,6 @@
 package org.encheres.bo;
 
 import java.time.LocalDateTime;
-import java.util.Locale.Category;
 
 import com.microsoft.sqlserver.jdbc.StringUtils;
 
@@ -14,7 +13,7 @@ import com.microsoft.sqlserver.jdbc.StringUtils;
  * Constructors:
  * @see ArticleVendu.Builder#Builder()
  * @see ArticleVendu.Builder#Builder(ArticleVendu)
- * @see ArticleVendu.Builder#Builder(String, String, LocalDateTime, LocalDateTime, Integer, Integer, String, Utilisateur, Category)
+ * @see ArticleVendu.Builder#Builder(String, String, LocalDateTime, LocalDateTime, Integer, Integer, String, Utilisateur, Categorie)
  */
 public class ArticleVendu {
     private Integer noArticle;
