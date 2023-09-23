@@ -8,7 +8,7 @@
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-    /* Show the info bubble on hover */
+/* Info bubble on hover */
 label:hover .info-bubble,
 input:hover + .info-bubble {
     display: block;

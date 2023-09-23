@@ -61,29 +61,95 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
+                        <!-- nomArticle -->
                         <div class="mb-3">
                             <label for="nomArticle" class="form-label">
                                 Nom de l'article
-                                <div class="info-bubble" id="nomArticleInfo">Entrez le nom de l'article (sans caractère spéciaux).</div>
+                                <div class="info-bubble" id="nomArticleInfo">
+                                    Entrez le nom de l'article (sans caractère spéciaux). Taille max 30 caractères.
+                                </div>
                             </label>
-                            <input type="text" class="form-control" id="nomArticle" aria-describedby="nomArticleInfo">
+                            <input type="text" maxlength="30" class="form-control" id="nomArticle" aria-describedby="nomArticleInfo">
                         </div>
 
+                        <!-- description -->
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">String val 2</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <label for="description" class="form-label">
+                                Description
+                                <div class="info-bubble" id="descriptionInfo">
+                                    Entrez la description de l'article (sans caractère spéciaux). Taille max 300 caractères.
+                                </div>
+                            </label>
+                            <textarea maxlength="300" class="form-control" id="description" aria-describedby="descriptionInfo"></textarea>
                         </div>
 
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">checkbox val</label>
+                        <!-- dateDebutEncheres -->
+                        <div class="row mb-3 g-3">
+                            <!-- date debut -->
+                            <div class="col-md-6">
+                                <label for="dateDebutEncheres_date" class="form-label">
+                                    Date du début de l'enchère
+                                    <div class="info-bubble" id="dateDebutEncheresInfo_date">
+                                        Entrez la date de début de l'enchère. Delai maximum d'une semaine et pas plus tôt qu'aujourd'hui.
+                                    </div>
+                                </label>
+                                <input type="date" value="${dateNow}" class="form-control" id="dateDebutEncheres_date" aria-describedby="dateDebutEncheresInfo_date">
+                            </div>
+
+                            <!-- time debut -->
+                            <div class="col-md-4">
+                                <label for="dateDebutEncheres_time" class="form-label">
+                                    Heure
+                                    <div class="info-bubble" id="dateDebutEncheresInfo_time">
+                                        Entrez l'heure de début de l'enchère. Pas plus tôt que maintenant.
+                                    </div>
+                                </label>
+                                <input type="time" value="${hoursNow}:${minutesNow}" class="form-control" id="dateDebutEncheres_time" aria-describedby="dateDebutEncheresInfo_time">
+                            </div>
                         </div>
 
-                        <div class="mb-3 form-check">
-                            <a href="#">link</a>
+                        <!-- dateFinEncheres -->
+                        <div class="row mb-3 g-3">
+                            <!-- date fin -->
+                            <div class="col-md-6">
+                                <label for="dateFinEncheres_date" class="form-label">
+                                    Date de fin de l'enchère
+                                    <div class="info-bubble" id="dateFinEncheresInfo_date">
+                                        Entrez la date de fin de l'enchère. Pas plus tôt qu'une heure après le début et moins d'un an après.
+                                    </div>
+                                </label>
+                                <input type="date" value="${datePlusOneWeek}" class="form-control" id="dateFinEncheres_date" aria-describedby="dateFinEncheresInfo_date">
+                            </div>
+
+                            <!-- hours fin -->
+                            <div class="col-md-4">
+                                <label for="dateFinEncheres_time" class="form-label">
+                                    Heure
+                                    <div class="info-bubble" id="dateFinEncheresInfo_time">
+                                        Entrez l'heure de fin de l'enchère. Pas plus tôt qu'une heure après le début.
+                                    </div>
+                                </label>
+                                <input type="time" maxlength="2" value="${hoursNow}:${minutesNow}" class="form-control" id="dateFinEncheres_time" aria-describedby="dateFinEncheresInfo_time">
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit form</button>
+                        <!-- prix initial -->
+                        <div class="col-md-4 mb-4">
+                            <label for="prixInitial" class="form-label">
+                                Prix initial en points.
+                                <div class="info-bubble" id="prixInitialInfo">
+                                    Entrez le prix initial entre 0 et 100.000.000 de points.
+                                </div>
+                            </label>
+                            <input type="number" min="0" max="100000000" class="form-control" id="prixInitial" aria-describedby="prixInitialInfo">
+                        </div>
+                        
+                        <button type="reset" class="btn btn-secondary">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+
+                        <div class="mt-4 form-check">
+                            <a href="/Index">Retour</a>
+                        </div>
                     </div>
                 </div>
             </div>

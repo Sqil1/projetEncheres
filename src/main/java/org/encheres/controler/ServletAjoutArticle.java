@@ -1,7 +1,9 @@
 package org.encheres.controler;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.encheres.bll.ArticleVendu.ArticleVenduManager;
 import org.encheres.bll.ArticleVendu.ArticleVenduManagerImpl;
+import org.encheres.bo.ArticleVendu;
 import org.encheres.errors.DatabaseException;
 
 @WebServlet("/AjoutArticle")
@@ -19,6 +22,25 @@ public class ServletAjoutArticle extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LocalTime localTime = LocalTime.now();
+        LocalDate localDate = LocalDate.now();
+        LocalDate localDatePlusOneWeek = localDate.plusDays(7);
+
+        int dayNow = localDate.getDayOfMonth();
+        String monthNow = String.format("%02d", localDate.getMonthValue());
+        int yearNow = localDate.getYear();
+        String hoursNow = String.format("%02d", localTime.getHour());
+        String minutesNow = String.format("%02d", localTime.getMinute());
+
+        int dayPlusOneWeek = localDatePlusOneWeek.getDayOfMonth();
+        String monthPlusOneWeek = String.format("%02d", localDatePlusOneWeek.getMonthValue());
+        int yearPlusOneWeek = localDatePlusOneWeek.getYear();
+
+        request.setAttribute("dateNow", yearNow + "-" + monthNow + "-" + dayNow);
+        request.setAttribute("datePlusOneWeek", yearPlusOneWeek + "-" + monthPlusOneWeek + "-" + dayPlusOneWeek);
+        request.setAttribute("hoursNow", hoursNow);
+        request.setAttribute("minutesNow", minutesNow);
+
         this.getServletContext().getRequestDispatcher("/ajout-article.jsp").forward(request, response);
     }
 
@@ -37,7 +59,7 @@ public class ServletAjoutArticle extends HttpServlet {
         LocalDateTime dateFinEncheres = LocalDateTime.parse(request.getParameter("dateFinEncheres"));
         Integer prixInitial = Integer.valueOf(request.getParameter("prixInitial"));
         Integer prixVente = Integer.valueOf(request.getParameter("prixVente"));
-        String etatVente = request.getParameter("etatVente");
+        ArticleVendu.EtatVente etatVente = ArticleVendu.EtatVente.valueOf(request.getParameter("etatVente"));
 
         // TODO Fine grained data validation to extract what's wrong
         boolean isValid = articleVenduManager.isValid(
@@ -46,8 +68,7 @@ public class ServletAjoutArticle extends HttpServlet {
             dateDebutEncheres,
             dateFinEncheres,
             prixInitial,
-            prixVente,
-            etatVente
+            prixVente
         );
 
         if (isValid) {
