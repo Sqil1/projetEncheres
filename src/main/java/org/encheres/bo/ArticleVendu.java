@@ -8,10 +8,14 @@ import com.microsoft.sqlserver.jdbc.StringUtils;
  * <p>POJO represente un Article.</p>
  * <p>Utilise le Builder Pattern.</p>
  * 
- * Instanciation/constructeur :
+ * Instanciation/constructeur ex :
  * <pre>ArticleVendu articleVendu = ArticleVendu.builder(args).build.()</pre>
- * <p>Setters :</p>
- * <pre> ArticleVendu.builder(args).setterName(args).build();</pre>
+ * <p>Setters ex :</p>
+ * <pre>ArticleVendu articleVendu =
+        ArticleVendu.builder()
+        .setNomArticle(nomArticle)
+        .setDescription(description)
+        .build();</pre>
  * @see ArticleVendu#builder()
  * @see ArticleVendu#builder(ArticleVendu)
  * @see ArticleVendu#builder(String, String, String, String, String, String, String, String)
