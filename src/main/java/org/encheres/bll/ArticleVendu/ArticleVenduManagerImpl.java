@@ -1,6 +1,8 @@
 package org.encheres.bll.ArticleVendu;
 
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categorie;
@@ -31,7 +33,7 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
         Integer prixVente,
-        String etatVente,
+        ArticleVendu.EtatVente etatVente,
         Integer noUtilisateur,
         Integer noCategorie
     ) throws DatabaseException {
@@ -65,66 +67,98 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
-        Integer prixVente,
-        String etatVente
+        Integer prixVente
     ) {
         boolean result =    
             isValidNomArticle(nomArticle) ||
             isValidDescription(description) ||
             isValidDateDebutEncheres(dateDebutEncheres) ||
-            isValidDateFinEncheres(dateFinEncheres) ||
+            isValidDateFinEncheres(dateDebutEncheres, dateFinEncheres) ||
             isValidPrixInitial(prixInitial) ||
-            isValidPrixVente(prixVente) ||
-            isValidEtatVente(etatVente);
+            isValidPrixVente(prixVente);
 
         return result;
     }
 
     public boolean isValidNomArticle(String nomArticle) {
-        // TODO data validation
-        boolean result = false;
+        boolean result = true;
+        Pattern pattern = Pattern.compile("^(?=.{5,30}$)(?!.*[<>%]).*([\\p{L}'\"/]{1}\\s*){5,}.*$");
+        Matcher matcher = pattern.matcher(nomArticle);
+
+        if (!matcher.matches()) {
+            result = false;
+            System.out.println("Erreur de format: nomArticle");
+        }
 
         return result;
     }
 
     public boolean isValidDescription(String description) {
-        // TODO data validation
-        boolean result = false;
+        boolean result = true;
+        Pattern pattern = Pattern.compile("^(?=.{5,300}$)(?!.*[<>%]).*([\\p{L}'\"/]{1}\\s*){5,}.*$");
+        Matcher matcher = pattern.matcher(description);
+
+        if (!matcher.matches()) {
+            result = false;
+            System.out.println("Erreur de format: description");
+        }
 
         return result;
     }
 
     public boolean isValidDateDebutEncheres(LocalDateTime dateDebutEncheres) {
-        // TODO data validation
-        boolean result = false;
+        boolean result = true;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime twoMinutesBefore = now.minusMinutes(2);
+        LocalDateTime oneWeekAfter = now.plusWeeks(1);
+
+        if (dateDebutEncheres.isBefore(twoMinutesBefore) || dateDebutEncheres.isAfter(oneWeekAfter)) {
+            result = false;
+            System.out.println(
+                "Erreur, dateDebutEncheres est avant ou après le temps alloué (2minutes < temps alloué < 1semaine)."
+            );
+        }
 
         return result;
     }
 
-    public boolean isValidDateFinEncheres(LocalDateTime dateFinEncheres) {
-        // TODO data validation
-        boolean result = false;
+    public boolean isValidDateFinEncheres(LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres) {
+        boolean result = true;
+        LocalDateTime oneHourAfterStart = dateDebutEncheres.plusHours(1);
+        LocalDateTime oneYearAfterStart = dateDebutEncheres.plusWeeks(52);
+
+        if (dateFinEncheres.isBefore(oneHourAfterStart) ||dateDebutEncheres.isAfter(oneYearAfterStart)) {
+            result = false;
+            System.out.println(
+                "Erreur, dateFinEncheres est avant ou après le temps alloué (date de début + 1heure < temps alloué < 1an après)."
+            );
+        }
 
         return result;
     }
 
     public boolean isValidPrixInitial(Integer prixInitial) {
-        // TODO data validation
-        boolean result = false;
+        boolean result = true;
+
+        if (prixInitial < 0 || prixInitial > 100_000_000) {
+            result = false;
+            System.out.println(
+                "Erreur, prixInitial doit être entre 0 et 100 000 000 comprit."
+            );
+        }
 
         return result;
     }
 
     public boolean isValidPrixVente(Integer prixVente) {
-        // TODO data validation
-        boolean result = false;
+        boolean result = true;
 
-        return result;
-    }
-
-    public boolean isValidEtatVente(String etatVente) {
-        // TODO data validation
-        boolean result = false;
+        if (prixVente < 1 || prixVente > 100_000_000) {
+            result = false;
+            System.out.println(
+                "Erreur, prixInitial doit être entre 1 et 100 000 000 comprit."
+            );
+        }
 
         return result;
     }

@@ -23,17 +23,17 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
 
             preparedStatement.setString(1, articleVendu.getNomArticle());
             preparedStatement.setString(2, articleVendu.getDescription());
-            preparedStatement.setObject(3, articleVendu.getDateDebutEncheres());
-            preparedStatement.setObject(4, articleVendu.getDateFinEncheres());
+            preparedStatement.setString(3, articleVendu.getDateDebutEncheres().toString());
+            preparedStatement.setString(4, articleVendu.getDateFinEncheres().toString());
             preparedStatement.setInt(5, articleVendu.getPrixInitial());
             preparedStatement.setInt(6, articleVendu.getPrixVente());
-            preparedStatement.setString(7, articleVendu.getEtatVente());
+            preparedStatement.setString(7, articleVendu.getEtatVente().toString());
 
             preparedStatement.executeUpdate();
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
             if (resultSet.next()) {
-                return new ArticleVendu.Builder(articleVendu).setNoArticle(resultSet.getInt(1)).build();
+                return ArticleVendu.builder(articleVendu).setNoArticle(resultSet.getInt(1)).build();
             }
 
             throw new DatabaseException("Erreur lors de la création de l'article.");
@@ -44,13 +44,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
     }
 
     @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
-    }
-
-    @Override
-    public void deleteById(int noUtilisateur) {
+    public void deleteById(Integer noUtilisateur) {
         // TODO Auto-generated method stub
         
     }

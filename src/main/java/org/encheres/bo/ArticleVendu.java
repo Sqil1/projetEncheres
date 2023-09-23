@@ -24,9 +24,22 @@ public class ArticleVendu {
     private LocalDateTime dateFinEncheres;
     private Integer prixInitial;
     private Integer prixVente;
-    private String etatVente;
+    private EtatVente etatVente;
     private Utilisateur utilisateur;
     private Categorie categorie;
+    
+    /**
+     * <p>enum:</p>
+     * <p>EN_COURS, VENDU, PERIME, ANNULEE</p>
+     * __
+     * <p>Cnvertir d'enum à String :</p>
+     * <pre>String valeur = ArticleVendu.EtatVente.VENDU.toString(); // Output: "VENDU"</pre>
+     * Convertir de String à enum:
+     * <pre>ArticleVendu.EtatVente.valueOf(valeur); // Output: ArticleVendu.EtatVente.VENDU</pre>
+     */
+    public enum EtatVente {
+        EN_COURS, VENDU, PERIME, ANNULEE
+    }
 
     private ArticleVendu(Builder builder) {
         this.noArticle = builder.noArticle;
@@ -77,7 +90,7 @@ public class ArticleVendu {
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
         Integer prixVente,
-        String etatVente,
+        EtatVente etatVente,
         Utilisateur utilisateur,
         Categorie categorie
 	) {
@@ -115,7 +128,7 @@ public class ArticleVendu {
     public Integer getPrixVente() {
         return prixVente;
     }
-    public String getEtatVente() {
+    public EtatVente getEtatVente() {
         return etatVente;
     }
     public Utilisateur getUtilisateur() {
@@ -133,7 +146,7 @@ public class ArticleVendu {
         private LocalDateTime dateFinEncheres;
         private Integer prixInitial;
         private Integer prixVente;
-        private String etatVente;
+        private EtatVente etatVente;
         private Utilisateur utilisateur;
         private Categorie categorie;
 
@@ -159,7 +172,7 @@ public class ArticleVendu {
             LocalDateTime dateFinEncheres,
             Integer prixInitial,
             Integer prixVente,
-            String etatVente,
+            EtatVente etatVente,
             Utilisateur utilisateur,
             Categorie categorie
         ) {
@@ -225,10 +238,7 @@ public class ArticleVendu {
             return this;
         }
 
-        public Builder setEtatVente(String etatVente) {
-            if (StringUtils.isEmpty(etatVente)) {
-                throw new IllegalStateException("etatVente ne peut pas être null");
-            }
+        public Builder setEtatVente(EtatVente etatVente) {
             this.etatVente = etatVente;
 
             return this;

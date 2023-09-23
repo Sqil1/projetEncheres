@@ -12,8 +12,7 @@ public interface ArticleVenduManager {
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
-        Integer prixVente,
-        String etatVente
+        Integer prixVente
     );
 
     ArticleVendu createArticleVendu(
@@ -23,7 +22,7 @@ public interface ArticleVenduManager {
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
         Integer prixVente,
-        String etatVente,
+        ArticleVendu.EtatVente etatVente,
         Integer noUtilisateur,
         Integer noCategorie
     ) throws DatabaseException;

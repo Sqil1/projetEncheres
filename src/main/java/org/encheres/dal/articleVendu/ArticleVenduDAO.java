@@ -8,6 +8,6 @@ import org.encheres.errors.DatabaseException;
 public interface ArticleVenduDAO {
     public ArticleVendu insert(ArticleVendu articleVendu) throws DatabaseException;
     public void update(ArticleVendu articleVendu);
-    public void deleteById(int noUtilisateur);
+    public void deleteById(Integer noUtilisateur);
     public List<ArticleVendu> selectAll();
 }
