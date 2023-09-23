@@ -66,16 +66,14 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
         String description,
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
-        Integer prixInitial,
-        Integer prixVente
+        Integer prixInitial
     ) {
         boolean result =    
             isValidNomArticle(nomArticle) ||
             isValidDescription(description) ||
             isValidDateDebutEncheres(dateDebutEncheres) ||
             isValidDateFinEncheres(dateDebutEncheres, dateFinEncheres) ||
-            isValidPrixInitial(prixInitial) ||
-            isValidPrixVente(prixVente);
+            isValidPrixInitial(prixInitial);
 
         return result;
     }

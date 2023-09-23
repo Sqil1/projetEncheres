@@ -53,13 +53,16 @@ public class ServletAjoutArticle extends HttpServlet {
 
         ArticleVenduManager articleVenduManager = ArticleVenduManagerImpl.getInstance();
 
+        // User inputs
         String nomArticle = request.getParameter("nomArticle");
         String description = request.getParameter("description");
         LocalDateTime dateDebutEncheres = LocalDateTime.parse(request.getParameter("dateDebutEncheres"));
         LocalDateTime dateFinEncheres = LocalDateTime.parse(request.getParameter("dateFinEncheres"));
         Integer prixInitial = Integer.valueOf(request.getParameter("prixInitial"));
-        Integer prixVente = Integer.valueOf(request.getParameter("prixVente"));
-        ArticleVendu.EtatVente etatVente = ArticleVendu.EtatVente.valueOf(request.getParameter("etatVente"));
+        // Default values
+        Integer prixVente = -1;
+        ArticleVendu.EtatVente etatVente = ArticleVendu.EtatVente.EN_COURS;
+
 
         // TODO Fine grained data validation to extract what's wrong
         boolean isValid = articleVenduManager.isValid(
@@ -67,13 +70,12 @@ public class ServletAjoutArticle extends HttpServlet {
             description,
             dateDebutEncheres,
             dateFinEncheres,
-            prixInitial,
-            prixVente
+            prixInitial
         );
 
         if (isValid) {
             try {
-                articleVenduManager.createArticleVendu(
+                ArticleVendu createdArticle = articleVenduManager.createArticleVendu(
                     nomArticle,
                     description,
                     dateDebutEncheres,
@@ -85,7 +87,7 @@ public class ServletAjoutArticle extends HttpServlet {
                     noCategorie
                 );
 
-                request.setAttribute("message", "L'article a correctement été ajouté.");
+                request.setAttribute("message", "<p>L'article a correctement été ajouté.<p>" + createdArticle.toString());
                 request.setAttribute("articleBootstrapClass", "bg-success");
 
             } catch (DatabaseException e) {

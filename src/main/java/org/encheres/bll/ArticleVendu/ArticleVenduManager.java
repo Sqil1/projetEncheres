@@ -11,8 +11,7 @@ public interface ArticleVenduManager {
         String description,
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
-        Integer prixInitial,
-        Integer prixVente
+        Integer prixInitial
     );
 
     ArticleVendu createArticleVendu(
