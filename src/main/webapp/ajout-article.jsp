@@ -69,7 +69,7 @@
                                     Entrez le nom de l'article (sans caractère spéciaux). Taille max 30 caractères.
                                 </div>
                             </label>
-                            <input type="text" maxlength="30" class="form-control" id="nomArticle" aria-describedby="nomArticleInfo">
+                            <input type="text" maxlength="30" class="form-control" id="nomArticle" name="nomArticle" aria-describedby="nomArticleInfo">
                         </div>
 
                         <!-- description -->
@@ -80,7 +80,7 @@
                                     Entrez la description de l'article (sans caractère spéciaux). Taille max 300 caractères.
                                 </div>
                             </label>
-                            <textarea maxlength="300" class="form-control" id="description" aria-describedby="descriptionInfo"></textarea>
+                            <textarea maxlength="300" class="form-control" id="description" name="description" aria-describedby="descriptionInfo"></textarea>
                         </div>
 
                         <!-- dateDebutEncheres -->
@@ -93,7 +93,7 @@
                                         Entrez la date de début de l'enchère. Delai maximum d'une semaine et pas plus tôt qu'aujourd'hui.
                                     </div>
                                 </label>
-                                <input type="date" value="${dateNow}" class="form-control" id="dateDebutEncheres_date" aria-describedby="dateDebutEncheresInfo_date">
+                                <input type="date" value="${dateNow}" class="form-control" id="dateDebutEncheres_date" name="dateDebutEncheres_date" aria-describedby="dateDebutEncheresInfo_date">
                             </div>
 
                             <!-- time debut -->
@@ -104,7 +104,7 @@
                                         Entrez l'heure de début de l'enchère. Pas plus tôt que maintenant.
                                     </div>
                                 </label>
-                                <input type="time" value="${hoursNow}:${minutesNow}" class="form-control" id="dateDebutEncheres_time" aria-describedby="dateDebutEncheresInfo_time">
+                                <input type="time" value="${hoursNow}:${minutesNow}" class="form-control" id="dateDebutEncheres_time" name="dateDebutEncheres_time" aria-describedby="dateDebutEncheresInfo_time">
                             </div>
                         </div>
 
@@ -118,7 +118,7 @@
                                         Entrez la date de fin de l'enchère. Pas plus tôt qu'une heure après le début et moins d'un an après.
                                     </div>
                                 </label>
-                                <input type="date" value="${datePlusOneWeek}" class="form-control" id="dateFinEncheres_date" aria-describedby="dateFinEncheresInfo_date">
+                                <input type="date" value="${datePlusOneWeek}" class="form-control" id="dateFinEncheres_date" name="dateFinEncheres_date" aria-describedby="dateFinEncheresInfo_date">
                             </div>
 
                             <!-- hours fin -->
@@ -129,7 +129,7 @@
                                         Entrez l'heure de fin de l'enchère. Pas plus tôt qu'une heure après le début.
                                     </div>
                                 </label>
-                                <input type="time" maxlength="2" value="${hoursNow}:${minutesNow}" class="form-control" id="dateFinEncheres_time" aria-describedby="dateFinEncheresInfo_time">
+                                <input type="time" maxlength="2" value="${hoursNow}:${minutesNow}" class="form-control" id="dateFinEncheres_time" name="dateFinEncheres_time" aria-describedby="dateFinEncheresInfo_time">
                             </div>
                         </div>
 
@@ -141,7 +141,7 @@
                                     Entrez le prix initial entre 0 et 100.000.000 de points.
                                 </div>
                             </label>
-                            <input type="number" min="0" max="100000000" class="form-control" id="prixInitial" aria-describedby="prixInitialInfo">
+                            <input type="number" min="0" max="100000000" class="form-control" id="prixInitial" name="prixInitial" aria-describedby="prixInitialInfo">
                         </div>
                         
                         <button type="reset" class="btn btn-secondary">Annuler</button>

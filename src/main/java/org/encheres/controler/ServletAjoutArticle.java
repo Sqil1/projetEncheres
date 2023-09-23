@@ -2,7 +2,6 @@ package org.encheres.controler;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.servlet.ServletException;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.encheres.bll.ArticleVendu.ArticleVenduManager;
 import org.encheres.bll.ArticleVendu.ArticleVenduManagerImpl;
 import org.encheres.bo.ArticleVendu;
+import org.encheres.bo.dto.ArticleVenduUserInputDTO;
 import org.encheres.errors.DatabaseException;
 
 @WebServlet("/AjoutArticle")
@@ -54,16 +54,17 @@ public class ServletAjoutArticle extends HttpServlet {
         ArticleVenduManager articleVenduManager = ArticleVenduManagerImpl.getInstance();
 
         // User inputs
-        String nomArticle = request.getParameter("nomArticle");
-        String description = request.getParameter("description");
-        LocalDateTime dateDebutEncheres = LocalDateTime.parse(request.getParameter("dateDebutEncheres"));
-        LocalDateTime dateFinEncheres = LocalDateTime.parse(request.getParameter("dateFinEncheres"));
-        Integer prixInitial = Integer.valueOf(request.getParameter("prixInitial"));
-        // Default values
-        Integer prixVente = -1;
-        ArticleVendu.EtatVente etatVente = ArticleVendu.EtatVente.EN_COURS;
+        ArticleVenduUserInputDTO articleVenduUserInputDTO = new ArticleVenduUserInputDTO(
+            request.getParameter("nomArticle"),
+            request.getParameter("description"),
+            request.getParameter("dateDebutEncheres_date"),
+            request.getParameter("dateDebutEncheres_time"),
+            request.getParameter("dateFinEncheres_date"),
+            request.getParameter("dateFinEncheres_time"),
+            request.getParameter("prixInitial")
+        );
 
-
+        
         // TODO Fine grained data validation to extract what's wrong
         boolean isValid = articleVenduManager.isValid(
             nomArticle,
@@ -71,20 +72,23 @@ public class ServletAjoutArticle extends HttpServlet {
             dateDebutEncheres,
             dateFinEncheres,
             prixInitial
-        );
-
-        if (isValid) {
-            try {
-                ArticleVendu createdArticle = articleVenduManager.createArticleVendu(
-                    nomArticle,
-                    description,
-                    dateDebutEncheres,
-                    dateFinEncheres,
-                    prixInitial,
-                    prixVente,
-                    etatVente,
-                    noUtilisateur,
-                    noCategorie
+            );
+            
+            if (isValid) {
+                try {
+                    // TODO Default values
+                    Integer prixVente = -1;
+                    ArticleVendu.EtatVente etatVente = ArticleVendu.EtatVente.EN_COURS;
+                    ArticleVendu createdArticle = articleVenduManager.createArticleVendu(
+                        nomArticle,
+                        description,
+                        dateDebutEncheres,
+                        dateFinEncheres,
+                        prixInitial,
+                        prixVente,
+                        etatVente,
+                        noUtilisateur,
+                        noCategorie
                 );
 
                 request.setAttribute("message", "<p>L'article a correctement été ajouté.<p>" + createdArticle.toString());

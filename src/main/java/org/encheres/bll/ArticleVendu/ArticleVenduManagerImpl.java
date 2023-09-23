@@ -1,14 +1,18 @@
 package org.encheres.bll.ArticleVendu;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categorie;
 import org.encheres.bo.Utilisateur;
+import org.encheres.bo.dto.ArticleVenduUserInputDTO;
 import org.encheres.dal.DAOFactory;
 import org.encheres.errors.DatabaseException;
+import org.encheres.errors.ParsingException;
 
 public class ArticleVenduManagerImpl implements ArticleVenduManager {
     private static ArticleVenduManager articleVenduManager = null;
@@ -58,6 +62,36 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
         ).build();
 
         return DAOFactory.getArticleVenduDAO().insert(articleVendu);
+    }
+
+    
+
+    @Override
+    public ArticleVendu parse(ArticleVenduUserInputDTO articleVenduUserInputDTO)
+        throws ParsingException
+    {
+        String nomArticle = articleVenduUserInputDTO.getNomArticle();
+        String description = articleVenduUserInputDTO.getDescription();
+        Integer prixInitial = Integer.valueOf(articleVenduUserInputDTO.getPrixInitial());
+
+        LocalDate dateDebutEncheresLocalDate = LocalDate.parse(articleVenduUserInputDTO.getDateDebutEncheresLocalDate());
+        LocalTime dateDebutEncheresLocalTime = LocalTime.parse(articleVenduUserInputDTO.getDateDebutEncheresLocalTime());
+        LocalDateTime dateDebutEncheres = LocalDateTime.of(dateDebutEncheresLocalDate, dateDebutEncheresLocalTime);
+
+        LocalDate dateFinEncheresLocalDate = LocalDate.parse(articleVenduUserInputDTO.getDateFinEncheresLocalDate());
+        LocalTime dateFinEncheresLocalTime = LocalTime.parse(articleVenduUserInputDTO.getDateFinEncheresLocalTime());
+        LocalDateTime dateFinEncheres = LocalDateTime.of(dateFinEncheresLocalDate, dateFinEncheresLocalTime);
+
+        ArticleVendu result =
+            ArticleVendu.builder()
+            .setNomArticle(nomArticle)
+            .setDescription(description)
+            .setDateDebutEncheres(dateDebutEncheres)
+            .setDateFinEncheres(dateFinEncheres)
+            .setPrixInitial(prixInitial)
+            .build();
+
+        return result;
     }
 
     @Override
