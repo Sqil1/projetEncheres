@@ -8,10 +8,14 @@ import com.microsoft.sqlserver.jdbc.StringUtils;
  * <p>POJO represente un Article.</p>
  * <p>Utilise le Builder Pattern.</p>
  * 
- * Instanciation/constructeur :
+ * Instanciation/constructeur ex :
  * <pre>ArticleVendu articleVendu = ArticleVendu.builder(args).build.()</pre>
- * <p>Setters :</p>
- * <pre> ArticleVendu.builder(args).setterName(args).build();</pre>
+ * <p>Setters ex :</p>
+ * <pre>ArticleVendu articleVendu =
+        ArticleVendu.builder()
+        .setNomArticle(nomArticle)
+        .setDescription(description)
+        .build();</pre>
  * @see ArticleVendu#builder()
  * @see ArticleVendu#builder(ArticleVendu)
  * @see ArticleVendu#builder(String, String, String, String, String, String, String, String)
@@ -24,9 +28,22 @@ public class ArticleVendu {
     private LocalDateTime dateFinEncheres;
     private Integer prixInitial;
     private Integer prixVente;
-    private String etatVente;
+    private EtatVente etatVente;
     private Utilisateur utilisateur;
     private Categorie categorie;
+    
+    /**
+     * <p>enum:</p>
+     * <p>EN_COURS, VENDU, PERIME, ANNULEE</p>
+     * __
+     * <p>Cnvertir d'enum à String :</p>
+     * <pre>String valeur = ArticleVendu.EtatVente.VENDU.toString(); // Output: "VENDU"</pre>
+     * Convertir de String à enum:
+     * <pre>ArticleVendu.EtatVente.valueOf(valeur); // Output: ArticleVendu.EtatVente.VENDU</pre>
+     */
+    public enum EtatVente {
+        EN_COURS, VENDU, PERIME, ANNULEE
+    }
 
     private ArticleVendu(Builder builder) {
         this.noArticle = builder.noArticle;
@@ -60,14 +77,14 @@ public class ArticleVendu {
 	/**
 	 * Constructor. Exemple instanciation:
 	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder(
-			String pseudo,
-			String nom,
-			String prenom,
-			String email,
-			String telephone,
-			String rue,
-			String codePostal,
-			String ville
+            String nomArticle,
+            String description,
+            LocalDateTime dateDebutEncheres,
+            LocalDateTime dateFinEncheres,
+            Integer prixInitial,
+            EtatVente etatVente,
+            Utilisateur utilisateur,
+            Categorie categorie
 		).build();</pre>
 	*/
 	public static Builder builder(
@@ -76,8 +93,7 @@ public class ArticleVendu {
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
-        Integer prixVente,
-        String etatVente,
+        EtatVente etatVente,
         Utilisateur utilisateur,
         Categorie categorie
 	) {
@@ -87,12 +103,33 @@ public class ArticleVendu {
 			dateDebutEncheres,
 			dateFinEncheres,
 			prixInitial,
-			prixVente,
             etatVente,
 			utilisateur,
 			categorie
 		);
 	}
+
+    private static String wrapInCustomTag(String text, String tagName) {
+        return "<" + tagName + ">" + text + "</" + tagName + ">";
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(wrapInCustomTag("Nom de l'article", "label"));
+        stringBuilder.append(wrapInCustomTag(nomArticle, "p"));
+        stringBuilder.append(wrapInCustomTag("Description", "label"));
+        stringBuilder.append(wrapInCustomTag(description, "p"));
+        stringBuilder.append(wrapInCustomTag("Date de début de l'enchère", "label"));
+        stringBuilder.append(wrapInCustomTag(dateDebutEncheres.toString(), "p"));
+        stringBuilder.append(wrapInCustomTag("Date de fin de l'enchère", "label"));
+        stringBuilder.append(wrapInCustomTag(dateFinEncheres.toString(), "p"));
+        stringBuilder.append(wrapInCustomTag("Prix initial", "label"));
+        stringBuilder.append(wrapInCustomTag(prixInitial.toString(), "p"));
+
+        return stringBuilder.toString();
+    }
 
     public Integer getNoArticle() {
         return noArticle;
@@ -115,7 +152,7 @@ public class ArticleVendu {
     public Integer getPrixVente() {
         return prixVente;
     }
-    public String getEtatVente() {
+    public EtatVente getEtatVente() {
         return etatVente;
     }
     public Utilisateur getUtilisateur() {
@@ -133,9 +170,11 @@ public class ArticleVendu {
         private LocalDateTime dateFinEncheres;
         private Integer prixInitial;
         private Integer prixVente;
-        private String etatVente;
+        private EtatVente etatVente;
         private Utilisateur utilisateur;
         private Categorie categorie;
+        // Default values
+        private EtatVente etatVenteDefault = EtatVente.EN_COURS;
 
         public Builder() {}
 
@@ -158,8 +197,7 @@ public class ArticleVendu {
             LocalDateTime dateDebutEncheres,
             LocalDateTime dateFinEncheres,
             Integer prixInitial,
-            Integer prixVente,
-            String etatVente,
+            EtatVente etatVente,
             Utilisateur utilisateur,
             Categorie categorie
         ) {
@@ -168,7 +206,6 @@ public class ArticleVendu {
             this.dateDebutEncheres = dateDebutEncheres;
             this.dateFinEncheres = dateFinEncheres;
             this.prixInitial = prixInitial;
-            this.prixVente = prixVente;
             this.etatVente = etatVente;
             this.utilisateur = utilisateur;
             this.categorie = categorie;
@@ -225,10 +262,7 @@ public class ArticleVendu {
             return this;
         }
 
-        public Builder setEtatVente(String etatVente) {
-            if (StringUtils.isEmpty(etatVente)) {
-                throw new IllegalStateException("etatVente ne peut pas être null");
-            }
+        public Builder setEtatVente(EtatVente etatVente) {
             this.etatVente = etatVente;
 
             return this;
@@ -248,6 +282,12 @@ public class ArticleVendu {
                 throw new IllegalStateException("categorie ne peut pas être null");
             }
             this.categorie = categorie;
+
+            return this;
+        }
+
+        public Builder setDefault() {
+            this.etatVente = etatVenteDefault;
 
             return this;
         }

@@ -5,10 +5,14 @@ import com.microsoft.sqlserver.jdbc.StringUtils;
  * <p>POJO represente un Utilisateur.</p>
  * <p>Utilise le Builder Pattern.</p>
  * 
- * Instanciation/constructeur :
+ * Instanciation/constructeur ex :
  * <pre>Utilisateur utilisateur = Utilisateur.builder(args).build.()</pre>
- * <p>Setters :</p>
- * <pre> Utilisateur.builder(args).setterName(args).build();</pre>
+ * <p>Setters ex :</p>
+ * <pre>Utilisateur utilisateur =
+        Utilisateur.builder()
+        .setPseudo(pseudo)
+        .setNom(nom)
+        .build();</pre>
  * @see Utilisateur#builder()
  * @see Utilisateur#builder(Utilisateur)
  * @see Utilisateur#builder(String, String, String, String, String, String, String, String)
