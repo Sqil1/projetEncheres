@@ -28,19 +28,24 @@
 					aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-					<%
-					boolean isConnected = false; // TO DO SESSION
-					if (isConnected) {
-					%>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<%-- Vérifier si l'utilisateur est connecté --%>
+					<% boolean utilisateurConnecte = false;%>
+					<% if (request.getSession().getAttribute("utilisateurConnecte") != null) { %>
+					<% utilisateurConnecte = (boolean) request.getSession().getAttribute("utilisateurConnecte"); %>
+					<% } %>
+
+					<%-- Afficher certains éléments si l'utilisateur est connecté --%>
+					<% if (utilisateurConnecte) { %>
 					<ul class="navbar-nav">
+
 						<li class="nav-item"><a class="nav-link active"
 							href="index.jsp">Enchère</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="nouvelle-vente.jsp">Vendre un article</a></li>
-						<li class="nav-item"><a class="nav-link" href="profil.jsp">Mon
-								profil</a></li>
-						<li class="nav-item"><a class="nav-link" href="connexion.jsp">Déconnexion</a></li>
+						<li class="nav-item"><a class="nav-link"
+							href="profilUtilisateur.jsp">Mon profil</a></li>
+						<li class="nav-item"><a class="nav-link" href="Deconnexion">Déconnexion</a></li>
 					</ul>
 					<%
 					} else {
@@ -64,32 +69,31 @@
 		<form class="">
 			<fieldset>
 				<div class="row justify-content-center">
-						<div class="col-11 col-md-6 col-lg-4">
-
-							<h5>Filtres :</h5>
-							<div class="mb-3">
-								<input type="text" id="disabledTextInput" class="form-control"
-									placeholder="Le nom de l'article contient">
-							</div>
-							<div class="mb-3">
-								<label for="disabledSelect" class="form-label">Catégorie
-									: </label> <select id="disabledSelect" class="form-select">
-									<option value="toutes">Toutes</option>
-									<option value="1">1</option>
-									<option value="2">>2</option>
-									<option value="3">>3</option>
-								</select>
-							</div>
-							<button type="submit" class="btn btn-primary">Rechercher</button>
+					<div class="col-11 col-md-6 col-lg-4">
+						<% if (utilisateurConnecte) { %>
+						<p>Bonjour ${utilisateur.pseudo}</p>
+						<% } else { %>
+						<% } %>
+						<h5>Filtres :</h5>
+						<div class="mb-3">
+							<input type="text" id="disabledTextInput" class="form-control"
+								placeholder="Le nom de l'article contient">
 						</div>
+						<div class="mb-3">
+							<label for="disabledSelect" class="form-label">Catégorie
+								: </label> <select id="disabledSelect" class="form-select">
+								<option value="toutes">Toutes</option>
+								<option value="1">1</option>
+								<option value="2">>2</option>
+								<option value="3">>3</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary">Rechercher</button>
 					</div>
+				</div>
 			</fieldset>
 		</form>
 	</main>
-
-	<script src="asset/script.js"></script>
-</body>
-</html>
 
 </body>
 </html>

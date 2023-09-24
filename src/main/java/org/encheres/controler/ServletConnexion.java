@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.encheres.bll.UtilisateurManager;
 import org.encheres.bll.UtilisateurManagerImpl;
@@ -40,11 +41,14 @@ public class ServletConnexion extends HttpServlet {
 
 	    if (utilisateur != null && utilisateur.getNoUtilisateur() > 0) {
 	        // L'utilisateur est connecté, ses informations sont stockées dans une session
+	    	HttpSession session = request.getSession();
+	    	session.setMaxInactiveInterval(300);
 	        request.getSession().setAttribute("utilisateurConnecte", true);
+	        request.getSession().setAttribute("utilisateur", utilisateur);
 	        request.setAttribute("utilisateur", utilisateur);
 	        request.setAttribute("confirmation", "Connexion réussie. Bienvenue !");
 
-	        this.getServletContext().getRequestDispatcher("/profilUtilisateur.jsp").forward(request, response);
+	        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	       
 	    } else {
 	    	System.out.println(utilisateur);
