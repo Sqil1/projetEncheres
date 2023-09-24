@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.encheres.bll.ArticleVendu.ArticleVenduManager;
 import org.encheres.bll.ArticleVendu.ArticleVenduManagerImpl;
 import org.encheres.bo.ArticleVendu;
+import org.encheres.bo.Categorie;
+import org.encheres.bo.Utilisateur;
 import org.encheres.bo.dto.ArticleVenduUserInputDTO;
 import org.encheres.errors.DatabaseException;
+import org.encheres.errors.ParsingException;
 
 @WebServlet("/AjoutArticle")
 public class ServletAjoutArticle extends HttpServlet {
@@ -32,7 +35,7 @@ public class ServletAjoutArticle extends HttpServlet {
         String hoursNow = String.format("%02d", localTime.getHour());
         String minutesNow = String.format("%02d", localTime.getMinute());
 
-        int dayPlusOneWeek = localDatePlusOneWeek.getDayOfMonth();
+        String dayPlusOneWeek = String.format("%02d", localDatePlusOneWeek.getDayOfMonth());
         String monthPlusOneWeek = String.format("%02d", localDatePlusOneWeek.getMonthValue());
         int yearPlusOneWeek = localDatePlusOneWeek.getYear();
 
@@ -46,10 +49,12 @@ public class ServletAjoutArticle extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String message = new String();
         // TODO HACK waiting on the session feature -> fetch the session/user
-        Integer noUtilisateur = 1;
+        Utilisateur utilisateur = Utilisateur.builder().setNoUtilisateur(1).build();
         // TODO HACK waiting on categorie feature -> fetch Categories DB put in a from <select>
-        Integer noCategorie = 1;
+        Categorie categorie = new Categorie();
+        categorie.setNoCategorie(1);
 
         ArticleVenduManager articleVenduManager = ArticleVenduManagerImpl.getInstance();
 
@@ -64,45 +69,44 @@ public class ServletAjoutArticle extends HttpServlet {
             request.getParameter("prixInitial")
         );
 
-        
         // TODO Fine grained data validation to extract what's wrong
-        boolean isValid = articleVenduManager.isValid(
-            nomArticle,
-            description,
-            dateDebutEncheres,
-            dateFinEncheres,
-            prixInitial
-            );
-            
-            if (isValid) {
-                try {
-                    // TODO Default values
-                    Integer prixVente = -1;
-                    ArticleVendu.EtatVente etatVente = ArticleVendu.EtatVente.EN_COURS;
-                    ArticleVendu createdArticle = articleVenduManager.createArticleVendu(
-                        nomArticle,
-                        description,
-                        dateDebutEncheres,
-                        dateFinEncheres,
-                        prixInitial,
-                        prixVente,
-                        etatVente,
-                        noUtilisateur,
-                        noCategorie
-                );
-
-                request.setAttribute("message", "<p>L'article a correctement été ajouté.<p>" + createdArticle.toString());
-                request.setAttribute("articleBootstrapClass", "bg-success");
-
-            } catch (DatabaseException e) {
-                // TODO Err handling from servlet for data validation
-                e.printStackTrace();
-            }
-        } else {
-            request.setAttribute("message", "Erreur de validité des données");
+        ArticleVendu newArticle = ArticleVendu.builder().setDefault().build();
+        try {
+            newArticle = articleVenduManager.parse(articleVenduUserInputDTO);
+        } catch (ParsingException e) {
+            e.printStackTrace();
+            message += "Erreur du format des données envoyées<br>";
             request.setAttribute("articleBootstrapClass", "bg-danger");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
 
+        boolean isValid = articleVenduManager.isValid(newArticle);
+
+        if (isValid) {
+            try {
+                newArticle = articleVenduManager.insertArticleVendu(
+                    newArticle.getNomArticle(),
+                    newArticle.getDescription(),
+                    newArticle.getDateDebutEncheres(),
+                    newArticle.getDateFinEncheres(),
+                    newArticle.getPrixInitial(),
+                    newArticle.getEtatVente(),
+                    utilisateur,
+                    categorie
+                );
+
+            message += "<p>L'article a correctement été ajouté.<p>" + newArticle.toString();
+            request.setAttribute("articleBootstrapClass", "bg-success");
+
+            } catch (DatabaseException e) {
+                e.printStackTrace();
+                message += "Erreur de validité des données envoyées<br>";
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                request.setAttribute("articleBootstrapClass", "bg-danger");
+            }
+        }
+
+        request.setAttribute("message", message);
         doGet(request, response);
     }
 }
