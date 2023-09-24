@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +65,20 @@
 				</div>
 			</fieldset>
 		</form>
+		<!-- Affichage des messages -->
+			<c:if test="${not empty sessionScope.inscriptionReussie}">
+    			<div>${sessionScope.inscriptionReussie} </div>
+   				<c:remove var="sessionScope.inscriptionReussie" scope="session" />
+			</c:if>
+		
+    		<c:if test="${not empty sessionScope.suppressionReussie}">
+        		<div>${sessionScope.suppressionReussie} </div>
+        		<c:remove var="sessionScope.suppressionReussie" scope="session" />
+   	 		</c:if>
+
+			<c:if test="${not empty requestScope.erreurMdp}">
+    			<div>${requestScope.erreurMdp}</div>
+			</c:if>
 	</main>
 	<!-- Le reste de votre contenu HTML -->
 

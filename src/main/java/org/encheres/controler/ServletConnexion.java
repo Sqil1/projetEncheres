@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.encheres.bll.UtilisateurManager;
 import org.encheres.bll.UtilisateurManagerImpl;
@@ -38,20 +39,26 @@ public class ServletConnexion extends HttpServlet {
 		Utilisateur utilisateur = utilisateurManager.verifierConnexion(identifiant, motDePasse);
 
 
-	    if (utilisateur != null && utilisateur.getNoUtilisateur() > 0) {
-	        // L'utilisateur est connecté, ses informations sont stockées dans une session
-	        request.getSession().setAttribute("utilisateurConnecte", true);
-	        request.setAttribute("utilisateur", utilisateur);
-	        request.setAttribute("confirmation", "Connexion réussie. Bienvenue !");
-
-	        this.getServletContext().getRequestDispatcher("/profilUtilisateur.jsp").forward(request, response);
-	       
-	    } else {
-	    	System.out.println(utilisateur);
-	        // Les informations d'identification sont incorrectes avec un message d'erreur
-	        request.setAttribute("erreur", "mot de passe ou email incorrect");
-	        this.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
-	    }
+		if (utilisateur != null && utilisateur.getNoUtilisateur() != null && utilisateur.getNoUtilisateur() > 0) {
+		    // L'utilisateur est connecté, ses informations sont stockées dans une session
+		
+			 HttpSession session = request.getSession();
+			 session.setAttribute("utilisateurSession", utilisateur);
+			 session.setAttribute("connexionReussie", "Connexion réussie en tant que " + utilisateur.getPseudo());
+			     
+			Integer noUtilisateur = utilisateur.getNoUtilisateur();
+		    request.getSession().setAttribute("utilisateurConnecte", true);
+		    request.getSession().setAttribute("utilisateur", utilisateur);
+		    request.getSession().setAttribute("motDePasse", motDePasse);
+		    request.getSession().setAttribute("noUtilisateur", noUtilisateur);
+		    
+		    this.getServletContext().getRequestDispatcher("/profilUtilisateur.jsp").forward(request, response);
+		    
+		} else {
+		    // Les informations d'identification sont incorrectes avec un message d'erreur
+		    request.setAttribute("erreur", "mot de passe ou email incorrect");
+		    this.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
+		}
 	}
 
 

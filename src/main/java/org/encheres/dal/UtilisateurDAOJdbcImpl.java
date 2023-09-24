@@ -13,6 +13,8 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String SELECT_BY_IDENTIFIANT = "SELECT * FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?";
 	// Requ�te SQL conditionnelle pour rechercher � la fois sur "email" et "pseudo"
 	private static final String SELECT_UTILISATEUR_BY_NO_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
+	private static final String UPDATE_UTILISATEUR = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
+	private static final  String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	
 
 
@@ -109,6 +111,46 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	    } catch (SQLException e) {
 	        throw new RuntimeException("Erreur lors de la récupération des informations de l'utilisateur par ID.", e);
 	    }
+	}
+	
+	@Override
+	public void updateUtilisateur(Utilisateur utilisateur) {
+	    try (Connection cnx = ConnectionProvider.getConnection()) {
+	       
+	        
+	        try (PreparedStatement pstmt = cnx.prepareStatement(UPDATE_UTILISATEUR)) {
+	            pstmt.setString(1, utilisateur.getPseudo());
+	            pstmt.setString(2, utilisateur.getNom());
+	            pstmt.setString(3, utilisateur.getPrenom());
+	            pstmt.setString(4, utilisateur.getEmail());
+	            pstmt.setString(5, utilisateur.getTelephone());
+	            pstmt.setString(6, utilisateur.getRue());
+	            pstmt.setString(7, utilisateur.getCodePostal());
+	            pstmt.setString(8, utilisateur.getVille());
+	            pstmt.setString(9, utilisateur.getMotDePasse());
+	            pstmt.setInt(10, utilisateur.getNoUtilisateur()); 
+
+	            pstmt.executeUpdate();
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Erreur lors de la mise à jour de l'utilisateur.", e);
+	    }
+	}
+	
+	@Override
+	public boolean deleteUtilisateur(Integer noUtilisateur) {
+	    try (Connection cnx = ConnectionProvider.getConnection()) {
+	        try (PreparedStatement pstmt = cnx.prepareStatement(DELETE_UTILISATEUR)) {
+	            pstmt.setInt(1, noUtilisateur);
+	            int rowCount = pstmt.executeUpdate();
+	            if (rowCount > 0) {
+	                return true;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException("Erreur lors de la suppression de l'utilisateur.", e);
+	    }
+	    return false;
 	}
 
 

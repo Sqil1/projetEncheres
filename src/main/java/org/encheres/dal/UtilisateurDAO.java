@@ -9,6 +9,11 @@ public interface UtilisateurDAO {
 	Utilisateur getUtilisateurParNoUtilisateur(Integer noUtilisateur);
 
 	Utilisateur verifierConnexion(String identifiant, String motDePasse);
+	
+	void updateUtilisateur(Utilisateur utilisateur);
+
+	boolean deleteUtilisateur(Integer noUtilisateur);
+
 
 	
 

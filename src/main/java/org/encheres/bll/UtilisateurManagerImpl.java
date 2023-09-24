@@ -2,6 +2,7 @@ package org.encheres.bll;
 
 import org.encheres.bo.Utilisateur;
 import org.encheres.dal.DAOFactory;
+import org.encheres.bo.Utilisateur.Builder;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 
@@ -48,6 +49,16 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().getUtilisateurParNoUtilisateur(noUtilisateur);
 		return utilisateur;
 		
+	}
+	
+	@Override
+	public void updateUtilisateur(Utilisateur utilisateur) {
+		DAOFactory.getUtilisateurDAO().updateUtilisateur(utilisateur);;
+	}
+	
+	@Override
+	public boolean deleteUtilisateur(Integer noUtilisateur) {
+	    return DAOFactory.getUtilisateurDAO().deleteUtilisateur(noUtilisateur);
 	}
 
 }

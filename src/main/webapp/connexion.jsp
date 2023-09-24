@@ -35,6 +35,11 @@
 		</nav>
 
 	</header>
+	
+	<c:if test="${not empty requestScope.erreur}">
+   		<div class="message-erreur"> ${requestScope.erreur}</div>
+   		<c:remove var="sessionScope.erreur" scope="session" />
+	</c:if>
 
 	<form  action="Connexion" method="post">
 	<div class="container">
