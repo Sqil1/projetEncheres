@@ -3,6 +3,8 @@ package org.encheres.bll.ArticleVendu;
 import java.time.LocalDateTime;
 
 import org.encheres.bo.ArticleVendu;
+import org.encheres.bo.Categorie;
+import org.encheres.bo.Utilisateur;
 import org.encheres.bo.dto.ArticleVenduUserInputDTO;
 import org.encheres.errors.DatabaseException;
 import org.encheres.errors.ParsingException;
@@ -10,16 +12,15 @@ import org.encheres.errors.ParsingException;
 public interface ArticleVenduManager {
     boolean isValid(ArticleVendu articleVendu);
 
-    ArticleVendu createArticleVendu(
+    ArticleVendu insertArticleVendu(
         String nomArticle,
         String description,
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
-        Integer prixVente,
         ArticleVendu.EtatVente etatVente,
-        Integer noUtilisateur,
-        Integer noCategorie
+        Utilisateur utilisateur,
+        Categorie categorie
     ) throws DatabaseException;
 
     ArticleVendu parse(ArticleVenduUserInputDTO articleVenduUserInputDTO)

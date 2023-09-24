@@ -3,11 +3,11 @@ package org.encheres.bll.ArticleVendu;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categorie;
+import org.encheres.bo.DefaultValue;
 import org.encheres.bo.Utilisateur;
 import org.encheres.bo.dto.ArticleVenduUserInputDTO;
 import org.encheres.dal.DAOFactory;
@@ -30,32 +30,22 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
     }
 
     @Override
-    public ArticleVendu createArticleVendu(
+    public ArticleVendu insertArticleVendu(
         String nomArticle,
         String description,
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
-        Integer prixVente,
         ArticleVendu.EtatVente etatVente,
-        Integer noUtilisateur,
-        Integer noCategorie
+        Utilisateur utilisateur,
+        Categorie categorie
     ) throws DatabaseException {
-        // TODO HACK correct version quand UtilisateurManager.selectById() est implémenté:
-        //Utilisateur utilisateur = utilisateurManager.selectById(noUtilisateur);
-        Utilisateur utilisateur = new Utilisateur.Builder().build(); // temp mockup
-
-        // TODO HACK correct version quand CategorieManager.selectById() est implémenté:
-        // Categorie categorie = categorieManager.selectById(noCategorie);
-        Categorie categorie = new Categorie(); // temp mockup
-
-        final ArticleVendu articleVendu = new ArticleVendu.Builder(
+        final ArticleVendu articleVendu = ArticleVendu.builder(
             nomArticle,
             description,
             dateDebutEncheres,
             dateFinEncheres,
             prixInitial,
-            prixVente,
             etatVente,
             utilisateur,
             categorie
@@ -64,23 +54,35 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
         return DAOFactory.getArticleVenduDAO().insert(articleVendu);
     }
 
-    
-
     @Override
     public ArticleVendu parse(ArticleVenduUserInputDTO articleVenduUserInputDTO)
         throws ParsingException
     {
-        String nomArticle = articleVenduUserInputDTO.getNomArticle();
-        String description = articleVenduUserInputDTO.getDescription();
-        Integer prixInitial = Integer.valueOf(articleVenduUserInputDTO.getPrixInitial());
+        String nomArticle;
+        String description;
+        Integer prixInitial;
+        LocalDate dateDebutEncheresLocalDate;
+        LocalTime dateDebutEncheresLocalTime;
+        LocalDateTime dateDebutEncheres;
+        LocalDate dateFinEncheresLocalDate;
+        LocalTime dateFinEncheresLocalTime;
+        LocalDateTime dateFinEncheres;
 
-        LocalDate dateDebutEncheresLocalDate = LocalDate.parse(articleVenduUserInputDTO.getDateDebutEncheresLocalDate());
-        LocalTime dateDebutEncheresLocalTime = LocalTime.parse(articleVenduUserInputDTO.getDateDebutEncheresLocalTime());
-        LocalDateTime dateDebutEncheres = LocalDateTime.of(dateDebutEncheresLocalDate, dateDebutEncheresLocalTime);
+        try {
+            nomArticle = articleVenduUserInputDTO.getNomArticle();
+            description = articleVenduUserInputDTO.getDescription();
+            prixInitial = Integer.valueOf(articleVenduUserInputDTO.getPrixInitial());
 
-        LocalDate dateFinEncheresLocalDate = LocalDate.parse(articleVenduUserInputDTO.getDateFinEncheresLocalDate());
-        LocalTime dateFinEncheresLocalTime = LocalTime.parse(articleVenduUserInputDTO.getDateFinEncheresLocalTime());
-        LocalDateTime dateFinEncheres = LocalDateTime.of(dateFinEncheresLocalDate, dateFinEncheresLocalTime);
+            dateDebutEncheresLocalDate = LocalDate.parse(articleVenduUserInputDTO.getDateDebutEncheresLocalDate());
+            dateDebutEncheresLocalTime = LocalTime.parse(articleVenduUserInputDTO.getDateDebutEncheresLocalTime());
+            dateDebutEncheres = LocalDateTime.of(dateDebutEncheresLocalDate, dateDebutEncheresLocalTime);
+    
+            dateFinEncheresLocalDate = LocalDate.parse(articleVenduUserInputDTO.getDateFinEncheresLocalDate());
+            dateFinEncheresLocalTime = LocalTime.parse(articleVenduUserInputDTO.getDateFinEncheresLocalTime());
+            dateFinEncheres = LocalDateTime.of(dateFinEncheresLocalDate, dateFinEncheresLocalTime);
+        } catch (Exception e) {
+            throw new ParsingException("Erreur de format des données insérées.");
+        }
 
         ArticleVendu result =
             ArticleVendu.builder()
@@ -89,107 +91,101 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
             .setDateDebutEncheres(dateDebutEncheres)
             .setDateFinEncheres(dateFinEncheres)
             .setPrixInitial(prixInitial)
+            .setDefault()
             .build();
 
         return result;
     }
 
     @Override
-    public boolean isValid(
-        String nomArticle,
-        String description,
-        LocalDateTime dateDebutEncheres,
-        LocalDateTime dateFinEncheres,
-        Integer prixInitial
-    ) {
-        boolean result =    
-            isValidNomArticle(nomArticle) ||
-            isValidDescription(description) ||
-            isValidDateDebutEncheres(dateDebutEncheres) ||
-            isValidDateFinEncheres(dateDebutEncheres, dateFinEncheres) ||
-            isValidPrixInitial(prixInitial);
+    public boolean isValid(ArticleVendu articleVendu) {
+        if (
+            !isValidNomArticle(articleVendu.getNomArticle()) ||
+            !isValidDescription(articleVendu.getDescription()) ||
+            !isValidDateDebutEncheres(articleVendu.getDateDebutEncheres()) ||
+            !isValidDateFinEncheres(articleVendu.getDateDebutEncheres(), articleVendu.getDateFinEncheres()) ||
+            !isValidPrixInitial(articleVendu.getPrixInitial())
+        ) {
+            return false;
+        }
 
-        return result;
+        return true;
     }
 
     public boolean isValidNomArticle(String nomArticle) {
-        boolean result = true;
-        Pattern pattern = Pattern.compile("^(?=.{5,30}$)(?!.*[<>%]).*([\\p{L}'\"/]{1}\\s*){5,}.*$");
-        Matcher matcher = pattern.matcher(nomArticle);
+        // Regex text permissif block html injection.
+        Pattern pattern = Pattern.compile(
+            "^(?=.{" +
+            DefaultValue.NOM_ARTICLE_MIN_CHAR +
+            "," +
+            DefaultValue.NOM_ARTICLE_MAX_CHAR +
+            "}$)(?!.*[<>%]).*([\\p{L}'\"/]{1}\\s*){" +
+            DefaultValue.NOM_ARTICLE_MIN_CHAR +
+            ",}.*$"
+        );
 
-        if (!matcher.matches()) {
-            result = false;
-            System.out.println("Erreur de format: nomArticle");
+        if (nomArticle == null || nomArticle.isEmpty() || !pattern.matcher(nomArticle).matches()) {
+            return false;
         }
 
-        return result;
+        return true;
     }
 
     public boolean isValidDescription(String description) {
-        boolean result = true;
-        Pattern pattern = Pattern.compile("^(?=.{5,300}$)(?!.*[<>%]).*([\\p{L}'\"/]{1}\\s*){5,}.*$");
-        Matcher matcher = pattern.matcher(description);
+        // Regex text permissif block html injection.
+        Pattern pattern = Pattern.compile(
+            "^(?=.{" +
+            DefaultValue.DESCRIPTION_ARTICLE_MIN_CHAR +
+            "," +
+            DefaultValue.DESCRIPTION_ARTICLE_MAX_CHAR +
+            "}$)(?!.*[<>%]).*([\\p{L}'\"/]{1}\\s*){" +
+            DefaultValue.DESCRIPTION_ARTICLE_MIN_CHAR +
+            ",}.*$"
+        );
 
-        if (!matcher.matches()) {
-            result = false;
-            System.out.println("Erreur de format: description");
+        if (description == null || description.isEmpty() || !pattern.matcher(description).matches()) {
+            return false;
         }
 
-        return result;
+        return true;
     }
 
     public boolean isValidDateDebutEncheres(LocalDateTime dateDebutEncheres) {
-        boolean result = true;
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime twoMinutesBefore = now.minusMinutes(2);
-        LocalDateTime oneWeekAfter = now.plusWeeks(1);
+        LocalDateTime limitBeforeMinutes = now.minusMinutes(DefaultValue.DATE_DEBUT_ENCHERES_MIN_BEFORE_MINUTES);
+        LocalDateTime limitAfterWeeks = now.plusWeeks(DefaultValue.DATE_DEBUT_ENCHERES_MAX_AFTER_WEEKS);
 
-        if (dateDebutEncheres.isBefore(twoMinutesBefore) || dateDebutEncheres.isAfter(oneWeekAfter)) {
-            result = false;
-            System.out.println(
-                "Erreur, dateDebutEncheres est avant ou après le temps alloué (2minutes < temps alloué < 1semaine)."
-            );
+        if (
+            dateDebutEncheres == null ||
+            dateDebutEncheres.isBefore(limitBeforeMinutes) ||
+            dateDebutEncheres.isAfter(limitAfterWeeks)
+        ) {
+            return false;
         }
 
-        return result;
+        return true;
     }
 
     public boolean isValidDateFinEncheres(LocalDateTime dateDebutEncheres, LocalDateTime dateFinEncheres) {
-        boolean result = true;
-        LocalDateTime oneHourAfterStart = dateDebutEncheres.plusHours(1);
-        LocalDateTime oneYearAfterStart = dateDebutEncheres.plusWeeks(52);
+        LocalDateTime limitBeforeHours = dateDebutEncheres.plusHours(DefaultValue.DATE_FIN_ENCHERES_MIN_BEFORE_HOURS);
+        LocalDateTime limitAfterWeeks = dateDebutEncheres.plusWeeks(DefaultValue.DATE_FIN_ENCHERES_MAX_AFTER_WEEKS);
 
-        if (dateFinEncheres.isBefore(oneHourAfterStart) ||dateDebutEncheres.isAfter(oneYearAfterStart)) {
-            result = false;
-            System.out.println(
-                "Erreur, dateFinEncheres est avant ou après le temps alloué (date de début + 1heure < temps alloué < 1an après)."
-            );
+        if (
+            dateFinEncheres == null ||
+            dateFinEncheres.isBefore(limitBeforeHours) ||
+            dateDebutEncheres.isAfter(limitAfterWeeks)
+        ) {
+            return false;
         }
 
-        return result;
+        return true;
     }
 
     public boolean isValidPrixInitial(Integer prixInitial) {
         boolean result = true;
 
-        if (prixInitial < 0 || prixInitial > 100_000_000) {
+        if (prixInitial < DefaultValue.PRIX_INITIAL_MIN || prixInitial > DefaultValue.PRIX_INITIAL_MAX) {
             result = false;
-            System.out.println(
-                "Erreur, prixInitial doit être entre 0 et 100 000 000 comprit."
-            );
-        }
-
-        return result;
-    }
-
-    public boolean isValidPrixVente(Integer prixVente) {
-        boolean result = true;
-
-        if (prixVente < 1 || prixVente > 100_000_000) {
-            result = false;
-            System.out.println(
-                "Erreur, prixInitial doit être entre 1 et 100 000 000 comprit."
-            );
         }
 
         return result;
