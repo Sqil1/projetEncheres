@@ -75,7 +75,7 @@ public class ServletAjoutArticle extends HttpServlet {
             newArticle = articleVenduManager.parse(articleVenduUserInputDTO);
         } catch (ParsingException e) {
             e.printStackTrace();
-            message += "Erreur du format des données envoyées<br>";
+            message += "<p>Erreur du format des données envoyées</p>";
             request.setAttribute("articleBootstrapClass", "bg-danger");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -95,12 +95,12 @@ public class ServletAjoutArticle extends HttpServlet {
                     categorie
                 );
 
-            message += "<p>L'article a correctement été ajouté.<p>" + newArticle.toString();
+            message += "<p>L'article a correctement été ajouté.</p>" + newArticle.toString();
             request.setAttribute("articleBootstrapClass", "bg-success");
 
             } catch (DatabaseException e) {
                 e.printStackTrace();
-                message += "Erreur de validité des données envoyées<br>";
+                message += "<p>Erreur de validité des données envoyées</p>";
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 request.setAttribute("articleBootstrapClass", "bg-danger");
             }

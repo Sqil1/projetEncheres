@@ -109,6 +109,28 @@ public class ArticleVendu {
 		);
 	}
 
+    private static String wrapInCustomTag(String text, String tagName) {
+        return "<" + tagName + ">" + text + "</" + tagName + ">";
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(wrapInCustomTag("Nom de l'article", "label"));
+        stringBuilder.append(wrapInCustomTag(nomArticle, "p"));
+        stringBuilder.append(wrapInCustomTag("Description", "label"));
+        stringBuilder.append(wrapInCustomTag(description, "p"));
+        stringBuilder.append(wrapInCustomTag("Date de début de l'enchère", "label"));
+        stringBuilder.append(wrapInCustomTag(dateDebutEncheres.toString(), "p"));
+        stringBuilder.append(wrapInCustomTag("Date de fin de l'enchère", "label"));
+        stringBuilder.append(wrapInCustomTag(dateFinEncheres.toString(), "p"));
+        stringBuilder.append(wrapInCustomTag("Prix initial", "label"));
+        stringBuilder.append(wrapInCustomTag(prixInitial.toString(), "p"));
+
+        return stringBuilder.toString();
+    }
+
     public Integer getNoArticle() {
         return noArticle;
     }
