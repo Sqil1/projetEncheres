@@ -77,14 +77,14 @@ public class ArticleVendu {
 	/**
 	 * Constructor. Exemple instanciation:
 	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder(
-			String pseudo,
-			String nom,
-			String prenom,
-			String email,
-			String telephone,
-			String rue,
-			String codePostal,
-			String ville
+            String nomArticle,
+            String description,
+            LocalDateTime dateDebutEncheres,
+            LocalDateTime dateFinEncheres,
+            Integer prixInitial,
+            EtatVente etatVente,
+            Utilisateur utilisateur,
+            Categorie categorie
 		).build();</pre>
 	*/
 	public static Builder builder(
@@ -93,7 +93,6 @@ public class ArticleVendu {
         LocalDateTime dateDebutEncheres,
         LocalDateTime dateFinEncheres,
         Integer prixInitial,
-        Integer prixVente,
         EtatVente etatVente,
         Utilisateur utilisateur,
         Categorie categorie
@@ -104,7 +103,6 @@ public class ArticleVendu {
 			dateDebutEncheres,
 			dateFinEncheres,
 			prixInitial,
-			prixVente,
             etatVente,
 			utilisateur,
 			categorie
@@ -153,6 +151,8 @@ public class ArticleVendu {
         private EtatVente etatVente;
         private Utilisateur utilisateur;
         private Categorie categorie;
+        // Default values
+        private EtatVente etatVenteDefault = EtatVente.EN_COURS;
 
         public Builder() {}
 
@@ -175,7 +175,6 @@ public class ArticleVendu {
             LocalDateTime dateDebutEncheres,
             LocalDateTime dateFinEncheres,
             Integer prixInitial,
-            Integer prixVente,
             EtatVente etatVente,
             Utilisateur utilisateur,
             Categorie categorie
@@ -185,7 +184,6 @@ public class ArticleVendu {
             this.dateDebutEncheres = dateDebutEncheres;
             this.dateFinEncheres = dateFinEncheres;
             this.prixInitial = prixInitial;
-            this.prixVente = prixVente;
             this.etatVente = etatVente;
             this.utilisateur = utilisateur;
             this.categorie = categorie;
@@ -262,6 +260,12 @@ public class ArticleVendu {
                 throw new IllegalStateException("categorie ne peut pas être null");
             }
             this.categorie = categorie;
+
+            return this;
+        }
+
+        public Builder setDefault() {
+            this.etatVente = etatVenteDefault;
 
             return this;
         }

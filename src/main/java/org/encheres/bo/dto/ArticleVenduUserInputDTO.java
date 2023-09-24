@@ -1,13 +1,18 @@
 package org.encheres.bo.dto;
 
+/**
+ * DTO prennant les input utilisateur avant qu'ils soient transformé en POJO ArticleVendu
+ * Utilisé pour le parsing dans ManagerImpl.
+ */
 public class ArticleVenduUserInputDTO {
-    private String nomArticle;
-    private String description;
-    private String dateDebutEncheresLocalDate;
-    private String dateDebutEncheresLocalTime;
-    private String dateFinEncheresLocalDate;
-    private String dateFinEncheresLocalTime;
-    private String prixInitial;
+    private String
+        nomArticle,
+        description,
+        dateDebutEncheresLocalDate,
+        dateDebutEncheresLocalTime,
+        dateFinEncheresLocalDate,
+        dateFinEncheresLocalTime,
+        prixInitial;
 
     public ArticleVenduUserInputDTO(
         String nomArticle,
