@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,10 @@
 	</header>
 	
 	<div class="container">
+		<c:if test="${not empty sessionScope.connexionReussie}">
+			<div >${sessionScope.connexionReussie}</div>
+    		<c:remove var="sessionScope.connexionReussie" scope="session" />
+		</c:if>
         <h1>Mon Profil</h1>
         <table class="table">
             <tr>
@@ -63,6 +68,8 @@
                 <td>${utilisateur.ville}</td>
             </tr>
         </table>
+         <a href="modificationUtilisateur.jsp" class="btn btn-primary">Modifier Profil</a>
+        
     </div>
 
 </body>

@@ -7,7 +7,6 @@ import com.microsoft.sqlserver.jdbc.StringUtils;
 /**
  * <p>POJO represente un Article.</p>
  * <p>Utilise le Builder Pattern.</p>
- * 
  * Instanciation/constructeur ex :
  * <pre>ArticleVendu articleVendu = ArticleVendu.builder(args).build.()</pre>
  * <p>Setters ex :</p>
@@ -28,6 +27,7 @@ public class ArticleVendu {
     private LocalDateTime dateFinEncheres;
     private Integer prixInitial;
     private Integer prixVente;
+
     private EtatVente etatVente;
     private Utilisateur utilisateur;
     private Categorie categorie;
@@ -65,7 +65,6 @@ public class ArticleVendu {
 	public static Builder builder() {
 		return new Builder();
 	}
-
 	/**
 	 * Constructor. Exemple instanciation:
 	 * <pre>ArticleVendu articleVendu = ArticleVendu.builder(ArticleVendu).build();</pre>
@@ -263,6 +262,7 @@ public class ArticleVendu {
         }
 
         public Builder setEtatVente(EtatVente etatVente) {
+
             this.etatVente = etatVente;
 
             return this;

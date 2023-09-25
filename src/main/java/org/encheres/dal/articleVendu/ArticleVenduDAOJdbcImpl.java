@@ -16,10 +16,11 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
         "(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, etat_vente)" +
         "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
-    @Override
-    public ArticleVendu insert(ArticleVendu articleVendu) throws DatabaseException {
-        try (Connection connection = ConnectionProvider.getConnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+	@Override
+	public ArticleVendu insert(ArticleVendu articleVendu) throws DatabaseException {
+		try (Connection connection = ConnectionProvider.getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(INSERT,
+					PreparedStatement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, articleVendu.getNomArticle());
             preparedStatement.setString(2, articleVendu.getDescription());
@@ -30,19 +31,19 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
             preparedStatement.setInt(7, articleVendu.getCategorie().getNoCategorie());
             preparedStatement.setString(8, articleVendu.getEtatVente().toString());
 
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+			preparedStatement.executeUpdate();
+			ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
-            if (resultSet.next()) {
-                return ArticleVendu.builder(articleVendu).setNoArticle(resultSet.getInt(1)).build();
-            }
+			if (resultSet.next()) {
+				return ArticleVendu.builder(articleVendu).setNoArticle(resultSet.getInt(1)).build();
+			}
 
             throw new DatabaseException("Erreur de serialisation de l'article.");
 
-        } catch (SQLException e) {
-            throw new DatabaseException("Echec d'insert de l'article : " + e.getMessage());
-        }
-    }
+		} catch (SQLException e) {
+			throw new DatabaseException("Echec d'insert de l'article : " + e.getMessage());
+		}
+	}
 
     @Override
     public void deleteById(Integer noUtilisateur) {
@@ -50,15 +51,16 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
         
     }
 
-    @Override
-    public List<ArticleVendu> selectAll() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
-    @Override
-    public void update(ArticleVendu articleVendu) {
-        // TODO Auto-generated method stub
-        
-    }
+	@Override
+	public List<ArticleVendu> selectAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(ArticleVendu articleVendu) {
+		// TODO Auto-generated method stub
+
+	}
 }

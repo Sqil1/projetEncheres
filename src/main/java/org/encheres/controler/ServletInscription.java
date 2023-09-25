@@ -48,6 +48,7 @@ public class ServletInscription extends HttpServlet {
 			Utilisateur utilisateur = utilisateurManager.creerUtilisateur(pseudo, nom, prenom, email, telephone, rue,
 					ville, codePostal, motDePasse, creditDefaut, administrationDefaut);
 			request.setAttribute("utilisateur", utilisateur);
+			request.setAttribute("inscriptionReussie", "Inscription réussie !");
 			this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 			
 

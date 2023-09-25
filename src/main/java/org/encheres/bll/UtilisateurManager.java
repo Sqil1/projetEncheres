@@ -12,5 +12,9 @@ public interface UtilisateurManager {
 	Utilisateur verifierConnexion(String identifiant, String motDePasse);
 
 	Utilisateur InformationsUtilisateurByNoUtilisateur(Integer noUtilisateur);
+	
+	void updateUtilisateur(Utilisateur utilisateur);
+
+	boolean deleteUtilisateur(Integer noUtilisateur);
 
 }

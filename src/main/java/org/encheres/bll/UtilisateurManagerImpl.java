@@ -49,5 +49,15 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		return utilisateur;
 		
 	}
+	
+	@Override
+	public void updateUtilisateur(Utilisateur utilisateur) {
+		DAOFactory.getUtilisateurDAO().updateUtilisateur(utilisateur);;
+	}
+	
+	@Override
+	public boolean deleteUtilisateur(Integer noUtilisateur) {
+	    return DAOFactory.getUtilisateurDAO().deleteUtilisateur(noUtilisateur);
+	}
 
 }
