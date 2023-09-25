@@ -1,7 +1,4 @@
 /build/
 /target/
 .idea/
-.settings/
-.classpath
-.project
 context.xml
