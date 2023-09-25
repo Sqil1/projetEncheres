@@ -47,7 +47,7 @@
 	 	 <div class="col-md-6">
 		<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label">Identifiant</label>
-			<input type="email" name="identifiant" class="form-control" id="exampleInputEmail1"
+			<input type="text" name="identifiant" class="form-control" id="exampleInputEmail1"
 				aria-describedby="emailHelp">
 
 		</div>

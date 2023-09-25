@@ -10,8 +10,8 @@ import org.encheres.bo.Utilisateur;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	private static final String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String SELECT_BY_IDENTIFIANT = "SELECT * FROM UTILISATEURS WHERE (pseudo = ? OR email = ?) AND mot_de_passe = ?";
-	// Requ�te SQL conditionnelle pour rechercher � la fois sur "email" et "pseudo"
+	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = ? AND mot_de_passe = ?";
+	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ? AND mot_de_passe = ?";
 	private static final String SELECT_UTILISATEUR_BY_NO_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String UPDATE_UTILISATEUR = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
 	private static final  String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
@@ -52,12 +52,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	public Utilisateur verifierConnexion(String identifiant, String motDePasse) {
 	    try (Connection cnx = ConnectionProvider.getConnection()) {
 	        
-	    	PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_IDENTIFIANT);
-	        pstmt.setString(1, identifiant);
-	        pstmt.setString(2, identifiant);
-	        pstmt.setString(3, motDePasse); 
-	        ResultSet resultSet = pstmt.executeQuery();
-	        
+	    	String[] sqlQueries = { SELECT_BY_PSEUDO, SELECT_BY_EMAIL };
+	    	  
+	    	for (String sql : sqlQueries) {
+	    		PreparedStatement pstmt = cnx.prepareStatement(sql);
+	            pstmt.setString(1, identifiant);
+	            pstmt.setString(2, motDePasse);
+	            ResultSet resultSet = pstmt.executeQuery();
+	    	
 		     if (resultSet.next()) {
 		            int noUtilisateur = resultSet.getInt("no_utilisateur");
 		            String pseudo = resultSet.getString("pseudo");
@@ -75,9 +77,10 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		            return new Utilisateur.Builder(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, motDePasseBDD, credit, administrateur)
 		                    .setNoUtilisateur(noUtilisateur)
 		                    .build();
+		     }
+		     
 			}
-
-			return null; // Aucun utilisateur trouv� avec l'identifiant sp�cifi�
+			return null; 
 	    } catch (SQLException e) {
 	        throw new RuntimeException("Erreur lors de la recherche de l'utilisateur par identifiant.", e);
 	    }
@@ -100,8 +103,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	            String rue = resultSet.getString("rue");
 	            String codePostal = resultSet.getString("code_postal");
 	            String ville = resultSet.getString("ville");
-	            // Ajoutez tous les autres champs ici...
-
+	          
 	            return new Utilisateur.Builder(pseudo, nom, prenom, email, telephone, rue, codePostal, ville)
 	                    .setNoUtilisateur(noUtilisateur)
 	                    .build();
