@@ -18,13 +18,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final  String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	
 
-<<<<<<< HEAD
-    @Override
-    public Utilisateur creerUtilisateur(Utilisateur utilisateur) {
-        try (Connection cnx = ConnectionProvider.getConnection()) {
-=======
->>>>>>> 05e1c93 (Creation profilUtilisateur.jsp + ServletProfil + rajout de action et de methode a la balise <form> et value a <button> de connexion.jsp)
-
 	@Override
 	public Utilisateur creerUtilisateur(Utilisateur utilisateur) {
 		try (Connection cnx = ConnectionProvider.getConnection()) {

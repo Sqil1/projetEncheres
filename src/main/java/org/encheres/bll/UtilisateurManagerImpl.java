@@ -2,7 +2,6 @@ package org.encheres.bll;
 
 import org.encheres.bo.Utilisateur;
 import org.encheres.dal.DAOFactory;
-import org.encheres.bo.Utilisateur.Builder;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 
