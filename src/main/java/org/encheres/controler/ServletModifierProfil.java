@@ -44,7 +44,6 @@ public class ServletModifierProfil extends HttpServlet {
         String ville = request.getParameter("ville");
         String motDePasseActuel = (String) request.getSession().getAttribute("motDePasse");
         String nouveauMotDePasse = request.getParameter("nouveauMotDePasse");
-        String confirmationMotDePasse = request.getParameter("confirmationMotDePasse");
         
 
         if (motDePasseActuel.equals(utilisateurSession.getMotDePasse())) {
