@@ -52,7 +52,7 @@ public class ServletConnexion extends HttpServlet {
 		    request.getSession().setAttribute("motDePasse", motDePasse);
 		    request.getSession().setAttribute("noUtilisateur", noUtilisateur);
 		    
-		    this.getServletContext().getRequestDispatcher("/profilUtilisateur.jsp").forward(request, response);
+		    this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		    
 		} else {
 		    // Les informations d'identification sont incorrectes avec un message d'erreur
