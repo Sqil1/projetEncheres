@@ -1,0 +1,15 @@
+.info-bubble {
+    display: none;
+    position: absolute;
+    background-color: #f0f0f0;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Info bubble on hover */
+label:hover .info-bubble,
+input:hover + .info-bubble {
+    display: block;
+}

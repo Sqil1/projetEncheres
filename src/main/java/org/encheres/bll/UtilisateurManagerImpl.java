@@ -36,10 +36,8 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().verifierConnexion(identifiant, motDePasse);
 
 		if (utilisateur != null && utilisateur.getMotDePasse().equals(motDePasse)) {
-			// Les identifiants et le mot de passe correspondent, la connexion ok
 			return utilisateur;
 		} else {
-			// Les identifiants ou le mot de passe ne correspondent pas,
 			return null;
 		}
 	}
@@ -58,6 +56,13 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	@Override
 	public boolean deleteUtilisateur(Integer noUtilisateur) {
 	    return DAOFactory.getUtilisateurDAO().deleteUtilisateur(noUtilisateur);
+	}
+
+	@Override
+	public Utilisateur getUtilisateurParNoUtilisateur(int noUtilisateur) {
+		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().getUtilisateurParNoUtilisateur(noUtilisateur);
+		return utilisateur;
+	
 	}
 
 }
