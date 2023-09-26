@@ -76,8 +76,7 @@
 									${utilisateur.pseudo}</div>
 							</c:when>
 							<c:otherwise>
-								<div class="alert alert-danger" role="alert">Vous n'êtes
-									pas connectés!</div>
+
 							</c:otherwise>
 						</c:choose>
 						<h5>Filtres :</h5>
@@ -114,12 +113,6 @@
 			<div>${requestScope.erreurMdp}</div>
 		</c:if>
 	</main>
-	<!-- Le reste de votre contenu HTML -->
-
-
-
-	<!-- Inclure votre fichier JavaScript à la fin du corps de la page -->
-	<script src="asset/script.js"></script>
 </body>
 </html>
 
