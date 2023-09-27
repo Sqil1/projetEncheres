@@ -47,7 +47,13 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 		return utilisateur;
 		
 	}
-	
+
+	@Override
+	public Utilisateur InformationsUtilisateurByIdentifiant(String identifiant) {
+		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().getUtilisateurParIdentifiant(identifiant);
+		return utilisateur;
+	}
+
 	@Override
 	public void updateUtilisateur(Utilisateur utilisateur) {
 		DAOFactory.getUtilisateurDAO().updateUtilisateur(utilisateur);;
@@ -56,6 +62,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	@Override
 	public boolean deleteUtilisateur(Integer noUtilisateur) {
 	    return DAOFactory.getUtilisateurDAO().deleteUtilisateur(noUtilisateur);
+	}
+
+	@Override
+	public void updatePassword(String password,Integer noUtilisateur) {
+		 DAOFactory.getUtilisateurDAO().updatePassword(password,noUtilisateur);
 	}
 
 }

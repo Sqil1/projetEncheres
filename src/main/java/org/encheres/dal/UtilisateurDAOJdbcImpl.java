@@ -14,7 +14,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
 	private static final String SELECT_UTILISATEUR_BY_NO_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
+	private static final String SELECT_UTILISATEUR_BY_IDENTIFIANT = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String UPDATE_UTILISATEUR = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
+
+	private static final String UPDATE_PASSWORD_UTILISATEUR = "UPDATE utilisateurs SET mot_de_passe=? WHERE no_utilisateur=?";
+
 	private static final  String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
 	
 
@@ -152,6 +156,47 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	        throw new RuntimeException("Erreur lors de la suppression de l'utilisateur.", e);
 	    }
 	    return false;
+	}
+
+	@Override
+	public Utilisateur getUtilisateurParIdentifiant(String identifiant) {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_UTILISATEUR_BY_IDENTIFIANT);
+			pstmt.setString(1, identifiant);
+			ResultSet resultSet = pstmt.executeQuery();
+
+			if (resultSet.next()) {
+				String pseudo = resultSet.getString("pseudo");
+				String nom = resultSet.getString("nom");
+				String prenom = resultSet.getString("prenom");
+				String email = resultSet.getString("email");
+				String telephone = resultSet.getString("telephone");
+				String rue = resultSet.getString("rue");
+				String codePostal = resultSet.getString("code_postal");
+				String ville = resultSet.getString("ville");
+
+				return new Utilisateur.Builder(pseudo, nom, prenom, email, telephone, rue, codePostal, ville)
+						.setNoUtilisateur(resultSet.getInt("no_utilisateur"))
+						.build();
+			}
+
+			return null; // Aucun utilisateur trouvé avec l'ID spécifié
+		} catch (SQLException e) {
+			throw new RuntimeException("Erreur lors de la récupération des informations de l'utilisateur par ID.", e);
+		}
+	}
+
+	@Override
+	public void updatePassword(String password,Integer noUtilisateur) {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			try (PreparedStatement pstmt = cnx.prepareStatement(UPDATE_PASSWORD_UTILISATEUR)) {
+				pstmt.setString(1, password);
+				pstmt.setInt(2, noUtilisateur);
+				pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Erreur lors de la mise à jour de l'utilisateur.", e);
+		}
 	}
 
 

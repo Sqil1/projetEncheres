@@ -14,6 +14,9 @@ public interface UtilisateurDAO {
 
 	boolean deleteUtilisateur(Integer noUtilisateur);
 
+	Utilisateur getUtilisateurParIdentifiant(String identifiant);
+
+	void updatePassword(String password,Integer noUtilisateur);
 
 	
 
