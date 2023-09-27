@@ -49,7 +49,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur verifierConnexion(String identifiant, String motDePasse) {
+	public Utilisateur verifierConnexion(String identifiant) {
 	    try (Connection cnx = ConnectionProvider.getConnection()) {
 	        
 	    	String[] sqlQueries = { SELECT_BY_PSEUDO, SELECT_BY_EMAIL };

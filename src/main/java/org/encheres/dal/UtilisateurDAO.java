@@ -8,7 +8,7 @@ public interface UtilisateurDAO {
 
 	Utilisateur getUtilisateurParNoUtilisateur(Integer noUtilisateur);
 
-	Utilisateur verifierConnexion(String identifiant, String motDePasse);
+	Utilisateur verifierConnexion(String identifiant);
 	
 	void updateUtilisateur(Utilisateur utilisateur);
 
