@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.encheres.bo.ArticleVendu;
@@ -15,6 +18,8 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
         "INSERT INTO ARTICLES_VENDUS" +
         "(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie, etat_vente)" +
         "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    private static final String SELECTALL = "SELECT * FROM ARTICLES_VENDUS";
 
 	@Override
 	public ArticleVendu insert(ArticleVendu articleVendu) throws DatabaseException {
@@ -51,12 +56,45 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO {
         
     }
 
+    @Override
+    public List<ArticleVendu> selectAll() throws DatabaseException {
 
-	@Override
-	public List<ArticleVendu> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    	List<ArticleVendu> articles = new ArrayList<>();
+
+    	try (Connection connection = ConnectionProvider.getConnection();
+    			Statement statement = connection.createStatement();
+    			ResultSet resultSet = statement.executeQuery(SELECTALL)) {
+
+    		while (resultSet.next()) {
+    			
+        		Integer noArticle = resultSet.getInt("no_article");
+        		String nomArticle = resultSet.getString("nom_article");
+        		String description = resultSet.getString("description");
+        		LocalDateTime dateDebutEncheres = resultSet.getTimestamp("date_debut_encheres").toLocalDateTime();
+        		LocalDateTime dateFinEncheres = resultSet.getTimestamp("date_fin_encheres").toLocalDateTime();
+        		Integer prixInitial = resultSet.getInt("prix_initial");
+        		Integer prixVente = resultSet.getInt("prix_vente");
+        		String etatVenteStr = resultSet.getString("etat_vente");
+        		ArticleVendu.EtatVente etatVente = ArticleVendu.EtatVente.valueOf(etatVenteStr);
+    			
+    			ArticleVendu article = new ArticleVendu.Builder()
+    					.setNoArticle(noArticle)
+    					.setNomArticle(nomArticle)
+    					.setDescription(description)
+    					.setDateDebutEncheres(dateDebutEncheres)
+    					.setDateFinEncheres(dateFinEncheres)
+    					.setPrixInitial(prixInitial)
+    					.setPrixVente(prixVente)
+    					.setEtatVente(etatVente)
+    					.build();
+    			articles.add(article);
+    		}
+    	} catch (SQLException e) {
+    		System.out.println(e);
+    		throw new DatabaseException("Erreur lors de la récupération des articles depuis la base de données.");
+    	}
+    	return articles;
+    }
 
 	@Override
 	public void update(ArticleVendu articleVendu) {

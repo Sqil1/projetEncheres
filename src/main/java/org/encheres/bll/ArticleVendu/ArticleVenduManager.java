@@ -1,6 +1,7 @@
 package org.encheres.bll.ArticleVendu;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categorie;
@@ -25,4 +26,6 @@ public interface ArticleVenduManager {
 
     ArticleVendu parse(ArticleVenduUserInputDTO articleVenduUserInputDTO)
         throws ParsingException;
+
+	List<ArticleVendu> selectAll() throws DatabaseException;
 }
