@@ -112,9 +112,16 @@
 		<c:if test="${not empty requestScope.erreurMdp}">
 			<div>${requestScope.erreurMdp}</div>
 		</c:if>
+		
+		  <h1>Liste des Articles</h1>
+		      <table border="1">
+		        <c:forEach var="article" items="${articles}">
+		     <tr>
+                <td>${article.nomArticle}</td>
+                <td>${article.description}</td>
+            </tr>
+        </c:forEach>
+        </table>
 	</main>
-</body>
-</html>
-
 </body>
 </html>

@@ -9,5 +9,5 @@ public interface ArticleVenduDAO {
     public ArticleVendu insert(ArticleVendu articleVendu) throws DatabaseException;
     public void update(ArticleVendu articleVendu);
     public void deleteById(Integer noUtilisateur);
-    public List<ArticleVendu> selectAll();
+    public List<ArticleVendu> selectAll() throws DatabaseException;
 }

@@ -24,7 +24,7 @@ public class ServletDeconnexion extends HttpServlet {
 		request.getSession().invalidate();
 
 		// Redirection vers la page d'accueil
-		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+	   	response.sendRedirect(request.getContextPath()+"/Index");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
