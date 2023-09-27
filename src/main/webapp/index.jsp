@@ -42,7 +42,7 @@
 									<li class="nav-item"><a class="nav-link active"
 										href="index.jsp">Enchère</a></li>
 									<li class="nav-item"><a class="nav-link"
-										href="nouvelle-vente.jsp">Vendre un article</a></li>
+										href="ajout-article.jsp">Vendre un article</a></li>
 									<li class="nav-item"><a class="nav-link"
 										href="profilUtilisateur.jsp">Mon profil</a></li>
 									<li class="nav-item"><a class="nav-link"
