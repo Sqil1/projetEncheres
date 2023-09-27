@@ -34,7 +34,7 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	}
 
 	public Utilisateur verifierConnexion(String identifiant, String motDePasse) {
-		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().verifierConnexion(identifiant, motDePasse);
+		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().verifierConnexion(identifiant);
 		if (utilisateur != null && new PBKDF2Hasher().checkPassword(motDePasse, utilisateur.getMotDePasse())) {
 			return utilisateur;
 		} else {
