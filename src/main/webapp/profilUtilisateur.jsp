@@ -11,7 +11,7 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="asset/styles.css">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
@@ -19,19 +19,13 @@
 
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="index.jsp">ENI-Enchère</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarNav"
-					aria-controls="navbarNav" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+				<a class="navbar-brand" href="Index">ENI-Enchère</a>
 			</div>
 		</nav>
 	</header>
 
 	<div class="container">
-<%-- 		<c:if test="${not empty sessionScope.connexionReussie}">
+		<%-- 		<c:if test="${not empty sessionScope.connexionReussie}">
 			<div>${sessionScope.connexionReussie}</div>
 			<c:remove var="sessionScope.connexionReussie" scope="session" />
 		</c:if> --%>
@@ -78,12 +72,12 @@
 						<div class="btn-toolbar btn-toolbar justify-content-between">
 							<div class="button">
 								<a href="modificationUtilisateur.jsp" class="btn btn-primary">Modifier
-									Profil</a> <a class=" btn btn-warning" href="index.jsp">Retour</a>
+									Profil</a> <a class=" btn btn-warning" href="Index">Retour</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 </body>
 </html>
