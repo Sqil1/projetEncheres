@@ -8,8 +8,6 @@ public interface EnchereManager {
 
 	public boolean verifierEnchereValide(int utilisateurIdMeilleureOffre, int montantEnchere);
 
-	public Enchere creerEnchere(Enchere enchere);
-
 	public int getUtilisateurIdMeilleureOffre(int enchereId) throws DatabaseException;
 
 }

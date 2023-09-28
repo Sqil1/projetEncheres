@@ -33,8 +33,8 @@ public class ServletConnexion extends HttpServlet {
 		String identifiant = request.getParameter("identifiant");
 		String motDePasse = request.getParameter("motDePasse");
 		
-		System.out.println("Identifiant : " + identifiant);
-		System.out.println("Mot de passe : " + motDePasse);
+		//System.out.println("Identifiant : " + identifiant);
+		//System.out.println("Mot de passe : " + motDePasse);
 
 		// Logique de traitement de la connexion
 		Utilisateur utilisateur = utilisateurManager.verifierConnexion(identifiant, motDePasse);

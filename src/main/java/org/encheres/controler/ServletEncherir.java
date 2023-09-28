@@ -48,16 +48,16 @@ public class ServletEncherir extends HttpServlet {
                     enchere.setMontantEnchere(montantEnchere);
 
                     try {
-                        enchereManager.creerEnchere(enchere);
+                        enchereManager.creerEnchere(utilisateurIdMeilleureOffre, utilisateurIdMeilleureOffre, montantEnchere);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Enchère créée avec succès.");
-                    response.sendRedirect("detailVente.jsp?id=" + enchereId);
+                    //System.out.println("Enchère créée avec succès.");
+                    response.sendRedirect("profilUtlisateur.jsp");
                 } else {
                     request.setAttribute("erreurEnchere",
                             "L'enchère n'est pas valide. Vérifiez votre crédit.");
-                    System.out.println("Enchère n'est pas créée.");
+                    //System.out.println("Enchère n'est pas créée.");
                     request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
             } catch (Exception e) {
