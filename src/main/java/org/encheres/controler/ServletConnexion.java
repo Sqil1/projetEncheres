@@ -44,6 +44,7 @@ public class ServletConnexion extends HttpServlet {
 		    // L'utilisateur est connecté, ses informations sont stockées dans une session
 		
 			 HttpSession session = request.getSession();
+             session.setMaxInactiveInterval(300);
 			 session.setAttribute("utilisateurSession", utilisateur);
 			 session.setAttribute("connexionReussie", "Connexion réussie en tant que " + utilisateur.getPseudo());
 			     
