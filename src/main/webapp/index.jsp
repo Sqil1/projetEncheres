@@ -12,63 +12,61 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="asset/styles.css">
+<link rel="stylesheet" href="css/styles.css">
 
 
 </head>
 <body>
 	<header>
-
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="index.jsp">ENI-Enchère</a>
+				<a class="navbar-brand" href="Index">ENI-Enchère</a>
 				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarNav"
-					aria-controls="navbarNav" aria-expanded="false"
+					data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+					aria-controls="navbarNavDropdown" aria-expanded="false"
 					aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<c:set var="utilisateurConnecte" value="false" />
 					<c:if test="${sessionScope.utilisateurConnecte != null}">
 						<c:set var="utilisateurConnecte"
 							value="${sessionScope.utilisateurConnecte}" />
 					</c:if>
+					<c:choose>
+						<c:when test="${utilisateurConnecte}">
+							<ul class="navbar-nav">
+								<li class="nav-item"><a class="nav-link active"
+									aria-current="page" href="Index">Enchère</a></li>
+								<li class="nav-item"><a class="nav-link"
+									href="ajout-article.jsp">Vendre un article</a></li>
+								<li class="nav-item"><a class="nav-link"
+									href="profilUtilisateur.jsp">Mon profil</a></li>
+								<li class="nav-item"><a class="nav-link" href="Deconnexion">Déconnexion</a>
+								</li>
+							</ul>
+						</c:when>
+						<c:otherwise>
+							<ul class="navbar-nav">
+								<li class="nav-item"><a class="nav-link active"
+									aria-current="page" href="inscription.jsp">S'inscrire</a></li>
+								<li class="nav-item"><a class="nav-link"
+									href="connexion.jsp">Se connecter</a></li>
+							</ul>
+						</c:otherwise>
+					</c:choose>
 
-					<div class="collapse navbar-collapse" id="navbarNavDropdown">
-						<c:choose>
-							<c:when test="${utilisateurConnecte}">
-								<ul class="navbar-nav">
-									<li class="nav-item"><a class="nav-link active"
-										href="index.jsp">Enchère</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="nouvelle-vente.jsp">Vendre un article</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="profilUtilisateur.jsp">Mon profil</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="Deconnexion">Déconnexion</a></li>
-								</ul>
-							</c:when>
-							<c:otherwise>
-								<ul class="navbar-nav">
-									<li class="nav-item"><a class="nav-link active"
-										aria-current="page" href="inscription.jsp">S'inscrire</a></li>
-									<li class="nav-item"><a class="nav-link"
-										href="connexion.jsp">Se connecter</a></li>
-								</ul>
-							</c:otherwise>
-						</c:choose>
-					</div>
 				</div>
 			</div>
 		</nav>
-
 	</header>
 	<main>
-
+		<div class="col-12 text-center">
+			<h1>Liste des enchères</h1>
+		</div>
 		<form>
 			<fieldset>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center mb-4">
 					<div class="col-11 col-md-6 col-lg-4">
 						<c:choose>
 							<c:when test="${utilisateurConnecte}">
@@ -87,10 +85,10 @@
 						<div class="mb-3">
 							<label for="disabledSelect" class="form-label">Catégorie
 								: </label> <select id="disabledSelect" class="form-select">
-								<option value="toutes">Toutes</option>
-								<option value="1">1</option>
-								<option value="2">>2</option>
-								<option value="3">>3</option>
+								<option value="toutes">Informatique</option>
+								<option value="1">Ameublement</option>
+								<option value="2">Vêtements</option>
+								<option value="3">Sport&loisirs</option>
 							</select>
 						</div>
 						<button type="submit" class="btn btn-primary">Rechercher</button>
@@ -112,9 +110,24 @@
 		<c:if test="${not empty requestScope.erreurMdp}">
 			<div>${requestScope.erreurMdp}</div>
 		</c:if>
-	</main>
-</body>
-</html>
 
+
+		<div class="row justify-content-center">
+			<c:forEach var="article" items="${articles}">
+				<div class="col-sm-8 col-md-5 col-lg-4">
+					<div class="card mb-4" style="width: 18rem;">
+						<div class="card-body d-flex flex-column">
+							<h5 class="card-title">${article.nomArticle}</h5>
+							<p class="card-text">Prix : ${article.prixVente}</p>
+							<p class="card-text">Fin de l'enchère :
+								${article.dateFinEncheres}</p>
+							<p class="card-text"></p>
+							<a href="#" class="card-link">Détails</a>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</main>
 </body>
 </html>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.encheres.bll.UtilisateurManager;
 import org.encheres.bll.UtilisateurManagerImpl;
 import org.encheres.bo.Utilisateur;
@@ -52,7 +53,7 @@ public class ServletConnexion extends HttpServlet {
 		    request.getSession().setAttribute("motDePasse", motDePasse);
 		    request.getSession().setAttribute("noUtilisateur", noUtilisateur);
 		    
-		    this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		   	response.sendRedirect(request.getContextPath()+"/Index");
 		    
 		} else {
 		    // Les informations d'identification sont incorrectes avec un message d'erreur

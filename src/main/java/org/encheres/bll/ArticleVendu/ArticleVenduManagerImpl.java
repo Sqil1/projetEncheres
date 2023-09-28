@@ -3,6 +3,7 @@ package org.encheres.bll.ArticleVendu;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.encheres.bo.ArticleVendu;
@@ -190,4 +191,9 @@ public class ArticleVenduManagerImpl implements ArticleVenduManager {
 
         return result;
     }
+    @Override
+    public List<ArticleVendu> selectAll() throws DatabaseException {
+        return DAOFactory.getArticleVenduDAO().selectAll();
+    }
+    
 }

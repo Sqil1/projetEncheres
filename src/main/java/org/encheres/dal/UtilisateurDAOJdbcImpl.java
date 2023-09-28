@@ -11,8 +11,8 @@ import org.encheres.bo.Utilisateur;
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	private static final String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = ? AND mot_de_passe = ?";
-	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ? AND mot_de_passe = ?";
+	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email = ?";
 	private static final String SELECT_UTILISATEUR_BY_NO_UTILISATEUR = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String UPDATE_UTILISATEUR = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
 	private static final  String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?";
@@ -49,7 +49,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur verifierConnexion(String identifiant, String motDePasse) {
+	public Utilisateur verifierConnexion(String identifiant) {
 	    try (Connection cnx = ConnectionProvider.getConnection()) {
 	        
 	    	String[] sqlQueries = { SELECT_BY_PSEUDO, SELECT_BY_EMAIL };
@@ -57,7 +57,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	    	for (String sql : sqlQueries) {
 	    		PreparedStatement pstmt = cnx.prepareStatement(sql);
 	            pstmt.setString(1, identifiant);
-	            pstmt.setString(2, motDePasse);
 	            ResultSet resultSet = pstmt.executeQuery();
 	    	
 		     if (resultSet.next()) {

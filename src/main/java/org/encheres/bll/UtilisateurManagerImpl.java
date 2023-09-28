@@ -2,6 +2,7 @@ package org.encheres.bll;
 
 import org.encheres.bo.Utilisateur;
 import org.encheres.dal.DAOFactory;
+import org.encheres.utils.PBKDF2Hasher;
 
 public class UtilisateurManagerImpl implements UtilisateurManager {
 
@@ -28,14 +29,13 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	public Utilisateur creerUtilisateur(String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String ville, String codePostal, String motDePasse, Integer credit, boolean administrateur) {
 		final Utilisateur utilisateur = new Utilisateur.Builder(pseudo, nom, prenom, email, telephone, rue, ville,
-				codePostal, motDePasse, credit, administrateur).build();
+				codePostal, new PBKDF2Hasher().hash(motDePasse), credit, administrateur).build();
 		return DAOFactory.getUtilisateurDAO().creerUtilisateur(utilisateur);
 	}
 
 	public Utilisateur verifierConnexion(String identifiant, String motDePasse) {
-		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().verifierConnexion(identifiant, motDePasse);
-
-		if (utilisateur != null && utilisateur.getMotDePasse().equals(motDePasse)) {
+		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().verifierConnexion(identifiant);
+		if (utilisateur != null && new PBKDF2Hasher().checkPassword(motDePasse, utilisateur.getMotDePasse())) {
 			return utilisateur;
 		} else {
 			return null;
