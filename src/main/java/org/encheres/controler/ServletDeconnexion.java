@@ -3,6 +3,7 @@ package org.encheres.controler;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,9 @@ public class ServletDeconnexion extends HttpServlet {
 			throws ServletException, IOException {
 		// Invalide la session de l'utilisateur
 		request.getSession().invalidate();
+		Cookie stay = new Cookie("STAY", "");
+		stay.setMaxAge(0);
+		response.addCookie(stay);
 
 		// Redirection vers la page d'accueil
 	   	response.sendRedirect(request.getContextPath()+"/Index");

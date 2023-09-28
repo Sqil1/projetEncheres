@@ -10,13 +10,11 @@
 </head>
 <body>
 	<header>
-
 		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="Index">ENI-Enchère</a>
 			</div>
 		</nav>
-
 	</header>
 	<form action="Connexion" method="post">
 		<div class="container">
@@ -39,7 +37,7 @@
 						<c:remove var="sessionScope.erreur" scope="session" />
 					</c:if>
 					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+						<input type="checkbox" class="form-check-input" id="se-souvenir" name="se-souvenir">
 						<label class="form-check-label" for="exampleCheck1">Se
 							souvenir de moi</label>
 					</div>
