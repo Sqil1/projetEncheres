@@ -11,9 +11,7 @@ import org.encheres.bll.UtilisateurManager;
 import org.encheres.bll.UtilisateurManagerImpl;
 import org.encheres.bo.Utilisateur;
 
-/**
- * Servlet implementation class ServletProfil
- */
+
 @WebServlet("/Profil")
 public class ServletProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -44,11 +42,8 @@ public class ServletProfil extends HttpServlet {
 	    
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 		doGet(request, response);
 	}
 
