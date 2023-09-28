@@ -58,4 +58,11 @@ public class UtilisateurManagerImpl implements UtilisateurManager {
 	    return DAOFactory.getUtilisateurDAO().deleteUtilisateur(noUtilisateur);
 	}
 
+	@Override
+	public Utilisateur getUtilisateurParNoUtilisateur(int noUtilisateur) {
+		Utilisateur utilisateur = DAOFactory.getUtilisateurDAO().getUtilisateurParNoUtilisateur(noUtilisateur);
+		return utilisateur;
+	
+	}
+
 }

@@ -17,4 +17,6 @@ public interface UtilisateurManager {
 
 	boolean deleteUtilisateur(Integer noUtilisateur);
 
+	Utilisateur getUtilisateurParNoUtilisateur(int utilisateurIdMeilleureOffre);
+
 }

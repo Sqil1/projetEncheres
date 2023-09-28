@@ -1,19 +1,23 @@
 package org.encheres.bo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Enchere {
-	private LocalDate dateEnchere;
+
+	private int noUtilisateur; 
+	private int noArticle;
+	private LocalDateTime dateEnchere;
 	private Integer montantEnchere;
+	private int enchereId;
 
 	public Enchere() {
 	}
 
-	public LocalDate getDateEnchere() {
+	public LocalDateTime getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchere(LocalDate dateEnchere) {
+	public void setDateEnchere(LocalDateTime dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 
@@ -27,4 +31,29 @@ public class Enchere {
 		}
 		this.montantEnchere = montantEnchere;
 	}
+
+	public int getNoUtilisateur() {
+		return noUtilisateur;
+	}
+
+	public void setNoUtilisateur(int noUtilisateur) {
+		this.noUtilisateur = noUtilisateur;
+	}
+
+	public int getNoArticle() {
+		return noArticle;
+	}
+
+	public void setNoArticle(int noArticle) {
+		this.noArticle = noArticle;
+	}
+
+	public int getEnchereId() {
+		return enchereId;
+	}
+
+	public void setEnchereId(int enchereId) {
+		this.enchereId = enchereId;
+	}
+
 }
